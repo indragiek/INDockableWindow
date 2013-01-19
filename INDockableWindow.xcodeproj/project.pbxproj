@@ -46,7 +46,8 @@
 		03E1B14B16AB5DD60018E31F = {
 			isa = PBXGroup;
 			children = (
-				03E1B15D16AB5DD60018E31F /* INDockableWindow */,
+				03E1B17416AB5DE00018E31F /* INDockableWindow */,
+				03E1B15D16AB5DD60018E31F /* Example */,
 				03E1B15616AB5DD60018E31F /* Frameworks */,
 				03E1B15516AB5DD60018E31F /* Products */,
 			);
@@ -79,7 +80,7 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		03E1B15D16AB5DD60018E31F /* INDockableWindow */ = {
+		03E1B15D16AB5DD60018E31F /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				03E1B16916AB5DD60018E31F /* AppDelegate.h */,
@@ -87,6 +88,7 @@
 				03E1B16C16AB5DD60018E31F /* MainMenu.xib */,
 				03E1B15E16AB5DD60018E31F /* Supporting Files */,
 			);
+			name = Example;
 			path = INDockableWindow;
 			sourceTree = "<group>";
 		};
@@ -100,6 +102,13 @@
 				03E1B16616AB5DD60018E31F /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03E1B17416AB5DE00018E31F /* INDockableWindow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = INDockableWindow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
