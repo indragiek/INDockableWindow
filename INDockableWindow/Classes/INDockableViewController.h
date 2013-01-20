@@ -42,13 +42,15 @@
 
 /**
  Called when the view controller is detached from the primary window.
- @discussion Always call super somewhere in your implementation.
+ 
+ Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidDetach;
 
 /**
  Called when the view controller is attached to the primary window
- @discussion Always call super somewhere in your implementation.
+ 
+ Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidAttach;
 @end

@@ -18,13 +18,15 @@
 @interface INDockableWindowController : NSWindowController <NSSplitViewDelegate>
 /**
  The primary window that the auxiliary windows dock to.
- @discussion This window should not be modified directly. Set the `configurePrimaryWindowBlock` block to
+ 
+ This window should not be modified directly. Set the `configurePrimaryWindowBlock` block to
  implement custom configuration for the primary window.
  */
 @property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow;
 /**
  Array of INDockableAuxiliaryWindow's that are detached from the primary window
- @discussion Windows in this array should not be modified. Set the `configureAuxiliaryWindowBlock` block to 
+ 
+ Windows in this array should not be modified. Set the `configureAuxiliaryWindowBlock` block to
  implement custom configuration for auxiliary windows.
  */
 @property (nonatomic, strong, readonly) NSSet *auxiliaryWindows;
