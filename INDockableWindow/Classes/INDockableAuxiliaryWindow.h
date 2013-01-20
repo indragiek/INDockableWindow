@@ -8,6 +8,15 @@
 
 #import "INAppStoreWindow.h"
 
+@class INDockableViewController;
+/** The auxiliary window class for displaying detached views */
 @interface INDockableAuxiliaryWindow : INAppStoreWindow
-
+/** 
+ The dockabie view controller that this auxiliary window contains. 
+ */
+@property (nonatomic, strong, readonly) INDockableViewController *viewController;
+/** 
+ The dockable window controller that owns this window. 
+ */
+@property (nonatomic, assign) INDockableWindowController *dockableWindowController;
 @end

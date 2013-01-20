@@ -18,6 +18,8 @@
 		03E1B17E16AB5E8A0018E31F /* INDockableAuxiliaryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B17D16AB5E8A0018E31F /* INDockableAuxiliaryWindow.m */; };
 		03E1B18116AB5E990018E31F /* INDockableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B18016AB5E990018E31F /* INDockableWindowController.m */; };
 		03E1B18416AB5EAE0018E31F /* INDockableSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B18316AB5EAE0018E31F /* INDockableSplitView.m */; };
+		03E1B18716AB64320018E31F /* INDockableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B18616AB64320018E31F /* INDockableViewController.m */; };
+		03E1B18A16AB652E0018E31F /* INDockableDetachControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B18916AB652E0018E31F /* INDockableDetachControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,10 @@
 		03E1B18016AB5E990018E31F /* INDockableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindowController.m; path = INDockableWindow/Classes/INDockableWindowController.m; sourceTree = "<group>"; };
 		03E1B18216AB5EAE0018E31F /* INDockableSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableSplitView.h; path = INDockableWindow/Classes/INDockableSplitView.h; sourceTree = "<group>"; };
 		03E1B18316AB5EAE0018E31F /* INDockableSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableSplitView.m; path = INDockableWindow/Classes/INDockableSplitView.m; sourceTree = "<group>"; };
+		03E1B18516AB64310018E31F /* INDockableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableViewController.h; path = INDockableWindow/Classes/INDockableViewController.h; sourceTree = "<group>"; };
+		03E1B18616AB64320018E31F /* INDockableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableViewController.m; path = INDockableWindow/Classes/INDockableViewController.m; sourceTree = "<group>"; };
+		03E1B18816AB652E0018E31F /* INDockableDetachControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableDetachControl.h; path = INDockableWindow/Classes/INDockableDetachControl.h; sourceTree = "<group>"; };
+		03E1B18916AB652E0018E31F /* INDockableDetachControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableDetachControl.m; path = INDockableWindow/Classes/INDockableDetachControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,10 @@
 				03E1B18016AB5E990018E31F /* INDockableWindowController.m */,
 				03E1B18216AB5EAE0018E31F /* INDockableSplitView.h */,
 				03E1B18316AB5EAE0018E31F /* INDockableSplitView.m */,
+				03E1B18516AB64310018E31F /* INDockableViewController.h */,
+				03E1B18616AB64320018E31F /* INDockableViewController.m */,
+				03E1B18816AB652E0018E31F /* INDockableDetachControl.h */,
+				03E1B18916AB652E0018E31F /* INDockableDetachControl.m */,
 			);
 			name = INDockableWindow;
 			sourceTree = "<group>";
@@ -215,6 +225,8 @@
 				03E1B17E16AB5E8A0018E31F /* INDockableAuxiliaryWindow.m in Sources */,
 				03E1B18116AB5E990018E31F /* INDockableWindowController.m in Sources */,
 				03E1B18416AB5EAE0018E31F /* INDockableSplitView.m in Sources */,
+				03E1B18716AB64320018E31F /* INDockableViewController.m in Sources */,
+				03E1B18A16AB652E0018E31F /* INDockableDetachControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

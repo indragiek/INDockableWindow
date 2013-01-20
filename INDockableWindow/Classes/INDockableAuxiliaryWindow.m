@@ -9,5 +9,4 @@
 #import "INDockableAuxiliaryWindow.h"
 
 @implementation INDockableAuxiliaryWindow
-
 @end

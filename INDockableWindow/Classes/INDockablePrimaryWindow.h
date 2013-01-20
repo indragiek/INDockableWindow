@@ -8,6 +8,11 @@
 
 #import "INAppStoreWindow.h"
 
+@class INDockableWindowController;
+/** The primary window class */
 @interface INDockablePrimaryWindow : INAppStoreWindow
-
+/** 
+ The dockable window controller that owns this window. 
+ */
+@property (nonatomic, assign) INDockableWindowController *dockableWindowController;
 @end
