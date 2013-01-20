@@ -31,7 +31,7 @@
 /**
  The unique identifier for this view controller. Set to a generated UUID by default.
  */
-@property (nonatomic, copy) NSString *identiifer;
+@property (nonatomic, copy) NSString *identifer;
 
 /**
  The detach control for the view controller. This control is automatically created when

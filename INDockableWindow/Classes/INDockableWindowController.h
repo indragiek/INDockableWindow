@@ -23,6 +23,12 @@
  implement custom configuration for the primary window.
  */
 @property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow;
+
+/**
+ Style mask to use when creating the primary and auxiliary windows.
+ */
+@property (nonatomic, assign) NSUInteger windowStyleMask;
+
 /**
  Array of INDockableAuxiliaryWindow's that are detached from the primary window
  
@@ -58,7 +64,7 @@
  The primary view controller that should always be visible. Auxiliary view controllers
  are added to the right of this primary view.
  */
-@property (nonatomic, strong, readonly) INDockableViewController *primaryViewController;
+@property (nonatomic, strong) INDockableViewController *primaryViewController;
 
 /**
  The split view that displays each of the view controllers. You can use this reference to the split view
@@ -73,7 +79,13 @@
  The title bar height to use for all the windows (primary and auxiliary). Default is 22.f. The height of
  each titlebar can be overriden in `configurePrimaryWindowBlock` and `configureAuxiliaryWindowBlock`.
 */
-@property (nonatomic, assign, readonly) CGFloat titleBarHeight;
+@property (nonatomic, assign) CGFloat titleBarHeight;
+
+/**
+ The minimum distance (in pixels) that a window needs to be dragged near the right edge of the 
+ primary window to attach it to the window. Default is 10px. 
+ */
+@property (nonatomic, assign) CGFloat attachmentProximity;
 
 /**
  Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.

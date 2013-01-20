@@ -8,7 +8,7 @@
 
 #import "INAppStoreWindow.h"
 
-@class INDockableViewController;
+@class INDockableViewController, INDockableWindowController;
 /** The auxiliary window class for displaying detached views */
 @interface INDockableAuxiliaryWindow : INAppStoreWindow
 /** 
