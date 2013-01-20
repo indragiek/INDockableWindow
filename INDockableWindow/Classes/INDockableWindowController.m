@@ -332,6 +332,7 @@
 - (void)layoutViewControllers
 {
 	__block CGFloat totalWidth = 0.f;
+	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
@@ -339,8 +340,9 @@
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
 			[self.splitView addSubview:view];
-		totalWidth += NSWidth(view.frame);
+		totalWidth += NSWidth(view.frame) + dividerThickness;
 	}];
+	totalWidth -= dividerThickness;
 	NSRect windowFrame = self.primaryWindow.frame;
 	windowFrame.size.width = totalWidth;
 	[self.primaryWindow setFrame:windowFrame display:YES animate:_tempDisableFrameAnimation ? NO : self.animatesFrameChange];
@@ -355,10 +357,11 @@
 {
 	__block CGFloat currentOrigin = 0.f;
 	NSView *titleBarView = self.primaryWindow.titleBarView;
+	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *titleView = viewController.titleBarView;
 		NSRect newFrame = titleView.frame;
-		newFrame.size.width = NSWidth(viewController.view.frame) + self.splitView.dividerThickness;
+		newFrame.size.width = NSWidth(viewController.view.frame) + dividerThickness;
 		newFrame.origin.x = currentOrigin;
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
