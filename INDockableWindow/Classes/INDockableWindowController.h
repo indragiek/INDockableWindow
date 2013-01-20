@@ -89,13 +89,13 @@
 
 /**
  The minimum distance (in pixels) that a window needs to be dragged near the right edge of the 
- primary window to attach it to the window. Default is 3px. 
+ primary window to attach it to the window. Default is 8px. 
  */
 @property (nonatomic, assign) CGFloat attachmentProximity;
 
 /**
  Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
- Default is NO.
+ Default is YES.
  */
 @property (nonatomic, assign, readonly) BOOL animatesFrameChange;
 

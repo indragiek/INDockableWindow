@@ -33,6 +33,7 @@
 	CGFloat _lastAuxiliaryWindowMinX;
 	INDockableAuxiliaryWindow *_lastMovedAuxiliaryWindow;
 	BOOL _shouldAttachAuxiliaryWindowOnMouseUp;
+	BOOL _tempDisableFrameAnimation;
 }
 @synthesize auxiliaryWindows = _auxiliaryWindows;
 @synthesize viewControllers = _viewControllers;
@@ -41,10 +42,9 @@
 
 - (id)init
 {
-	INDockablePrimaryWindow *window = [[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:self.windowStyleMask backing:NSBackingStoreBuffered defer:NO];
-	[window setReleasedWhenClosed:NO];
-	if ((self = [super initWithWindow:window])) {
-		_primaryWindow = window;
+	if ((self = [super initWithWindow:[[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:self.windowStyleMask backing:NSBackingStoreBuffered defer:NO]])) {
+		_primaryWindow = (INDockablePrimaryWindow *)self.window;
+		[_primaryWindow setReleasedWhenClosed:NO];
 		_auxiliaryWindows = [NSMutableSet set];
 		_viewControllers = [NSMutableSet set];
 		_attachedViewControllers = [NSMutableArray array];
@@ -53,6 +53,7 @@
 		_shouldAdjust = [NSMutableDictionary dictionary];
 		_attachmentProximity = 8.f;
 		_titleBarHeight = 40.f;
+		_animatesFrameChange = YES;
 		[self configurePrimaryWindow];
 		[self configureSplitView];
 		[self resetTitlebarHeights];
@@ -149,12 +150,17 @@
 
 - (void)insertViewController:(INDockableViewController *)viewController atIndex:(NSUInteger)index
 {
-	[_viewControllers addObject:viewController];
-	if (![_attachedViewControllers containsObject:viewController]) {
-		[_attachedViewControllers insertObject:viewController atIndex:index];
-	}
 	viewController.dockableWindowController = self;
-	[self layoutPrimaryWindow];
+	BOOL isAttached = [_attachedViewControllers containsObject:viewController];
+	if ([_viewControllers containsObject:viewController] && !isAttached) {
+		[self attachViewController:viewController];
+	} else {
+		[_viewControllers addObject:viewController];
+		if (![_attachedViewControllers containsObject:viewController]) {
+			[_attachedViewControllers insertObject:viewController atIndex:index];
+		}
+		[self layoutPrimaryWindow];
+	}
 }
 
 - (void)insertViewController:(INDockableViewController *)viewController positioned:(INDockableViewRelativePosition)position relativeTo:(INDockableViewController *)anotherViewController
@@ -193,13 +199,19 @@
 	if (viewController == self.primaryViewController || viewController.window != self.primaryWindow) return;
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
+	
 	INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
 	screenFrame.size.height += window.titleBarHeight;
 	[window setFrame:screenFrame display:YES];
 	[window showViewControllerImage];
 	[window makeKeyAndOrderFront:nil];
-	[self removeViewController:viewController];
+	
+	[_attachedViewControllers removeObject:viewController];
+	[self performBlockWithoutAnimation:^{
+		[self layoutPrimaryWindow];
+	}];
 	[window showViewController];
+	
 	if (_delegateFlags.viewControllerWasDetached) {
 		[self.delegate dockableWindowController:self viewControllerWasDetached:viewController];
 	}
@@ -210,8 +222,13 @@
 	if (viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
 	INDockableAuxiliaryWindow *window = (INDockableAuxiliaryWindow *)viewController.window;
 	[window showViewControllerImage];
-	[self addViewController:viewController attached:YES];
-	[window close];
+	
+	[_attachedViewControllers addObject:viewController];
+	[self performBlockWithoutAnimation:^{
+		[self layoutPrimaryWindow];
+	}];
+	
+	[self removeAuxiliaryWindow:window];
 	if (_delegateFlags.viewControllerWasAttached) {
 		[self.delegate dockableWindowController:self viewControllerWasAttached:viewController];
 	}
@@ -289,8 +306,6 @@
 	INDockableSplitView *splitView = [[INDockableSplitView alloc] initWithFrame:[self.window.contentView bounds]];
 	splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	splitView.delegate = self;
-	splitView.dividerStyle = NSSplitViewDividerStyleThin;
-	[splitView setVertical:YES];
 	[self.window.contentView addSubview:splitView];
 	_splitView = splitView;
 }
@@ -328,7 +343,7 @@
 	}];
 	NSRect windowFrame = self.primaryWindow.frame;
 	windowFrame.size.width = totalWidth;
-	[self.primaryWindow setFrame:windowFrame display:YES animate:self.animatesFrameChange];
+	[self.primaryWindow setFrame:windowFrame display:YES animate:_tempDisableFrameAnimation ? NO : self.animatesFrameChange];
 	NSRect splitViewFrame = self.splitView.frame;
 	splitViewFrame.size.width = totalWidth;
 	splitViewFrame.origin.x = 0.f;
@@ -387,7 +402,7 @@
 
 - (void)auxiliaryWindowWillClose:(NSNotification *)notification
 {
-	[self removeAuxiliaryWindow:notification.object];
+	[self removeViewController:[notification.object viewController]];
 }
 
 - (void)auxiliaryWindowDidMove:(NSNotification *)notification
@@ -413,5 +428,12 @@
 		_shouldAttachAuxiliaryWindowOnMouseUp = NO;
 		_lastMovedAuxiliaryWindow = nil;
 	}
+}
+
+- (void)performBlockWithoutAnimation:(void(^)())block
+{
+	_tempDisableFrameAnimation = YES;
+	if (block) block();
+	_tempDisableFrameAnimation = NO;
 }
 @end

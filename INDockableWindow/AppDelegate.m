@@ -20,10 +20,9 @@
 	[_windowController addViewController:self.secondaryViewController attached:YES];
 }
 
-
 - (IBAction)attach:(id)sender
 {
-	[_windowController attachViewController:self.secondaryViewController];
+	[_windowController addViewController:self.secondaryViewController attached:YES];
 }
 
 - (IBAction)detach:(id)sender

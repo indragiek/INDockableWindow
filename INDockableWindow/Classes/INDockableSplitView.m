@@ -9,20 +9,57 @@
 #import "INDockableSplitView.h"
 
 @implementation INDockableSplitView
+//@synthesize dividerThickness = _dividerThickness;
+//@synthesize dividerColor = _dividerColor;
 
-- (id)initWithFrame:(NSRect)frame
+#pragma mark - NSSplitView
+
+- (id)initWithFrame:(NSRect)frameRect
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+	if ((self = [super initWithFrame:frameRect])) {
+		[self setVertical:YES];
+		self.dividerStyle = NSSplitViewDividerStyleThin;
+		//_dividerThickness = 1.f;
+		NSLog(@"FRAME");
+	}
+	return self;
 }
 
-- (void)drawRect:(NSRect)dirtyRect
+/*- (void)drawDividerInRect:(NSRect)rect
 {
-    // Drawing code here.
+	if (self.dividerDrawingBlock) {
+		self.dividerDrawingBlock(rect);
+	} else {
+		[super drawDividerInRect:rect];
+	}
+}*/
+
+#pragma mark - Accessors
+
+/*- (void)setDividerThickness:(CGFloat)dividerThickness
+{
+	if (_dividerThickness != dividerThickness) {
+		_dividerThickness = dividerThickness;
+		[self adjustSubviews];
+	}
 }
 
+- (CGFloat)dividerThickness
+{
+	return _dividerThickness;
+}
+
+- (void)setDividerColor:(NSColor *)dividerColor
+{
+	if (_dividerColor != dividerColor) {
+		_dividerColor = dividerColor;
+		[self adjustSubviews];
+	}
+}
+
+- (NSColor *)dividerColor
+{
+	return [NSColor redColor];
+	return _dividerColor ?: [super dividerColor];
+}*/
 @end

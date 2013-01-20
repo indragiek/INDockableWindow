@@ -13,7 +13,7 @@
  */
 @interface INDockableSplitView : NSSplitView
 /**
- Width of the split view dividers.
+ Width of the split view dividers. Default is 1px.
  */
 @property (nonatomic, assign) CGFloat dividerThickness;
 
