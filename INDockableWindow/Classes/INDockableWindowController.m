@@ -127,7 +127,7 @@
 	if (oldIndex != NSNotFound) {
 		[_attachedViewControllers removeObjectAtIndex:oldIndex];
 		[_attachedViewControllers insertObject:viewController atIndex:index];
-		[self layoutPrimaryWindow];
+		[self reorderPrimaryWindow];
 	}
 }
 
@@ -159,7 +159,7 @@
 		if (![_attachedViewControllers containsObject:viewController]) {
 			[_attachedViewControllers insertObject:viewController atIndex:index];
 		}
-		[self layoutPrimaryWindow];
+		[self reorderPrimaryWindow];
 	}
 }
 
@@ -191,7 +191,7 @@
 	if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
 		[self removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window];
 	}
-	[self layoutPrimaryWindow];
+	[self reorderPrimaryWindow];
 }
 
 - (void)detachViewController:(INDockableViewController *)viewController
@@ -208,7 +208,7 @@
 	
 	[_attachedViewControllers removeObject:viewController];
 	[self performBlockWithoutAnimation:^{
-		[self layoutPrimaryWindow];
+		[self reorderPrimaryWindow];
 	}];
 	[window showViewController];
 	
@@ -225,7 +225,7 @@
 	
 	[_attachedViewControllers addObject:viewController];
 	[self performBlockWithoutAnimation:^{
-		[self layoutPrimaryWindow];
+		[self reorderPrimaryWindow];
 	}];
 	
 	[self removeAuxiliaryWindow:window];
@@ -326,19 +326,19 @@
 - (void)layoutPrimaryWindow
 {
 	[self layoutViewControllers];
-	[self layoutTitleBar];
+	[self layoutTitleBarViews];
 }
 
 - (void)layoutViewControllers
 {
-	self.splitView.subviews = [NSArray array];
 	__block CGFloat totalWidth = 0.f;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
 		newFrame.size.height = NSHeight(self.splitView.frame);
 		view.frame = newFrame;
-		[self.splitView addSubview:view];
+		if (view.superview != self.splitView)
+			[self.splitView addSubview:view];
 		totalWidth += NSWidth(view.frame);
 	}];
 	NSRect windowFrame = self.primaryWindow.frame;
@@ -351,10 +351,10 @@
 	[self.splitView adjustSubviews];
 }
 
-- (void)layoutTitleBar
+- (void)layoutTitleBarViews
 {
-	self.primaryWindow.titleBarView.subviews = [NSArray array];
 	__block CGFloat currentOrigin = 0.f;
+	NSView *titleBarView = self.primaryWindow.titleBarView;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *titleView = viewController.titleBarView;
 		NSRect newFrame = titleView.frame;
@@ -363,8 +363,27 @@
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
 		titleView.autoresizingMask = NSViewWidthSizable;
-		[self.primaryWindow.titleBarView addSubview:titleView];
+		if (titleView.superview != titleBarView) 
+			[titleBarView addSubview:titleView];
 	}];
+}
+
+- (void)reorderPrimaryWindow
+{
+	[self reorderViewControllers];
+	[self reorderTitleBarViews];
+}
+
+- (void)reorderViewControllers
+{
+	self.splitView.subviews = [NSArray array];
+	[self layoutViewControllers];
+}
+
+- (void)reorderTitleBarViews
+{
+	self.primaryWindow.titleBarView.subviews = [NSArray array];
+	[self layoutTitleBarViews];
 }
 
 - (INDockableAuxiliaryWindow *)auxiliaryWindowForViewController:(INDockableViewController *)viewController
