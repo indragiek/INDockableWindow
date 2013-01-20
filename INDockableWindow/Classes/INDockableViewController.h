@@ -12,7 +12,7 @@
 @class INDockableWindowController;
 
 /**
- View controller that displays the content for a single dockable pane of the dockable window controller
+ View controller that displays the content for a single dockable pane of the dockable window controller.
  */
 @interface INDockableViewController : NSViewController
 /** 
@@ -42,13 +42,13 @@
 
 /**
  Called when the view controller is detached from the primary window.
- @discussion Always call `[super viewControllerDidDetach]` somewhere in your implementation.
+ @discussion Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidDetach;
 
 /**
  Called when the view controller is attached to the primary window
- @discussion Always call `[super viewControllerDidAttach]` somewhere in your implementation.
+ @discussion Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidAttach;
 @end

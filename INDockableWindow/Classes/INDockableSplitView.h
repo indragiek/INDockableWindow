@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+/**
+ NSSplitView subclass that adds some options for easy customization.
+ */
 @interface INDockableSplitView : NSSplitView
 /**
  Width of the split view dividers.
@@ -16,13 +19,11 @@
 
 /**
  Color of the split view dividers.
- @discussion This property has no effect if a `dividerDrawingBlock` has been set.
  */
 @property (nonatomic, strong) NSColor *dividerColor;
 
 /**
  Drawing block to draw your own custom dividers.
- @param rect The rect to draw the divider inside.
  */
 @property (nonatomic, copy) void(^dividerDrawingBlock)(NSRect rect);
 @end
