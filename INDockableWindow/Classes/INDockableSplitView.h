@@ -15,7 +15,7 @@
 /**
  Width of the split view dividers.
  */
-@property (nonatomic, assign) CGFloat dividerWidth;
+@property (nonatomic, assign) CGFloat dividerThickness;
 
 /**
  Color of the split view dividers.

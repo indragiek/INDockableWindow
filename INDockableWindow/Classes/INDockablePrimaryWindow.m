@@ -9,5 +9,4 @@
 #import "INDockablePrimaryWindow.h"
 
 @implementation INDockablePrimaryWindow
-
 @end

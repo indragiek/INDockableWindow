@@ -12,10 +12,16 @@
 #import "INDockableAuxiliaryWindow.h"
 #import "INDockableSplitView.h"
 
+@protocol INDockableWindowControllerDelegate;
 /**
  Window controller that manages a collection of dockable views and auxiliary windows
  */
 @interface INDockableWindowController : NSWindowController <NSSplitViewDelegate>
+/**
+ The window controller's delegate.
+ */
+@property (nonatomic, assign) id<INDockableWindowControllerDelegate> delegate;
+
 /**
  The primary window that the auxiliary windows dock to.
  
@@ -83,7 +89,7 @@
 
 /**
  The minimum distance (in pixels) that a window needs to be dragged near the right edge of the 
- primary window to attach it to the window. Default is 10px. 
+ primary window to attach it to the window. Default is 3px. 
  */
 @property (nonatomic, assign) CGFloat attachmentProximity;
 
@@ -261,6 +267,6 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
  @param controller The dockable window controller.
  @param auxiliaryWindow The window that was closed.
  */
-- (void)dockableWindowController:(INDockableViewController *)controller
+- (void)dockableWindowController:(INDockableWindowController *)controller
 		 auxiliaryWindowDidClose:(INDockableAuxiliaryWindow *)auxiliaryWindow;
 @end

@@ -31,5 +31,5 @@
 /**
  The view controller that owns this detach control
  */
-@property (nonatomic, assign) INDockableViewController *viewController;
+@property (nonatomic, assign, readonly) INDockableViewController *viewController;
 @end

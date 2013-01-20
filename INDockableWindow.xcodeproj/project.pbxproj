@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034754F316AC7B4400747D93 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 034754F216AC7B4400747D93 /* INWindowButton.m */; };
 		03E1B15816AB5DD60018E31F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1B15716AB5DD60018E31F /* Cocoa.framework */; };
 		03E1B16216AB5DD60018E31F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 03E1B16016AB5DD60018E31F /* InfoPlist.strings */; };
 		03E1B16416AB5DD60018E31F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B16316AB5DD60018E31F /* main.m */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		034754F116AC7B4400747D93 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowButton.h; path = External/INAppStoreWindow/INWindowButton.h; sourceTree = "<group>"; };
+		034754F216AC7B4400747D93 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowButton.m; path = External/INAppStoreWindow/INWindowButton.m; sourceTree = "<group>"; };
 		03E1B15416AB5DD60018E31F /* INDockableWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INDockableWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E1B15716AB5DD60018E31F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		03E1B15A16AB5DD60018E31F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 			children = (
 				03E1B17616AB5E5D0018E31F /* INAppStoreWindow.h */,
 				03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */,
+				034754F116AC7B4400747D93 /* INWindowButton.h */,
+				034754F216AC7B4400747D93 /* INWindowButton.m */,
 			);
 			name = INAppStoreWindow;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				03E1B18416AB5EAE0018E31F /* INDockableSplitView.m in Sources */,
 				03E1B18716AB64320018E31F /* INDockableViewController.m in Sources */,
 				03E1B18A16AB652E0018E31F /* INDockableDetachControl.m in Sources */,
+				034754F316AC7B4400747D93 /* INWindowButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +368,7 @@
 				03E1B17316AB5DD60018E31F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

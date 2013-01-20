@@ -8,6 +8,10 @@
 
 #import "INDockableDetachControl.h"
 
+@interface INDockableDetachControl ()
+@property (nonatomic, assign, readwrite) INDockableViewController *viewController;
+@end
+
 @implementation INDockableDetachControl
 
 - (id)initWithFrame:(NSRect)frame

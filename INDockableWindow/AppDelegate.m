@@ -8,11 +8,26 @@
 
 #import "AppDelegate.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+	INDockableWindowController *_windowController;
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	// Insert code here to initialize your application
+	_windowController = [INDockableWindowController new];
+	_windowController.primaryViewController = self.primaryViewController;
+	[_windowController showWindow:nil];
+	[_windowController addViewController:self.secondaryViewController attached:YES];
 }
 
+
+- (IBAction)attach:(id)sender
+{
+	[_windowController attachViewController:self.secondaryViewController];
+}
+
+- (IBAction)detach:(id)sender
+{
+	[_windowController detachViewController:self.secondaryViewController];
+}
 @end

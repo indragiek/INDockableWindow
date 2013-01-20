@@ -7,6 +7,10 @@
 //
 
 #import "INAppStoreWindow.h"
+/**
+ This notification is posted when the user has finished moving the window and released the mouse
+ */
+extern NSString* const INDockableAuxiliaryWindowFinishedMovingNotification;
 
 @class INDockableViewController, INDockableWindowController;
 /** The auxiliary window class for displaying detached views */

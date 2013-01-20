@@ -18,7 +18,7 @@
 /** 
  The dockable window controller that owns this view controller. 
  */
-@property (nonatomic, assign) INDockableWindowController *dockableWindowController;
+@property (nonatomic, assign, readonly) INDockableWindowController *dockableWindowController;
 /** 
  The parent window of this view controller 
  */
@@ -39,6 +39,11 @@
  dragging it will trigger a detach from the primary window.
  */
 @property (nonatomic, strong, readonly) INDockableDetachControl *detachControl;
+
+/**
+ Whether this view controller is attached or in its own separate window.
+ */
+@property (nonatomic, assign, getter = isAttached) BOOL attached;
 
 /**
  Called when the view controller is detached from the primary window.
