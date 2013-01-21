@@ -273,4 +273,29 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
  */
 - (void)dockableWindowController:(INDockableWindowController *)controller
 		 auxiliaryWindowDidClose:(INDockableAuxiliaryWindow *)auxiliaryWindow;
+
+/** @name NSSplitViewDelegate Methods */
+
+/** 
+ The documentation for these methods can be found here: http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/NSSplitViewDelegate_Protocol/Reference/Reference.html
+ */
+
+- (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)subview;
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)dividerIndex;
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)dividerIndex;
+- (CGFloat)splitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)dividerIndex;
+- (void)splitViewWillResizeSubviews:(NSNotification *)aNotification;
+- (void)splitViewDidResizeSubviews:(NSNotification *)aNotification;
+- (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize;
+- (NSRect)splitView:(NSSplitView *)splitView additionalEffectiveRectOfDividerAtIndex:(NSInteger)dividerIndex;
+
+/**
+ @warning It is recommended that you do not override the following NSSplitView
+ delegate methods to allow collapsing. Using this class with collapsing enabled
+ results in undefined behaviour
+ */
+
+- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview;
+- (BOOL)splitView:(NSSplitView *)splitView shouldCollapseSubview:(NSView *)subview forDoubleClickOnDividerAtIndex:(NSInteger)dividerIndex;
+- (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex;
 @end

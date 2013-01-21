@@ -36,8 +36,8 @@
  behaviour is undefined. Setting this identifier will set the identifier of this
  view controller's view as well. 
  
- @warning **Do not modify the identifier of the view after
- the view controller has been created.**
+ @warning Do not modify the identifier of the view after
+ the view controller has been created.
  */
 @property (nonatomic, copy) NSString *uniqueIdentifier;
 

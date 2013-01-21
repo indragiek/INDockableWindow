@@ -316,6 +316,10 @@
 	return proposedPosition;
 }
 
+- (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
+{
+}
+
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
 	[self layoutTitleBarViews];
@@ -324,10 +328,6 @@
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
 {
 	[splitView adjustSubviews];
-}
-
-- (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
-{
 }
 
 - (NSRect)splitView:(NSSplitView *)splitView additionalEffectiveRectOfDividerAtIndex:(NSInteger)dividerIndex
