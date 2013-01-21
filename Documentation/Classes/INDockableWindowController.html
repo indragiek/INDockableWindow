@@ -46,11 +46,17 @@
 	
 	<option value="//api/name/attachmentProximity">&nbsp;&nbsp;&nbsp;&nbsp;attachmentProximity</option>
 	
+	<option value="//api/name/autosaveName">&nbsp;&nbsp;&nbsp;&nbsp;autosaveName</option>
+	
 	<option value="//api/name/auxiliaryWindows">&nbsp;&nbsp;&nbsp;&nbsp;auxiliaryWindows</option>
 	
 	<option value="//api/name/configureAuxiliaryWindowBlock">&nbsp;&nbsp;&nbsp;&nbsp;configureAuxiliaryWindowBlock</option>
 	
 	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/maximumWindowHeight">&nbsp;&nbsp;&nbsp;&nbsp;maximumWindowHeight</option>
+	
+	<option value="//api/name/minimumWindowHeight">&nbsp;&nbsp;&nbsp;&nbsp;minimumWindowHeight</option>
 	
 	<option value="//api/name/primaryViewController">&nbsp;&nbsp;&nbsp;&nbsp;primaryViewController</option>
 	
@@ -137,11 +143,17 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attachmentProximity">attachmentProximity</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/autosaveName">autosaveName</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/auxiliaryWindows">auxiliaryWindows</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/configureAuxiliaryWindowBlock">configureAuxiliaryWindowBlock</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/maximumWindowHeight">maximumWindowHeight</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/minimumWindowHeight">minimumWindowHeight</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/primaryViewController">primaryViewController</a></span></li>
 	
@@ -319,17 +331,38 @@ to set divider width, color, and a custom divider drawing block.</p></span>
 	
 </li><li>
 	<span class="tooltip">
+		<code><a href="#//api/name/minimumWindowHeight">&nbsp;&nbsp;minimumWindowHeight</a></code>
+		<span class="tooltip"><p>The minimum height for the primary and auxiliary windows. Default is 0px.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/maximumWindowHeight">&nbsp;&nbsp;maximumWindowHeight</a></code>
+		<span class="tooltip"><p>The maximum height for the primary and auxiliary windows. Default is FLT_MAX.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
 		<code><a href="#//api/name/attachmentProximity">&nbsp;&nbsp;attachmentProximity</a></code>
-		<span class="tooltip"><p>The minimum distance (in pixels) that a window needs to be dragged near the right edge of the
-primary window to attach it to the window. Default is 8px.</p></span>
+		<span class="tooltip"><p>The minimum distance (in pixels) that a window needs to be dragged near the
+right edge of the primary window to attach it to the window. Default is 8px.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/autosaveName">&nbsp;&nbsp;autosaveName</a></code>
+		<span class="tooltip"><p>Autosave name for saving information to user defaults.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/animatesFrameChange">&nbsp;&nbsp;animatesFrameChange</a></code>
-		<span class="tooltip"><p>Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
-Default is YES.</p></span>
+		<span class="tooltip"><p>Set to YES to animate the addition and removal of view controllers by animating
+the frame change of the window. Default is NO.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -484,8 +517,8 @@ Default is YES.</p></span>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
-Default is YES.</p>
+		<p>Set to YES to animate the addition and removal of view controllers by animating
+the frame change of the window. Default is NO.</p>
 	</div>		
 	
     
@@ -499,6 +532,12 @@ Default is YES.</p>
 	
 	
 	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> This feature is experimental because NSWindow animation is terrible. Unexpected behaviour
+may result.</p></div>
+	</div>
 	
 	
 	
@@ -563,8 +602,8 @@ from left to right.</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>The minimum distance (in pixels) that a window needs to be dragged near the right edge of the
-primary window to attach it to the window. Default is 8px.</p>
+		<p>The minimum distance (in pixels) that a window needs to be dragged near the
+right edge of the primary window to attach it to the window. Default is 8px.</p>
 	</div>		
 	
     
@@ -578,6 +617,49 @@ primary window to attach it to the window. Default is 8px.</p>
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/autosaveName" title="autosaveName"></a>
+	<h3 class="subsubtitle method-title">autosaveName</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Autosave name for saving information to user defaults.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *autosaveName</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Setting an autosave name will enable the window controller to automatically
+save and restore the frames of view controllers and the primary window. The autossave data
+is keyed using the identifiers of the view controllers.</p>
+	</div>
 	
 	
 	
@@ -708,6 +790,83 @@ implement custom configuration for auxiliary windows.</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/maximumWindowHeight" title="maximumWindowHeight"></a>
+	<h3 class="subsubtitle method-title">maximumWindowHeight</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The maximum height for the primary and auxiliary windows. Default is FLT_MAX.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat maximumWindowHeight</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Set to FLT_MAX to allow an unlimited window height.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/minimumWindowHeight" title="minimumWindowHeight"></a>
+	<h3 class="subsubtitle method-title">minimumWindowHeight</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The minimum height for the primary and auxiliary windows. Default is 0px.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat minimumWindowHeight</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/primaryViewController" title="primaryViewController"></a>
 	<h3 class="subsubtitle method-title">primaryViewController</h3>
 	
@@ -811,12 +970,12 @@ to set divider width, color, and a custom divider drawing block.</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Do not set the <a href="#//api/name/delegate">delegate</a> of the split view. The <a href="#//api/name/delegate">delegate</a> is automatically
-set to the INDockableWindowController. To override split view <a href="#//api/name/delegate">delegate</a>
-methods, subclass the INDockableWindowController and override the split
+		<div class="warning"><p><strong>Warning:</strong> Do not set the <a href="#//api/name/delegate">delegate</a> of the split view. The <a href="#//api/name/delegate">delegate</a> is
+automatically set to the INDockableWindowController. To override split view
+<a href="#//api/name/delegate">delegate</a> methods, subclass the INDockableWindowController and override the split
 view <a href="#//api/name/delegate">delegate</a> methods. INDockableWindowController implements all of the
 methods documented in the NSSplitViewDelegate protocol. Always call super
-in any overriden implementations of <a href="#//api/name/delegate">delegate</a> methods.</p>
+in any overriden implementations of <a href="#//api/name/delegate">delegate</a> methods.</p></div>
 	</div>
 	
 	
@@ -1483,10 +1642,8 @@ an exception will be thrown</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This method only has any effect when the view controller is attached to the primary window.
-It does not restrict the size of the view controller&rsquo;s auxiliary window. Constraints for window sizes
-can be configured from the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block. When a view controller is attached
-to the primary window, it will be resized if necessary to fit the maximum width constraint.</p>
+		<p>This method affects both the width of the view when its attached to the main window in the split view,
+and also affects the minimum size of any auxiliary window its in.</p>
 	</div>
 	
 	
@@ -1542,10 +1699,8 @@ to the primary window, it will be resized if necessary to fit the maximum width 
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>This method only has any effect when the view controller is attached to the primary window.
-It does not restrict the size of the view controller&rsquo;s auxiliary window. Constraints for window sizes
-can be configured from the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block. When a view controller is attached
-to the primary window, it will be resized if necessary to fit the minimum width constraint.</p>
+		<p>This method affects both the width of the view when its attached to the main window in the split view,
+and also affects the minimum size of any auxiliary window its in.</p>
 	</div>
 	
 	
@@ -1689,7 +1844,7 @@ have been set on the auxiliary window (can be set in the <a href="#//api/name/co
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Indragie Karunaratne. All rights reserved. (Last updated: 2013-01-20)</span><br />
+						<p><span class="copyright">&copy; 2013 Indragie Karunaratne. All rights reserved. (Last updated: 2013-01-21)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
 						
