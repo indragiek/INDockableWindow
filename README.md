@@ -55,9 +55,9 @@ Contributions via pull requests are always very welcome. I would greatly appreci
 
 #### Contact
 
-Indragie Karunaratne
-[@indragie](http://twitter.com/indragie)
-[http://indragie.com](http://indragie.com)
+* Indragie Karunaratne
+* [@indragie](http://twitter.com/indragie)
+* [http://indragie.com](http://indragie.com)
 
 #### License
 
