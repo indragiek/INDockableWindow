@@ -49,6 +49,10 @@ Full documentation is inside the Documentation folder. The headers are also full
 * Assign the primary view controller (the "core view" that will always be displayed) to `primaryViewController`.
 * Add additional view controllers using `-addViewController:attached:`
 
+#### Contribution
+
+Contributions via pull requests are always very welcome. I would greatly appreciate any fixes to bugs that you encounter, or implementation of additional features.
+
 #### Contact
 
 Indragie Karunaratne
