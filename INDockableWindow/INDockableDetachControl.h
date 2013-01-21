@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString* const INDockableDetachControlTriggerNotification;
+
 @class INDockableViewController;
 /**
  Control that can be dragged to trigger a detach of its parent view controller from the primary window.
@@ -19,12 +21,12 @@
 @property (nonatomic, strong) NSImage *image;
 
 /**
- The minimum drag distance to trigger a detach
+ The minimum drag distance to trigger a detach. Default is 10px.
  */
 @property (nonatomic, assign) CGFloat minimumDragDistance;
 
 /**
- Whether the control fades in on mouse hover
+ Whether the control fades in on mouse hover. Default is NO.
  */
 @property (nonatomic, assign) BOOL fadeOnHover;
 

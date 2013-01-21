@@ -56,10 +56,16 @@
 		_attachmentProximity = 8.f;
 		_titleBarHeight = 40.f;
 		_animatesFrameChange = YES;
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 		[self configureSplitView];
 		[self resetTitlebarHeights];
 	}
 	return self;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Accessors
@@ -492,6 +498,8 @@
 	[window close];
 }
 
+#pragma mark - Notification
+
 - (void)auxiliaryWindowWillClose:(NSNotification *)notification
 {
 	[self removeViewController:[notification.object viewController]];
@@ -527,5 +535,10 @@
 	_tempDisableFrameAnimation = YES;
 	if (block) block();
 	_tempDisableFrameAnimation = NO;
+}
+
+- (void)detachControlTriggeredDetach:(NSNotification *)notification
+{
+	[self detachViewController:notification.object];
 }
 @end
