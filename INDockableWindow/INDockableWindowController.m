@@ -56,6 +56,8 @@
 		_attachmentProximity = 8.f;
 		_titleBarHeight = 40.f;
 		_animatesFrameChange = YES;
+		_maximumWindowHeight = FLT_MAX;
+		_minimumWindowHeight = 0.f;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 		[self configureSplitView];
 		[self resetTitlebarHeights];
@@ -88,6 +90,28 @@
 	if (_titleBarHeight != titleBarHeight) {
 		_titleBarHeight = titleBarHeight;
 		[self resetTitlebarHeights];
+	}
+}
+
+- (void)setMinimumWindowHeight:(CGFloat)minimumWindowHeight
+{
+	if (_minimumWindowHeight != minimumWindowHeight) {
+		_minimumWindowHeight = minimumWindowHeight;
+		[self configureConstraintsForWindow:self.primaryWindow];
+		[_auxiliaryWindows enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+			[self configureConstraintsForWindow:obj];
+		}];
+	}
+}
+
+- (void)setMaximumWindowHeight:(CGFloat)maximumWindowHeight
+{
+	if (_maximumWindowHeight != maximumWindowHeight) {
+		_maximumWindowHeight = maximumWindowHeight;
+		[self configureConstraintsForWindow:self.primaryWindow];
+		[_auxiliaryWindows enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+			[self configureConstraintsForWindow:obj];
+		}];
 	}
 }
 
@@ -159,12 +183,12 @@
 - (void)insertViewController:(INDockableViewController *)viewController atIndex:(NSUInteger)index
 {
 	viewController.dockableWindowController = self;
-	BOOL isAttached = [_attachedViewControllers containsObject:viewController];
-	if ([_viewControllers containsObject:viewController] && !isAttached) {
+	BOOL isAttached = [self.attachedViewControllers containsObject:viewController];
+	if ([self.viewControllers containsObject:viewController] && !isAttached) {
 		[self attachViewController:viewController];
 	} else {
 		[_viewControllers addObject:viewController];
-		if (![_attachedViewControllers containsObject:viewController]) {
+		if (![self.attachedViewControllers containsObject:viewController]) {
 			[_attachedViewControllers insertObject:viewController atIndex:index];
 		}
 		[self reorderPrimaryWindow];
@@ -246,19 +270,31 @@
 - (void)setMinimumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
 	_minimumWidths[viewController.uniqueIdentifier] = @(width);
-	[self.splitView adjustSubviews];
+	if (viewController.attached) {
+		[self.splitView adjustSubviews];
+	} else {
+		[self configureConstraintsForWindow:viewController.window];
+	}
 }
 
 - (void)setMaximumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
 	_maximumWidths[viewController.uniqueIdentifier] = @(width);
-	[self.splitView adjustSubviews];
+	if (viewController.attached) {
+		[self.splitView adjustSubviews];
+	} else {
+		[self configureConstraintsForWindow:viewController.window];
+	}
 }
 
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController
 {
 	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
-	[self.splitView adjustSubviews];
+	if (viewController.attached) {
+		[self.splitView adjustSubviews];
+	} else {
+		[self configureConstraintsForWindow:viewController.window];
+	}
 }
 
 #pragma mark - NSSplitViewDelegate
@@ -393,16 +429,21 @@
 - (void)layoutViewControllers
 {
 	__block CGFloat totalWidth = 0.f;
+	__block CGFloat minWidth = 0.f;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
 		newFrame.size.height = NSHeight(self.splitView.frame);
+		
 		NSNumber *autosaveWidth = _autosaveData[viewController.uniqueIdentifier];
 		if (autosaveWidth) {
 			newFrame.size.width = autosaveWidth.doubleValue;
 			[_autosaveData removeObjectForKey:viewController.uniqueIdentifier];
 		}
+		NSNumber *min = _minimumWidths[viewController.uniqueIdentifier];
+		minWidth += min.doubleValue;
+		
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
 			[self.splitView addSubview:view];
@@ -412,6 +453,11 @@
 	NSRect windowFrame = self.primaryWindow.frame;
 	windowFrame.size.width = totalWidth;
 	[self.primaryWindow setFrame:windowFrame display:YES animate:_tempDisableFrameAnimation ? NO : self.animatesFrameChange];
+	
+	NSSize minSize = self.primaryWindow.minSize;
+	minSize.width = minWidth;
+	self.primaryWindow.minSize = minSize;
+	
 	NSRect splitViewFrame = self.splitView.frame;
 	splitViewFrame.size.width = totalWidth;
 	splitViewFrame.origin.x = 0.f;
@@ -469,11 +515,29 @@
 {
 	INDockableAuxiliaryWindow *window = [[INDockableAuxiliaryWindow alloc] initWithViewController:viewController styleMask:self.windowStyleMask];
 	window.titleBarHeight = self.titleBarHeight;
+	[self configureConstraintsForWindow:window];
 	[window setReleasedWhenClosed:NO];
 	if (self.configureAuxiliaryWindowBlock)
 		self.configureAuxiliaryWindowBlock(window);
 	[self addAuxiliaryWindow:window];
 	return window;
+}
+
+- (void)configureConstraintsForWindow:(NSWindow *)window
+{
+	NSSize minSize = window.minSize;
+	if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
+		INDockableViewController *viewController = [(INDockableAuxiliaryWindow *)window viewController];
+		NSNumber *minWidth = _minimumWidths[viewController.uniqueIdentifier];
+		if (minWidth) {
+			minSize.width = minWidth.doubleValue;
+		}
+	}
+	minSize.height = self.minimumWindowHeight;
+	window.minSize = minSize;
+	NSSize maxSize = window.maxSize;
+	maxSize.height = self.maximumWindowHeight;
+	window.maxSize = maxSize;
 }
 
 - (void)addAuxiliaryWindow:(INDockableAuxiliaryWindow *)window

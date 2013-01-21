@@ -86,6 +86,18 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
 @property (nonatomic, assign) CGFloat titleBarHeight;
 
 /**
+ The minimum height for the primary and auxiliary windows. Default is 0px.
+ */
+@property (nonatomic, assign) CGFloat minimumWindowHeight;
+
+/**
+ The maximum height for the primary and auxiliary windows. Default is FLT_MAX.
+ 
+ Set to FLT_MAX to allow an unlimited window height.
+ */
+@property (nonatomic, assign) CGFloat maximumWindowHeight;
+
+/**
  The minimum distance (in pixels) that a window needs to be dragged near the
  right edge of the primary window to attach it to the window. Default is 8px. 
  */
@@ -102,7 +114,10 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
 
 /**
  Set to YES to animate the addition and removal of view controllers by animating
- the frame change of the window. Default is YES.
+ the frame change of the window. Default is NO.
+ 
+ @warning This feature is experimental because NSWindow animation is terrible. Unexpected behaviour
+ may result.
  */
 @property (nonatomic, assign, readonly) BOOL animatesFrameChange;
 
@@ -214,10 +229,8 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
 /**
  Set a minimum width for the specified view controller.
  
- This method only has any effect when the view controller is attached to the primary window.
- It does not restrict the size of the view controller's auxiliary window. Constraints for window sizes
- can be configured from the `configureAuxiliaryWindowBlock` block. When a view controller is attached
- to the primary window, it will be resized if necessary to fit the minimum width constraint.
+ This method affects both the width of the view when its attached to the main window in the split view,
+ and also affects the minimum size of any auxiliary window its in.
  @param width The minimum width.
  @param viewController The view controller to set the minimum width for.
  */
@@ -226,10 +239,8 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
 /**
  Set a maximum width for the specified view controller.
  
- This method only has any effect when the view controller is attached to the primary window.
- It does not restrict the size of the view controller's auxiliary window. Constraints for window sizes
- can be configured from the `configureAuxiliaryWindowBlock` block. When a view controller is attached
- to the primary window, it will be resized if necessary to fit the maximum width constraint.
+ This method affects both the width of the view when its attached to the main window in the split view,
+ and also affects the minimum size of any auxiliary window its in.
  @param width The maximum width.
  @param viewController The view controller to set the maximum width for.
  */
