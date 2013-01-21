@@ -48,3 +48,13 @@ Full documentation is inside the Documentation folder. The headers are also full
 * Create a new instance of `INDockableWindowController`
 * Assign the primary view controller (the "core view" that will always be displayed) to `primaryViewController`.
 * Add additional view controllers using `-addViewController:attached:`
+
+#### Contact
+
+Indragie Karunaratne
+[@indragie](http://twitter.com/indragie)
+[http://indragie.com](http://indragie.com)
+
+#### License
+
+`INDockableWindow` is licensed under MIT. See LICENSE.md for more information.
