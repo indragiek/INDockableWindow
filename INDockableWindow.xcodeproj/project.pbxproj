@@ -7,23 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0314FBFD16ADCE8800E73E86 /* INDockableAuxiliaryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF016ADCE8800E73E86 /* INDockableAuxiliaryWindow.m */; };
+		0314FBFE16ADCE8800E73E86 /* INDockableDetachControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF216ADCE8800E73E86 /* INDockableDetachControl.m */; };
+		0314FBFF16ADCE8800E73E86 /* INDockablePrimaryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF416ADCE8800E73E86 /* INDockablePrimaryWindow.m */; };
+		0314FC0016ADCE8800E73E86 /* INDockableSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF616ADCE8800E73E86 /* INDockableSplitView.m */; };
+		0314FC0116ADCE8800E73E86 /* INDockableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF816ADCE8800E73E86 /* INDockableViewController.m */; };
+		0314FC0216ADCE8800E73E86 /* INDockableWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */; };
+		0314FC0316ADCE8800E73E86 /* INDockableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */; };
 		034754F316AC7B4400747D93 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 034754F216AC7B4400747D93 /* INWindowButton.m */; };
 		034754FE16ACF53100747D93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 034754FC16ACF53100747D93 /* AppDelegate.m */; };
 		0347550116ACF53600747D93 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034754FF16ACF53600747D93 /* MainMenu.xib */; };
 		0347550616ACF54000747D93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347550416ACF54000747D93 /* main.m */; };
 		0347550B16ACF54600747D93 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0347550716ACF54600747D93 /* Credits.rtf */; };
 		0347550C16ACF54600747D93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0347550916ACF54600747D93 /* InfoPlist.strings */; };
-		0347551916ACF55100747D93 /* INDockableAuxiliaryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347550D16ACF55100747D93 /* INDockableAuxiliaryWindow.m */; };
-		0347551A16ACF55100747D93 /* INDockableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347550E16ACF55100747D93 /* INDockableWindowController.m */; };
-		0347551B16ACF55100747D93 /* INDockableDetachControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347551316ACF55100747D93 /* INDockableDetachControl.m */; };
-		0347551C16ACF55100747D93 /* INDockableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347551416ACF55100747D93 /* INDockableViewController.m */; };
-		0347551D16ACF55100747D93 /* INDockableSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347551616ACF55100747D93 /* INDockableSplitView.m */; };
-		0347551E16ACF55100747D93 /* INDockablePrimaryWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347551816ACF55100747D93 /* INDockablePrimaryWindow.m */; };
 		03E1B15816AB5DD60018E31F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1B15716AB5DD60018E31F /* Cocoa.framework */; };
 		03E1B17816AB5E5D0018E31F /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0314FBEF16ADCE8800E73E86 /* INDockableAuxiliaryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableAuxiliaryWindow.h; path = INDockableWindow/INDockableAuxiliaryWindow.h; sourceTree = "<group>"; };
+		0314FBF016ADCE8800E73E86 /* INDockableAuxiliaryWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableAuxiliaryWindow.m; path = INDockableWindow/INDockableAuxiliaryWindow.m; sourceTree = "<group>"; };
+		0314FBF116ADCE8800E73E86 /* INDockableDetachControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableDetachControl.h; path = INDockableWindow/INDockableDetachControl.h; sourceTree = "<group>"; };
+		0314FBF216ADCE8800E73E86 /* INDockableDetachControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableDetachControl.m; path = INDockableWindow/INDockableDetachControl.m; sourceTree = "<group>"; };
+		0314FBF316ADCE8800E73E86 /* INDockablePrimaryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockablePrimaryWindow.h; path = INDockableWindow/INDockablePrimaryWindow.h; sourceTree = "<group>"; };
+		0314FBF416ADCE8800E73E86 /* INDockablePrimaryWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockablePrimaryWindow.m; path = INDockableWindow/INDockablePrimaryWindow.m; sourceTree = "<group>"; };
+		0314FBF516ADCE8800E73E86 /* INDockableSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableSplitView.h; path = INDockableWindow/INDockableSplitView.h; sourceTree = "<group>"; };
+		0314FBF616ADCE8800E73E86 /* INDockableSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableSplitView.m; path = INDockableWindow/INDockableSplitView.m; sourceTree = "<group>"; };
+		0314FBF716ADCE8800E73E86 /* INDockableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableViewController.h; path = INDockableWindow/INDockableViewController.h; sourceTree = "<group>"; };
+		0314FBF816ADCE8800E73E86 /* INDockableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableViewController.m; path = INDockableWindow/INDockableViewController.m; sourceTree = "<group>"; };
+		0314FBF916ADCE8800E73E86 /* INDockableWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableWindow.h; path = INDockableWindow/INDockableWindow.h; sourceTree = "<group>"; };
+		0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindow.m; path = INDockableWindow/INDockableWindow.m; sourceTree = "<group>"; };
+		0314FBFB16ADCE8800E73E86 /* INDockableWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableWindowController.h; path = INDockableWindow/INDockableWindowController.h; sourceTree = "<group>"; };
+		0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindowController.m; path = INDockableWindow/INDockableWindowController.m; sourceTree = "<group>"; };
 		034754F116AC7B4400747D93 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowButton.h; path = External/INAppStoreWindow/INWindowButton.h; sourceTree = "<group>"; };
 		034754F216AC7B4400747D93 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowButton.m; path = External/INAppStoreWindow/INWindowButton.m; sourceTree = "<group>"; };
 		034754FC16ACF53100747D93 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Example/AppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -34,18 +49,6 @@
 		0347550416ACF54000747D93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Example/main.m; sourceTree = SOURCE_ROOT; };
 		0347550816ACF54600747D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Example/en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
 		0347550A16ACF54600747D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Example/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
-		0347550D16ACF55100747D93 /* INDockableAuxiliaryWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableAuxiliaryWindow.m; path = INDockableWindow/INDockableAuxiliaryWindow.m; sourceTree = "<group>"; };
-		0347550E16ACF55100747D93 /* INDockableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindowController.m; path = INDockableWindow/INDockableWindowController.m; sourceTree = "<group>"; };
-		0347550F16ACF55100747D93 /* INDockableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableViewController.h; path = INDockableWindow/INDockableViewController.h; sourceTree = "<group>"; };
-		0347551016ACF55100747D93 /* INDockablePrimaryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockablePrimaryWindow.h; path = INDockableWindow/INDockablePrimaryWindow.h; sourceTree = "<group>"; };
-		0347551116ACF55100747D93 /* INDockableAuxiliaryWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableAuxiliaryWindow.h; path = INDockableWindow/INDockableAuxiliaryWindow.h; sourceTree = "<group>"; };
-		0347551216ACF55100747D93 /* INDockableWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableWindowController.h; path = INDockableWindow/INDockableWindowController.h; sourceTree = "<group>"; };
-		0347551316ACF55100747D93 /* INDockableDetachControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableDetachControl.m; path = INDockableWindow/INDockableDetachControl.m; sourceTree = "<group>"; };
-		0347551416ACF55100747D93 /* INDockableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableViewController.m; path = INDockableWindow/INDockableViewController.m; sourceTree = "<group>"; };
-		0347551516ACF55100747D93 /* INDockableDetachControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableDetachControl.h; path = INDockableWindow/INDockableDetachControl.h; sourceTree = "<group>"; };
-		0347551616ACF55100747D93 /* INDockableSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableSplitView.m; path = INDockableWindow/INDockableSplitView.m; sourceTree = "<group>"; };
-		0347551716ACF55100747D93 /* INDockableSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableSplitView.h; path = INDockableWindow/INDockableSplitView.h; sourceTree = "<group>"; };
-		0347551816ACF55100747D93 /* INDockablePrimaryWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockablePrimaryWindow.m; path = INDockableWindow/INDockablePrimaryWindow.m; sourceTree = "<group>"; };
 		03E1B15416AB5DD60018E31F /* INDockableWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INDockableWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E1B15716AB5DD60018E31F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		03E1B15A16AB5DD60018E31F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -132,18 +135,20 @@
 		03E1B17416AB5DE00018E31F /* INDockableWindow */ = {
 			isa = PBXGroup;
 			children = (
-				0347550D16ACF55100747D93 /* INDockableAuxiliaryWindow.m */,
-				0347550E16ACF55100747D93 /* INDockableWindowController.m */,
-				0347550F16ACF55100747D93 /* INDockableViewController.h */,
-				0347551016ACF55100747D93 /* INDockablePrimaryWindow.h */,
-				0347551116ACF55100747D93 /* INDockableAuxiliaryWindow.h */,
-				0347551216ACF55100747D93 /* INDockableWindowController.h */,
-				0347551316ACF55100747D93 /* INDockableDetachControl.m */,
-				0347551416ACF55100747D93 /* INDockableViewController.m */,
-				0347551516ACF55100747D93 /* INDockableDetachControl.h */,
-				0347551616ACF55100747D93 /* INDockableSplitView.m */,
-				0347551716ACF55100747D93 /* INDockableSplitView.h */,
-				0347551816ACF55100747D93 /* INDockablePrimaryWindow.m */,
+				0314FBEF16ADCE8800E73E86 /* INDockableAuxiliaryWindow.h */,
+				0314FBF016ADCE8800E73E86 /* INDockableAuxiliaryWindow.m */,
+				0314FBF116ADCE8800E73E86 /* INDockableDetachControl.h */,
+				0314FBF216ADCE8800E73E86 /* INDockableDetachControl.m */,
+				0314FBF316ADCE8800E73E86 /* INDockablePrimaryWindow.h */,
+				0314FBF416ADCE8800E73E86 /* INDockablePrimaryWindow.m */,
+				0314FBF516ADCE8800E73E86 /* INDockableSplitView.h */,
+				0314FBF616ADCE8800E73E86 /* INDockableSplitView.m */,
+				0314FBF716ADCE8800E73E86 /* INDockableViewController.h */,
+				0314FBF816ADCE8800E73E86 /* INDockableViewController.m */,
+				0314FBF916ADCE8800E73E86 /* INDockableWindow.h */,
+				0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */,
+				0314FBFB16ADCE8800E73E86 /* INDockableWindowController.h */,
+				0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */,
 			);
 			name = INDockableWindow;
 			sourceTree = "<group>";
@@ -227,12 +232,13 @@
 				034754F316AC7B4400747D93 /* INWindowButton.m in Sources */,
 				034754FE16ACF53100747D93 /* AppDelegate.m in Sources */,
 				0347550616ACF54000747D93 /* main.m in Sources */,
-				0347551916ACF55100747D93 /* INDockableAuxiliaryWindow.m in Sources */,
-				0347551A16ACF55100747D93 /* INDockableWindowController.m in Sources */,
-				0347551B16ACF55100747D93 /* INDockableDetachControl.m in Sources */,
-				0347551C16ACF55100747D93 /* INDockableViewController.m in Sources */,
-				0347551D16ACF55100747D93 /* INDockableSplitView.m in Sources */,
-				0347551E16ACF55100747D93 /* INDockablePrimaryWindow.m in Sources */,
+				0314FBFD16ADCE8800E73E86 /* INDockableAuxiliaryWindow.m in Sources */,
+				0314FBFE16ADCE8800E73E86 /* INDockableDetachControl.m in Sources */,
+				0314FBFF16ADCE8800E73E86 /* INDockablePrimaryWindow.m in Sources */,
+				0314FC0016ADCE8800E73E86 /* INDockableSplitView.m in Sources */,
+				0314FC0116ADCE8800E73E86 /* INDockableViewController.m in Sources */,
+				0314FC0216ADCE8800E73E86 /* INDockableWindow.m in Sources */,
+				0314FC0316ADCE8800E73E86 /* INDockableWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
