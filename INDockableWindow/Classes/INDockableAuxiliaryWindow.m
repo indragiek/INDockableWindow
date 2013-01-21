@@ -29,7 +29,8 @@ NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockab
 @end
 
 @implementation INDockableAuxiliaryWindow {
-	NSImageView *_imageView;
+	NSImageView *_contentImageView;
+	NSImageView *_titleBarImageView;
 	NSRect _lastWindowFrame;
 }
 
@@ -65,10 +66,20 @@ NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockab
 
 - (void)showViewControllerImage
 {
-	_imageView = [[NSImageView alloc] initWithFrame:[self.contentView bounds]];
-	_imageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-	_imageView.image = self.viewController.view.in_image;
-	[self.contentView addSubview:_imageView];
+	NSView *contentView = self.viewController.view;
+	NSView *titleBarView = self.viewController.titleBarView;
+	if (contentView) {
+		_contentImageView = [[NSImageView alloc] initWithFrame:[self.contentView bounds]];
+		_contentImageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		_contentImageView.image = contentView.in_image;
+		[self.contentView addSubview:_contentImageView];
+	}
+	if (titleBarView) {
+		_titleBarImageView = [[NSImageView alloc] initWithFrame:[self.titleBarView bounds]];
+		_titleBarImageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		_titleBarImageView.image = titleBarView.in_image;
+		[self.titleBarView addSubview:_titleBarImageView];
+	}
 	if (_viewController.view.superview == self.contentView) {
 		[_viewController.view removeFromSuperview];
 		[_viewController.titleBarView removeFromSuperview];
@@ -91,7 +102,9 @@ NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockab
 		[self.titleBarView addSubview:titleBarView];
 	}
 	
-	[_imageView removeFromSuperview];
-	_imageView = nil;
+	[_contentImageView removeFromSuperview];
+	[_titleBarImageView removeFromSuperview];
+	_contentImageView = nil;
+	_titleBarImageView = nil;
 }
 @end
