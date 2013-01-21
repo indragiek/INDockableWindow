@@ -54,7 +54,6 @@
 		_attachmentProximity = 8.f;
 		_titleBarHeight = 22.f;
 		_animatesFrameChange = YES;
-		[self configurePrimaryWindow];
 		[self configureSplitView];
 		[self resetTitlebarHeights];
 	}
@@ -66,14 +65,6 @@
 - (NSUInteger)windowStyleMask
 {
 	return _windowStyleMask ?: NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask;
-}
-
-- (void)setConfigurePrimaryWindowBlock:(void (^)(INDockablePrimaryWindow *))configurePrimaryWindowBlock
-{
-	if (_configurePrimaryWindowBlock != configurePrimaryWindowBlock) {
-		_configurePrimaryWindowBlock = [configurePrimaryWindowBlock copy];
-		[self configurePrimaryWindow];
-	}
 }
 
 - (void)setPrimaryViewController:(INDockableViewController *)primaryViewController
@@ -351,12 +342,6 @@
 }
 
 #pragma mark - Private
-
-- (void)configurePrimaryWindow
-{
-	if (self.configurePrimaryWindowBlock)
-		self.configurePrimaryWindowBlock(self.primaryWindow);
-}
 
 - (void)configureSplitView
 {

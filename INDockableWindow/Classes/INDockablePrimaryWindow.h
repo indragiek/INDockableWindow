@@ -14,5 +14,5 @@
 /** 
  The dockable window controller that owns this window. 
  */
-@property (nonatomic, assign) INDockableWindowController *dockableWindowController;
+@property (nonatomic, assign, readonly) INDockableWindowController *dockableWindowController;
 @end

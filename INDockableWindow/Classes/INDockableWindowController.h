@@ -25,8 +25,8 @@
 /**
  The primary window that the auxiliary windows dock to.
  
- This window should not be modified directly. Set the `configurePrimaryWindowBlock` block to
- implement custom configuration for the primary window.
+ @warning The `titleBarHeight` of the window should not be set directly,
+and should be set via the `titleBarHeight` property of the INDockableWindowController
  */
 @property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow;
 
@@ -42,11 +42,6 @@
  implement custom configuration for auxiliary windows.
  */
 @property (nonatomic, strong, readonly) NSSet *auxiliaryWindows;
-
-/**
- Block that is called to configure the `primaryWindow`
- */
-@property (nonatomic, copy) void(^configurePrimaryWindowBlock)(INDockablePrimaryWindow *window);
 
 /**
  Block that is called to configure a new auxiliary window
@@ -76,9 +71,9 @@
  The split view that displays each of the view controllers. You can use this reference to the split view
  to set divider width, color, and a custom divider drawing block.
  
- Do not set the delegate of the split view. The delegate is automatically 
- set to the INDockableWindowController. To override split view delegate 
- methods, subclass the INDockableWindowController and override the split 
+ @warning Do not set the delegate of the split view. The delegate is
+ automatically set to the INDockableWindowController. To override split view
+ delegate methods, subclass the INDockableWindowController and override the split
  view delegate methods. INDockableWindowController implements all of the 
  methods documented in the NSSplitViewDelegate protocol. Always call super
  in any overriden implementations of delegate methods.
@@ -86,20 +81,19 @@
 @property (nonatomic, strong, readonly) INDockableSplitView *splitView;
 
 /**
- The title bar height to use for all the windows (primary and auxiliary). Default is 22.f. The height of
- each titlebar can be overriden in `configurePrimaryWindowBlock` and `configureAuxiliaryWindowBlock`.
+ The title bar height to use for all the windows (primary and auxiliary). Default is 22.f.
 */
 @property (nonatomic, assign) CGFloat titleBarHeight;
 
 /**
- The minimum distance (in pixels) that a window needs to be dragged near the right edge of the 
- primary window to attach it to the window. Default is 8px. 
+ The minimum distance (in pixels) that a window needs to be dragged near the
+ right edge of the primary window to attach it to the window. Default is 8px. 
  */
 @property (nonatomic, assign) CGFloat attachmentProximity;
 
 /**
- Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
- Default is YES.
+ Set to YES to animate the addition and removal of view controllers by animating
+ the frame change of the window. Default is YES.
  */
 @property (nonatomic, assign, readonly) BOOL animatesFrameChange;
 
@@ -201,7 +195,7 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
 /**
  Attaches the specified view controller to the primary window.
  
- If `viewController` is already detached from the primary window, this method does nothing.
+ If `viewController` is already attached to the primary window, this method does nothing.
  @param viewController The view controller to attach
  */
 - (void)attachViewController:(INDockableViewController *)viewController;
