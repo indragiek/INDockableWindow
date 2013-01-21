@@ -2,8 +2,6 @@
 //  INDockableViewController.h
 //  INDockableWindow
 //
-//  Copyright 2013 Indragie Karunaratne. All rights reserved.
-//
 // Copyright (c) 2013, Indragie Karunaratne. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
