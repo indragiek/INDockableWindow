@@ -52,7 +52,7 @@
 		_maximumWidths = [NSMutableDictionary dictionary];
 		_shouldAdjust = [NSMutableDictionary dictionary];
 		_attachmentProximity = 8.f;
-		_titleBarHeight = 40.f;
+		_titleBarHeight = 22.f;
 		_animatesFrameChange = YES;
 		[self configurePrimaryWindow];
 		[self configureSplitView];
@@ -81,7 +81,6 @@
 	if (_primaryViewController != primaryViewController) {
 		_primaryViewController = primaryViewController;
 		[self configurePrimaryViewController];
-		[self setMinimumWidth:100.f forViewController:primaryViewController];
 	}
 }
 
@@ -320,6 +319,19 @@
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
 	[self layoutTitleBarViews];
+}
+
+- (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
+{
+}
+
+- (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
+{
+}
+
+- (NSRect)splitView:(NSSplitView *)splitView additionalEffectiveRectOfDividerAtIndex:(NSInteger)dividerIndex
+{
+	return NSZeroRect;
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview

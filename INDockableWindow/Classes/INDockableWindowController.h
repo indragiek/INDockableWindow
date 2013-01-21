@@ -76,8 +76,12 @@
  The split view that displays each of the view controllers. You can use this reference to the split view
  to set divider width, color, and a custom divider drawing block.
  
- Do not set the delegate of the split view. The delegate is automatically set to the dockable view
- controller. To override split view delegate methods, subclass the dockable view controller and override the methods.
+ Do not set the delegate of the split view. The delegate is automatically 
+ set to the INDockableWindowController. To override split view delegate 
+ methods, subclass the INDockableWindowController and override the split 
+ view delegate methods. INDockableWindowController implements all of the 
+ methods documented in the NSSplitViewDelegate protocol. Always call super
+ in any overriden implementations of delegate methods.
  */
 @property (nonatomic, strong, readonly) INDockableSplitView *splitView;
 
