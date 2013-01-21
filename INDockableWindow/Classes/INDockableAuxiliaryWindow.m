@@ -71,15 +71,26 @@ NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockab
 	[self.contentView addSubview:_imageView];
 	if (_viewController.view.superview == self.contentView) {
 		[_viewController.view removeFromSuperview];
+		[_viewController.titleBarView removeFromSuperview];
 	}
 }
 
 - (void)showViewController
 {
 	NSView *view = _viewController.view;
-	view.frame = [self.contentView bounds];
-	view.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
-	[self.contentView addSubview:view];
+	if (view) {
+		view.frame = [self.contentView bounds];
+		view.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+		[self.contentView addSubview:view];
+	}
+	
+	NSView *titleBarView = _viewController.titleBarView;
+	if (titleBarView) {
+		titleBarView.frame = [self.titleBarView bounds];
+		titleBarView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		[self.titleBarView addSubview:titleBarView];
+	}
+	
 	[_imageView removeFromSuperview];
 	_imageView = nil;
 }

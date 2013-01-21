@@ -26,7 +26,7 @@
 /**
  The view to display in the title bar. This view will be resized to fit the title bar size.
  */
-@property (nonatomic, strong) NSView *titleBarView;
+@property (nonatomic, strong) IBOutlet NSView *titleBarView;
 
 /**
  The unique identifier for this view controller. Set to a generated UUID by default.

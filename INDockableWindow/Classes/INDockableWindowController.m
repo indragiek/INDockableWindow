@@ -52,7 +52,7 @@
 		_maximumWidths = [NSMutableDictionary dictionary];
 		_shouldAdjust = [NSMutableDictionary dictionary];
 		_attachmentProximity = 8.f;
-		_titleBarHeight = 22.f;
+		_titleBarHeight = 40.f;
 		_animatesFrameChange = YES;
 		[self configureSplitView];
 		[self resetTitlebarHeights];
@@ -176,6 +176,7 @@
 	if (viewController == self.primaryViewController) return;
 	NSWindow *window = viewController.window;
 	[viewController.view removeFromSuperview];
+	[viewController.titleBarView removeFromSuperview];
 	viewController.dockableWindowController = nil;
 	[_viewControllers removeObject:viewController];
 	[_attachedViewControllers removeObject:viewController];
