@@ -323,6 +323,7 @@
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
 {
+	[splitView adjustSubviews];
 }
 
 - (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
