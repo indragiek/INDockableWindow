@@ -81,6 +81,7 @@
 	if (_primaryViewController != primaryViewController) {
 		_primaryViewController = primaryViewController;
 		[self configurePrimaryViewController];
+		[self setMinimumWidth:100.f forViewController:primaryViewController];
 	}
 }
 
@@ -113,7 +114,7 @@
 {
 	__block INDockableViewController *controller = nil;
 	[self.viewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, BOOL *stop) {
-		if ([viewController.identifer isEqualToString:identifier]) {
+		if ([viewController.uniqueIdentifier isEqualToString:identifier]) {
 			controller = viewController;
 			*stop = YES;
 		}
@@ -236,19 +237,19 @@
 
 - (void)setMinimumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
-	_minimumWidths[viewController.identifer] = @(width);
+	_minimumWidths[viewController.uniqueIdentifier] = @(width);
 	[self.splitView adjustSubviews];
 }
 
 - (void)setMaximumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
-	_maximumWidths[viewController.identifer] = @(width);
+	_maximumWidths[viewController.uniqueIdentifier] = @(width);
 	[self.splitView adjustSubviews];
 }
 
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController
 {
-	_shouldAdjust[viewController.identifer] = @(shouldAdjust);
+	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
 	[self.splitView adjustSubviews];
 }
 
@@ -256,16 +257,58 @@
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)subview
 {
-	return [_shouldAdjust[subview.identifier] boolValue];
+	NSNumber *shouldAdjust = _shouldAdjust[subview.identifier];
+	if (shouldAdjust)
+		return [shouldAdjust boolValue];
+	return YES;
 }
+
+// Constraints code is based on BWSplitView <https://bitbucket.org/bwalkin/bwtoolkit/src/f164b18c9667/BWSplitView.m>
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)dividerIndex
 {
+	CGFloat newMinFromThisSubview = proposedMin;
+	CGFloat newMaxFromNextSubview = proposedMin;
+	
+	NSView *thisSubview = splitView.subviews[dividerIndex];
+	NSNumber *min = _minimumWidths[thisSubview.identifier];
+	if (min) {
+		newMinFromThisSubview = NSMinX(thisSubview.frame) + min.doubleValue;
+	}
+	NSUInteger nextIndex = dividerIndex + 1;
+	if ([splitView.subviews count] > nextIndex) {
+		NSView *nextSubview = splitView.subviews[nextIndex];
+		NSNumber *max = _maximumWidths[nextSubview.identifier];
+		if (max) {
+			newMaxFromNextSubview = NSMaxX(nextSubview.frame) - max.doubleValue - splitView.dividerThickness;
+		}
+	}
+	CGFloat newMin = fmaxf(newMinFromThisSubview, newMaxFromNextSubview);
+	if (newMin > proposedMin)
+		return newMin;
 	return proposedMin;
 }
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)dividerIndex
 {
+	CGFloat newMaxFromThisSubview = proposedMax;
+	CGFloat newMaxFromNextSubview = proposedMax;
+	NSView *thisSubview = splitView.subviews[dividerIndex];
+	NSNumber *max = _maximumWidths[thisSubview.identifier];
+	if (max) {
+		newMaxFromThisSubview = NSMinX(thisSubview.frame) + max.doubleValue;
+	}
+	NSUInteger nextIndex = dividerIndex + 1;
+	if ([splitView.subviews count] > nextIndex) {
+		NSView *nextSubview = splitView.subviews[nextIndex];
+		NSNumber *min = _minimumWidths[nextSubview.identifier];
+		if (min) {
+			newMaxFromNextSubview = NSMaxX(nextSubview.frame) - min.doubleValue - splitView.dividerThickness;
+		}
+	}
+	CGFloat newMax = fminf(newMaxFromThisSubview, newMaxFromNextSubview);
+	if (newMax < proposedMax)
+		return newMax;
 	return proposedMax;
 }
 
@@ -275,7 +318,8 @@
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
-{	
+{
+	[self layoutTitleBarViews];
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview

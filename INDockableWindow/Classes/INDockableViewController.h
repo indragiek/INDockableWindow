@@ -30,8 +30,16 @@
 
 /**
  The unique identifier for this view controller. Set to a generated UUID by default.
+ 
+ If you decide to set this yourself, ensure that this value is unique from the
+ identifiers of any other view controllers. If this rule is not followed, the
+ behaviour is undefined. Setting this identifier will set the identifier of this
+ view controller's view as well. 
+ 
+ @warning **Do not modify the identifier of the view after
+ the view controller has been created.**
  */
-@property (nonatomic, copy) NSString *identifer;
+@property (nonatomic, copy) NSString *uniqueIdentifier;
 
 /**
  The detach control for the view controller. This control is automatically created when

@@ -17,15 +17,32 @@
 @property (nonatomic, assign, readwrite) INDockableViewController *viewController;
 @end
 
-@implementation INDockableViewController
+@implementation INDockableViewController {
+	NSString *_UUID;
+}
+@synthesize uniqueIdentifier = _uniqueIdentifier;
+
+- (void)commonInitForINDockableViewController
+{
+	_detachControl = [[INDockableDetachControl alloc] initWithFrame:NSZeroRect];
+	_detachControl.viewController = self;
+	_UUID = [[NSUUID UUID] UUIDString];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if ((self = [super initWithCoder:aDecoder])) {
+		[self commonInitForINDockableViewController];
+	}
+	return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        _detachControl = [[INDockableDetachControl alloc] initWithFrame:NSZeroRect];
-		_detachControl.viewController = self;
-    }
-    return self;
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+		[self commonInitForINDockableViewController];
+	}
+	return self;
 }
 
 #pragma mark - Public API
@@ -42,6 +59,12 @@
 
 #pragma mark - Accessors
 
+- (void)setView:(NSView *)view
+{
+	[super setView:view];
+	view.identifier = self.uniqueIdentifier;
+}
+
 - (BOOL)isAttached
 {
 	return [self.window isKindOfClass:[INDockablePrimaryWindow class]];
@@ -52,11 +75,16 @@
 	return self.view.window;
 }
 
-- (void)setIdentifer:(NSString *)identifer
+- (void)setUniqueIdentifier:(NSString *)uniqueIdentifier
 {
-	if (_identifer != identifer) {
-		_identifer = identifer;
-		self.view.identifier = identifer;
+	if (_uniqueIdentifier != uniqueIdentifier) {
+		_uniqueIdentifier = uniqueIdentifier;
+		self.view.identifier = uniqueIdentifier;
 	}
+}
+
+- (NSString *)uniqueIdentifier
+{
+	return _uniqueIdentifier ?: _UUID;
 }
 @end

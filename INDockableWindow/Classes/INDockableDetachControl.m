@@ -29,4 +29,9 @@
     // Drawing code here.
 }
 
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+	
+}
+
 @end
