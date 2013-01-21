@@ -1,0 +1,1792 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>INDockableWindowController Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<meta name="viewport" content="width=550" />
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.1 (build 840)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">INDockableWindow </a></h1>
+				<a id="developerHome" href="../index.html">Indragie Karunaratne</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">INDockableWindowController Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/animatesFrameChange">&nbsp;&nbsp;&nbsp;&nbsp;animatesFrameChange</option>
+	
+	<option value="//api/name/attachedViewControllers">&nbsp;&nbsp;&nbsp;&nbsp;attachedViewControllers</option>
+	
+	<option value="//api/name/attachmentProximity">&nbsp;&nbsp;&nbsp;&nbsp;attachmentProximity</option>
+	
+	<option value="//api/name/auxiliaryWindows">&nbsp;&nbsp;&nbsp;&nbsp;auxiliaryWindows</option>
+	
+	<option value="//api/name/configureAuxiliaryWindowBlock">&nbsp;&nbsp;&nbsp;&nbsp;configureAuxiliaryWindowBlock</option>
+	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/primaryViewController">&nbsp;&nbsp;&nbsp;&nbsp;primaryViewController</option>
+	
+	<option value="//api/name/primaryWindow">&nbsp;&nbsp;&nbsp;&nbsp;primaryWindow</option>
+	
+	<option value="//api/name/splitView">&nbsp;&nbsp;&nbsp;&nbsp;splitView</option>
+	
+	<option value="//api/name/titleBarHeight">&nbsp;&nbsp;&nbsp;&nbsp;titleBarHeight</option>
+	
+	<option value="//api/name/viewControllers">&nbsp;&nbsp;&nbsp;&nbsp;viewControllers</option>
+	
+	<option value="//api/name/windowStyleMask">&nbsp;&nbsp;&nbsp;&nbsp;windowStyleMask</option>
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/addViewController:attached:">&nbsp;&nbsp;&nbsp;&nbsp;- addViewController:attached:</option>
+	
+	<option value="//api/name/attachViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- attachViewController:</option>
+	
+	<option value="//api/name/attachedViewControllerAtIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- attachedViewControllerAtIndex:</option>
+	
+	<option value="//api/name/detachViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- detachViewController:</option>
+	
+	<option value="//api/name/indexOAttachedfViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- indexOAttachedfViewController:</option>
+	
+	<option value="//api/name/insertViewController:atIndex:">&nbsp;&nbsp;&nbsp;&nbsp;- insertViewController:atIndex:</option>
+	
+	<option value="//api/name/insertViewController:positioned:relativeTo:">&nbsp;&nbsp;&nbsp;&nbsp;- insertViewController:positioned:relativeTo:</option>
+	
+	<option value="//api/name/removeViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- removeViewController:</option>
+	
+	<option value="//api/name/setIndex:forAttachedViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- setIndex:forAttachedViewController:</option>
+	
+	<option value="//api/name/setMaximumWidth:forViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- setMaximumWidth:forViewController:</option>
+	
+	<option value="//api/name/setMinimumWidth:forViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- setMinimumWidth:forViewController:</option>
+	
+	<option value="//api/name/setShouldAdjustSize:ofViewController:">&nbsp;&nbsp;&nbsp;&nbsp;- setShouldAdjustSize:ofViewController:</option>
+	
+	<option value="//api/name/viewControllerWithIdentifier:">&nbsp;&nbsp;&nbsp;&nbsp;- viewControllerWithIdentifier:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Retrieving View Controllers">Retrieving View Controllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Positioning Attached View Controllers">Positioning Attached View Controllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Adding and Removing View Controllers">Adding and Removing View Controllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Attaching and Detaching View Controllers">Attaching and Detaching View Controllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Managing Resizing of View Controllers">Managing Resizing of View Controllers</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/animatesFrameChange">animatesFrameChange</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attachedViewControllers">attachedViewControllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attachmentProximity">attachmentProximity</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/auxiliaryWindows">auxiliaryWindows</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/configureAuxiliaryWindowBlock">configureAuxiliaryWindowBlock</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/primaryViewController">primaryViewController</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/primaryWindow">primaryWindow</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/splitView">splitView</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/titleBarHeight">titleBarHeight</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/viewControllers">viewControllers</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/windowStyleMask">windowStyleMask</a></span></li>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addViewController:attached:">addViewController:attached:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attachViewController:">attachViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/attachedViewControllerAtIndex:">attachedViewControllerAtIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/detachViewController:">detachViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/indexOAttachedfViewController:">indexOAttachedfViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/insertViewController:atIndex:">insertViewController:atIndex:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/insertViewController:positioned:relativeTo:">insertViewController:positioned:relativeTo:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/removeViewController:">removeViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setIndex:forAttachedViewController:">setIndex:forAttachedViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setMaximumWidth:forViewController:">setMaximumWidth:forViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setMinimumWidth:forViewController:">setMinimumWidth:forViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setShouldAdjustSize:ofViewController:">setShouldAdjustSize:ofViewController:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/viewControllerWithIdentifier:">viewControllerWithIdentifier:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="INDockableWindowController Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">INDockableWindowController Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSWindowController</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">NSSplitViewDelegate</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">INDockableWindowController.h<br />INDockableWindowController.m</td>
+</tr>
+						</tbody></table></div>
+					
+					
+					
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>Window controller that manages a collection of dockable views and auxiliary windows</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						<h3 class="subsubtitle task-title">Other Methods</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+		<span class="tooltip"><p>The window controller&rsquo;s delegate.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/primaryWindow">&nbsp;&nbsp;primaryWindow</a></code>
+		<span class="tooltip"><p>The primary window that the auxiliary windows dock to.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/windowStyleMask">&nbsp;&nbsp;windowStyleMask</a></code>
+		<span class="tooltip"><p>Style mask to use when creating the primary and auxiliary windows.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/auxiliaryWindows">&nbsp;&nbsp;auxiliaryWindows</a></code>
+		<span class="tooltip"><p>Array of INDockableAuxiliaryWindow&rsquo;s that are detached from the primary window</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/configureAuxiliaryWindowBlock">&nbsp;&nbsp;configureAuxiliaryWindowBlock</a></code>
+		<span class="tooltip"><p>Block that is called to configure a new auxiliary window</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/viewControllers">&nbsp;&nbsp;viewControllers</a></code>
+		<span class="tooltip"><p>Array of INDockabieViewController&rsquo;s (both attached and detached from the primary window)</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/attachedViewControllers">&nbsp;&nbsp;attachedViewControllers</a></code>
+		<span class="tooltip"><p>Array of INDockableViewController&rsquo;s that are attached to the primary window</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/primaryViewController">&nbsp;&nbsp;primaryViewController</a></code>
+		<span class="tooltip"><p>The primary view controller that should always be visible. Auxiliary view controllers
+are added to the right of this primary view.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/splitView">&nbsp;&nbsp;splitView</a></code>
+		<span class="tooltip"><p>The split view that displays each of the view controllers. You can use this reference to the split view
+to set divider width, color, and a custom divider drawing block.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/titleBarHeight">&nbsp;&nbsp;titleBarHeight</a></code>
+		<span class="tooltip"><p>The title bar height to use for all the windows (primary and auxiliary). Default is 22.f.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/attachmentProximity">&nbsp;&nbsp;attachmentProximity</a></code>
+		<span class="tooltip"><p>The minimum distance (in pixels) that a window needs to be dragged near the right edge of the
+primary window to attach it to the window. Default is 8px.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/animatesFrameChange">&nbsp;&nbsp;animatesFrameChange</a></code>
+		<span class="tooltip"><p>Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
+Default is YES.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
+						
+						
+						<a title="Retrieving View Controllers" name="task_Retrieving View Controllers"></a>
+						<h3 class="subsubtitle task-title">Retrieving View Controllers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/attachedViewControllerAtIndex:">&ndash;&nbsp;attachedViewControllerAtIndex:</a></code>
+		<span class="tooltip"><p>Returns the attached view controller at the specified index.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/viewControllerWithIdentifier:">&ndash;&nbsp;viewControllerWithIdentifier:</a></code>
+		<span class="tooltip"><p>Returns the view controller with the specified identifier (attached or not).</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Positioning Attached View Controllers" name="task_Positioning Attached View Controllers"></a>
+						<h3 class="subsubtitle task-title">Positioning Attached View Controllers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setIndex:forAttachedViewController:">&ndash;&nbsp;setIndex:forAttachedViewController:</a></code>
+		<span class="tooltip"><p>Moves an attached view controller to a new index.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/indexOAttachedfViewController:">&ndash;&nbsp;indexOAttachedfViewController:</a></code>
+		<span class="tooltip"><p>Returns the index of the specified attached view controller.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Adding and Removing View Controllers" name="task_Adding and Removing View Controllers"></a>
+						<h3 class="subsubtitle task-title">Adding and Removing View Controllers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/addViewController:attached:">&ndash;&nbsp;addViewController:attached:</a></code>
+		<span class="tooltip"><p>Adds the specified view controller to the end of the view controller array.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/insertViewController:atIndex:">&ndash;&nbsp;insertViewController:atIndex:</a></code>
+		<span class="tooltip"><p>Adds the specified view controller to the window at the specified index.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/insertViewController:positioned:relativeTo:">&ndash;&nbsp;insertViewController:positioned:relativeTo:</a></code>
+		<span class="tooltip"><p>Adds the specified view controller to the window positioned relative to another attached view controller.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/removeViewController:">&ndash;&nbsp;removeViewController:</a></code>
+		<span class="tooltip"><p>Removes the specified view controller.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Attaching and Detaching View Controllers" name="task_Attaching and Detaching View Controllers"></a>
+						<h3 class="subsubtitle task-title">Attaching and Detaching View Controllers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/detachViewController:">&ndash;&nbsp;detachViewController:</a></code>
+		<span class="tooltip"><p>Detaches the specified view controller from the primary window.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/attachViewController:">&ndash;&nbsp;attachViewController:</a></code>
+		<span class="tooltip"><p>Attaches the specified view controller to the primary window.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+						
+						<a title="Managing Resizing of View Controllers" name="task_Managing Resizing of View Controllers"></a>
+						<h3 class="subsubtitle task-title">Managing Resizing of View Controllers</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setMinimumWidth:forViewController:">&ndash;&nbsp;setMinimumWidth:forViewController:</a></code>
+		<span class="tooltip"><p>Set a minimum width for the specified view controller.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setMaximumWidth:forViewController:">&ndash;&nbsp;setMaximumWidth:forViewController:</a></code>
+		<span class="tooltip"><p>Set a maximum width for the specified view controller.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setShouldAdjustSize:ofViewController:">&ndash;&nbsp;setShouldAdjustSize:ofViewController:</a></code>
+		<span class="tooltip"><p>Controls whether the view controller&rsquo;s view should be resized when the primary window is resized.</p></span>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/animatesFrameChange" title="animatesFrameChange"></a>
+	<h3 class="subsubtitle method-title">animatesFrameChange</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set to YES to animate the addition and removal of view controllers by animating the frame change of the window.
+Default is YES.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign, readonly) BOOL animatesFrameChange</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/attachedViewControllers" title="attachedViewControllers"></a>
+	<h3 class="subsubtitle method-title">attachedViewControllers</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Array of INDockableViewController&rsquo;s that are attached to the primary window</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSArray *attachedViewControllers</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The order of this array indicates the order in which the view controllers are displayed,
+from left to right.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/attachmentProximity" title="attachmentProximity"></a>
+	<h3 class="subsubtitle method-title">attachmentProximity</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The minimum distance (in pixels) that a window needs to be dragged near the right edge of the
+primary window to attach it to the window. Default is 8px.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat attachmentProximity</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/auxiliaryWindows" title="auxiliaryWindows"></a>
+	<h3 class="subsubtitle method-title">auxiliaryWindows</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Array of INDockableAuxiliaryWindow&rsquo;s that are detached from the primary window</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSSet *auxiliaryWindows</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Windows in this array should not be modified. Set the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block to
+implement custom configuration for auxiliary windows.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/configureAuxiliaryWindowBlock" title="configureAuxiliaryWindowBlock"></a>
+	<h3 class="subsubtitle method-title">configureAuxiliaryWindowBlock</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Block that is called to configure a new auxiliary window</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) void ( ^ ) ( INDockableAuxiliaryWindow *window ) configureAuxiliaryWindowBlock</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The window controller&rsquo;s delegate.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) id&lt;INDockableWindowControllerDelegate&gt; delegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/primaryViewController" title="primaryViewController"></a>
+	<h3 class="subsubtitle method-title">primaryViewController</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The primary view controller that should always be visible. Auxiliary view controllers
+are added to the right of this primary view.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong) INDockableViewController *primaryViewController</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/primaryWindow" title="primaryWindow"></a>
+	<h3 class="subsubtitle method-title">primaryWindow</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The primary window that the auxiliary windows dock to.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<div class="warning"><p><strong>Warning:</strong> The <a href="#//api/name/titleBarHeight"><code>titleBarHeight</code></a> of the window should not be set directly,
+and should be set via the <a href="#//api/name/titleBarHeight"><code>titleBarHeight</code></a> property of the INDockableWindowController</p></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/splitView" title="splitView"></a>
+	<h3 class="subsubtitle method-title">splitView</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The split view that displays each of the view controllers. You can use this reference to the split view
+to set divider width, color, and a custom divider drawing block.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) INDockableSplitView *splitView</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Do not set the <a href="#//api/name/delegate">delegate</a> of the split view. The <a href="#//api/name/delegate">delegate</a> is automatically
+set to the INDockableWindowController. To override split view <a href="#//api/name/delegate">delegate</a>
+methods, subclass the INDockableWindowController and override the split
+view <a href="#//api/name/delegate">delegate</a> methods. INDockableWindowController implements all of the
+methods documented in the NSSplitViewDelegate protocol. Always call super
+in any overriden implementations of <a href="#//api/name/delegate">delegate</a> methods.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/titleBarHeight" title="titleBarHeight"></a>
+	<h3 class="subsubtitle method-title">titleBarHeight</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The title bar height to use for all the windows (primary and auxiliary). Default is 22.f.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) CGFloat titleBarHeight</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/viewControllers" title="viewControllers"></a>
+	<h3 class="subsubtitle method-title">viewControllers</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Array of INDockabieViewController&rsquo;s (both attached and detached from the primary window)</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, strong, readonly) NSSet *viewControllers</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/windowStyleMask" title="windowStyleMask"></a>
+	<h3 class="subsubtitle method-title">windowStyleMask</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Style mask to use when creating the primary and auxiliary windows.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSUInteger windowStyleMask</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/addViewController:attached:" title="addViewController:attached:"></a>
+	<h3 class="subsubtitle method-title">addViewController:attached:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Adds the specified view controller to the end of the view controller array.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)addViewController:(INDockableViewController *)<em>viewController</em> attached:(BOOL)<em>attached</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to add</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>attached</em></dt>
+			<dd><p>If YES, the view controller will be attached to the main window. If NO, the view controller
+will be placed inside an auxiliary window and the window will be shown.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Does nothing if <code>viewController</code> has already been added.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/attachViewController:" title="attachViewController:"></a>
+	<h3 class="subsubtitle method-title">attachViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Attaches the specified view controller to the primary window.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)attachViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to attach</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If <code>viewController</code> is already attached to the primary window, this method does nothing.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/attachedViewControllerAtIndex:" title="attachedViewControllerAtIndex:"></a>
+	<h3 class="subsubtitle method-title">attachedViewControllerAtIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the attached view controller at the specified index.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (INDockableViewController *)attachedViewControllerAtIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index of the attached view controller (indicies are ordered from left to right).</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The attached view controller at the specified index.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Throws an exception if <code>index</code> is not within the valid range of indices.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/detachViewController:" title="detachViewController:"></a>
+	<h3 class="subsubtitle method-title">detachViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Detaches the specified view controller from the primary window.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)detachViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to detach.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If <code>viewController</code> is not attached to the primary window, this method does nothing.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/indexOAttachedfViewController:" title="indexOAttachedfViewController:"></a>
+	<h3 class="subsubtitle method-title">indexOAttachedfViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the index of the specified attached view controller.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSUInteger)indexOAttachedfViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The attached view controller to get the index of.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The index of the attached view controller, or NSNotFound if the view controller is nil or has not been attached</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/insertViewController:atIndex:" title="insertViewController:atIndex:"></a>
+	<h3 class="subsubtitle method-title">insertViewController:atIndex:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Adds the specified view controller to the window at the specified index.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)insertViewController:(INDockableViewController *)<em>viewController</em> atIndex:(NSUInteger)<em>index</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to add and attach to the primary window</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index that the view controller will be placed at</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Throws an exception if <code>index</code> if out of bounds. If <code>viewController</code> is already attached to the window,
+this will just call <a href="#//api/name/setIndex:forAttachedViewController:">setIndex:forAttachedViewController:</a> with the specified index.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/insertViewController:positioned:relativeTo:" title="insertViewController:positioned:relativeTo:"></a>
+	<h3 class="subsubtitle method-title">insertViewController:positioned:relativeTo:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Adds the specified view controller to the window positioned relative to another attached view controller.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)insertViewController:(INDockableViewController *)<em>viewController</em> positioned:(INDockableViewRelativePosition)<em>position</em> relativeTo:(INDockableViewController *)<em>anotherViewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to add and attach to the primary window.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>position</em></dt>
+			<dd><p>The relative position of the view controller</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>anotherViewController</em></dt>
+			<dd><p>The existing attached view controller to position the new view controller relative to</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method does nothing if <code>viewController</code> is nil, <code>position</code> is not one of the defined values, or if <code>anotherViewController</code> is not attached to the primary window.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/removeViewController:" title="removeViewController:"></a>
+	<h3 class="subsubtitle method-title">removeViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Removes the specified view controller.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)removeViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to remove.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If <code>viewController</code> is attached to the primary window, it will be removed from the window. If it is
+inside an auxiliary window, the window will be closed and removed.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setIndex:forAttachedViewController:" title="setIndex:forAttachedViewController:"></a>
+	<h3 class="subsubtitle method-title">setIndex:forAttachedViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Moves an attached view controller to a new index.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setIndex:(NSUInteger)<em>index</em> forAttachedViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>index</em></dt>
+			<dd><p>The index to move the view controller to.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to move.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>If <code>viewController</code> is not attached to the window, this method does nothing. If <code>index</code> is out of bounds,
+an exception will be thrown</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setMaximumWidth:forViewController:" title="setMaximumWidth:forViewController:"></a>
+	<h3 class="subsubtitle method-title">setMaximumWidth:forViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set a maximum width for the specified view controller.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setMaximumWidth:(CGFloat)<em>width</em> forViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>width</em></dt>
+			<dd><p>The maximum width.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to set the maximum width for.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method only has any effect when the view controller is attached to the primary window.
+It does not restrict the size of the view controller&rsquo;s auxiliary window. Constraints for window sizes
+can be configured from the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block. When a view controller is attached
+to the primary window, it will be resized if necessary to fit the maximum width constraint.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setMinimumWidth:forViewController:" title="setMinimumWidth:forViewController:"></a>
+	<h3 class="subsubtitle method-title">setMinimumWidth:forViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Set a minimum width for the specified view controller.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setMinimumWidth:(CGFloat)<em>width</em> forViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>width</em></dt>
+			<dd><p>The minimum width.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller to set the minimum width for.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method only has any effect when the view controller is attached to the primary window.
+It does not restrict the size of the view controller&rsquo;s auxiliary window. Constraints for window sizes
+can be configured from the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block. When a view controller is attached
+to the primary window, it will be resized if necessary to fit the minimum width constraint.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setShouldAdjustSize:ofViewController:" title="setShouldAdjustSize:ofViewController:"></a>
+	<h3 class="subsubtitle method-title">setShouldAdjustSize:ofViewController:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Controls whether the view controller&rsquo;s view should be resized when the primary window is resized.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setShouldAdjustSize:(BOOL)<em>shouldAdjust</em> ofViewController:(INDockableViewController *)<em>viewController</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>shouldAdjust</em></dt>
+			<dd><p>YES if the view controller should resize with the primary window, NO otherwise.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>viewController</em></dt>
+			<dd><p>The view controller.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>This method only has any effect when the view controller is attached to the primary window. When detached
+in an auxiliary window, the view will always resize with the window unless maximum/minimum size constraints
+have been set on the auxiliary window (can be set in the <a href="#//api/name/configureAuxiliaryWindowBlock"><code>configureAuxiliaryWindowBlock</code></a> block).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/viewControllerWithIdentifier:" title="viewControllerWithIdentifier:"></a>
+	<h3 class="subsubtitle method-title">viewControllerWithIdentifier:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns the view controller with the specified identifier (attached or not).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (INDockableViewController *)viewControllerWithIdentifier:(NSString *)<em>identifier</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>identifier</em></dt>
+			<dd><p>The identifier of the view controller (set using the <code>identifier</code> property of <a href="../Classes/INDockableViewController.html">INDockableViewController</a>)</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>The view controller with the specified identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns nil if no view controller with the identifier is found.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">INDockableWindowController.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2013 Indragie Karunaratne. All rights reserved. (Last updated: 2013-01-20)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 840)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>
