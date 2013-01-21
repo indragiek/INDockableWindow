@@ -235,7 +235,7 @@
 
 - (void)removeViewController:(INDockableViewController *)viewController
 {
-	if (viewController == self.primaryViewController) return;
+	if (!viewController || viewController == self.primaryViewController) return;
 	NSWindow *window = viewController.window;
 	[viewController.view removeFromSuperview];
 	[viewController.titleBarView removeFromSuperview];
@@ -250,7 +250,7 @@
 
 - (void)detachViewController:(INDockableViewController *)viewController
 {
-	if (viewController == self.primaryViewController || viewController.window != self.primaryWindow) return;
+	if (!viewController || viewController == self.primaryViewController || viewController.window != self.primaryWindow) return;
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
 	
@@ -273,7 +273,7 @@
 
 - (void)attachViewController:(INDockableViewController *)viewController
 {
-	if (viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
+	if (!viewController || viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
 	INDockableAuxiliaryWindow *window = (INDockableAuxiliaryWindow *)viewController.window;
 	[window showViewControllerImage];
 	
@@ -290,6 +290,7 @@
 
 - (void)setMinimumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
+	if (!viewController.uniqueIdentifier) return;
 	_minimumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
 		[self.splitView adjustSubviews];
@@ -300,6 +301,7 @@
 
 - (void)setMaximumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
+	if (!viewController.uniqueIdentifier) return;
 	_maximumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
 		[self.splitView adjustSubviews];
@@ -310,6 +312,7 @@
 
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController
 {
+	if (!viewController.uniqueIdentifier) return;
 	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
 	if (viewController.attached) {
 		[self.splitView adjustSubviews];
@@ -563,6 +566,7 @@
 
 - (void)addAuxiliaryWindow:(INDockableAuxiliaryWindow *)window
 {
+	if (!window) return;
 	[_auxiliaryWindows addObject:window];
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(auxiliaryWindowWillClose:) name:NSWindowWillCloseNotification object:window];
@@ -572,6 +576,7 @@
 
 - (void)removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window
 {
+	if (!window) return;
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:NSWindowWillCloseNotification object:window];
 	[nc removeObserver:self name:NSWindowDidMoveNotification object:window];
