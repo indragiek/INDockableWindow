@@ -9,8 +9,6 @@
 #import "INDockableAuxiliaryWindow.h"
 #import "INDockableViewController.h"
 
-NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockablePrimaryWindowFinishedMovingNotification";
-
 @interface NSView (INAdditions)
 @property (nonatomic, strong, readonly) NSImage *in_image;
 @end
@@ -28,38 +26,22 @@ NSString* const INDockableAuxiliaryWindowFinishedMovingNotification = @"INDockab
 }
 @end
 
+@interface INDockableWindow (Private)
+@property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
+@end
+
 @implementation INDockableAuxiliaryWindow {
 	NSImageView *_contentImageView;
 	NSImageView *_titleBarImageView;
-	NSRect _lastWindowFrame;
 }
 
 - (id)initWithViewController:(INDockableViewController *)viewController styleMask:(NSUInteger)styleMask;
 {
 	if ((self = [super initWithContentRect:viewController.view.bounds styleMask:styleMask backing:NSBackingStoreBuffered defer:NO])) {
 		_viewController = viewController;
-		_dockableWindowController = viewController.dockableWindowController;
+		self.dockableWindowController = viewController.dockableWindowController;
 	}
 	return self;
-}
-
-#pragma mark - Event Handling
-
-- (void)sendEvent:(NSEvent *)theEvent
-{
-	if (theEvent.type == NSLeftMouseDown) {
-		_lastWindowFrame = self.frame;
-	} else {
-		// TODO: Check for a specific event type/subtype for when the mouse has been released
-		// NSWindow's dragging runs its own event loop so it NSLeftMouseUp events are not sent
-		// The event(s) that are sent when the mouse has been released are these:
-		// NSEvent: type=Kitdefined loc=(0,622) time=12283.8 flags=0x100 win=0x101928e40 winNum=4075 ctxt=0x0 subtype=4
-		if (!NSEqualRects(self.frame, _lastWindowFrame)) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:INDockableAuxiliaryWindowFinishedMovingNotification object:self];
-		}
-		_lastWindowFrame = NSZeroRect;
-	}
-	[super sendEvent:theEvent];
 }
 
 #pragma mark - Private

@@ -12,6 +12,10 @@
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
 @end
 
+@interface INDockableWindow (Private)
+@property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
+@end
+
 @interface INDockableAuxiliaryWindow (Private)
 - (id)initWithViewController:(INDockableViewController *)viewController styleMask:(NSUInteger)styleMask;
 - (void)showViewControllerImage;
@@ -58,7 +62,10 @@
 		_animatesFrameChange = YES;
 		_maximumWindowHeight = FLT_MAX;
 		_minimumWindowHeight = 0.f;
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
+		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+		[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
+		[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
+		[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableWindowFinishedMovingNotification object:_primaryWindow];
 		[self configureSplitView];
 		[self resetTitlebarHeights];
 	}
@@ -546,7 +553,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(auxiliaryWindowWillClose:) name:NSWindowWillCloseNotification object:window];
 	[nc addObserver:self selector:@selector(auxiliaryWindowDidMove:) name:NSWindowDidMoveNotification object:window];
-	[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableAuxiliaryWindowFinishedMovingNotification object:window];
+	[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableWindowFinishedMovingNotification object:window];
 }
 
 - (void)removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window
@@ -554,7 +561,7 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:NSWindowWillCloseNotification object:window];
 	[nc removeObserver:self name:NSWindowDidMoveNotification object:window];
-	[nc removeObserver:self name:INDockableAuxiliaryWindowFinishedMovingNotification object:window];
+	[nc removeObserver:self name:INDockableWindowFinishedMovingNotification object:window];
 	if (_delegateFlags.auxiliaryWindowDidClose) {
 		[_delegate dockableWindowController:self auxiliaryWindowDidClose:window];
 	}
@@ -592,6 +599,30 @@
 		_shouldAttachAuxiliaryWindowOnMouseUp = NO;
 		_lastMovedAuxiliaryWindow = nil;
 	}
+}
+
+- (void)primaryWindowDidMove:(NSNotification *)notification
+{
+	CGFloat primaryMaxX = NSMaxX(self.primaryWindow.frame);
+	__block INDockableAuxiliaryWindow *closestWindow = nil;
+	__block CGFloat closestProximity = FLT_MAX;
+	[self.auxiliaryWindows enumerateObjectsUsingBlock:^(INDockableAuxiliaryWindow *window, BOOL *stop) {
+		CGFloat auxiliaryMinX = NSMinX(window.frame);
+		CGFloat dx = fabs(auxiliaryMinX - primaryMaxX);
+		if (dx < closestProximity) {
+			closestProximity = dx;
+			closestWindow = window;
+			if (dx <= self.attachmentProximity) {
+				NSRect newWindowFrame = self.primaryWindow.frame;
+				newWindowFrame.origin.x = auxiliaryMinX - NSWidth(newWindowFrame);
+				[self.primaryWindow setFrame:newWindowFrame display:YES];
+				_shouldAttachAuxiliaryWindowOnMouseUp = YES;
+			} else {
+				_shouldAttachAuxiliaryWindowOnMouseUp = NO;
+			}
+			_lastMovedAuxiliaryWindow = window;
+		}
+	}];
 }
 
 - (void)performBlockWithoutAnimation:(void(^)())block
