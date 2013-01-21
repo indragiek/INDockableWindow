@@ -23,11 +23,11 @@
 
 ##### ARC
 
-**`INDockableWindow` requires ARC**. If your project doesn't use ARC, add the `-fobjc-arc` compiler flag to all of the `INDockableWindow` source files.
+`INDockableWindow` **requires ARC**. If your project doesn't use ARC, add the `-fobjc-arc` compiler flag to all of the `INDockableWindow` source files.
 
 ##### Auto Layout
 
-**`INDockableWindow` does not support auto layout**. The behaviour is undefined when using auto layout.
+`INDockableWindow` **does not support auto layout**. The behaviour is undefined when using auto layout.
 
 
 #### Example
