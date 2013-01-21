@@ -27,6 +27,7 @@
 	_windowController = [INDockableWindowController new];
 	_windowController.primaryViewController = self.primaryViewController;
 	_windowController.splitView.dividerColor = [NSColor blackColor];
+	_windowController.titleBarHeight = 40.f;
 	[_windowController showWindow:nil];
 	[_windowController addViewController:self.secondaryViewController attached:YES];
 }

@@ -72,7 +72,7 @@
 		_maximumWidths = [NSMutableDictionary dictionary];
 		_shouldAdjust = [NSMutableDictionary dictionary];
 		_attachmentProximity = 8.f;
-		_titleBarHeight = 40.f;
+		_titleBarHeight = 22.f;
 		_animatesFrameChange = YES;
 		_maximumWindowHeight = FLT_MAX;
 		_minimumWindowHeight = 0.f;
