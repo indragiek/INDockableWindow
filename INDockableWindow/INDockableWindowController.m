@@ -196,6 +196,7 @@
 	} else {
 		[_viewControllers addObject:viewController];
 		INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
+		[window showViewController];
 		[window center];
 		[window makeKeyAndOrderFront:nil];
 	}
