@@ -14,6 +14,7 @@
 * **Built on [INAppStoreWindow](https://github.com/indragiek/INAppStoreWindow)**. Every window is a subclass of `INAppStoreWindow`, so customizing the title bar and traffic lights is trivial.
 * **User draggable split dividers.** When the views are docked on the main window, the size of each view is resizable via user draggable split dividers. The views maintain this width when they're popped into separate windows.
 * **Smooth transition.** The smoothness of the transition between a docked view and an undocked window was a major consideration for this project, and the transition between the two is as fluid as possible.
+* **Drag auxiliary windows near the primary window to attach and detach.** They work like magnets! 
 
 #### Adding it to your project
 
