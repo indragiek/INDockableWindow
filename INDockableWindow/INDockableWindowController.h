@@ -92,6 +92,15 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
 @property (nonatomic, assign) CGFloat attachmentProximity;
 
 /**
+ Autosave name for saving information to user defaults. 
+ 
+ Setting an autosave name will enable the window controller to automatically
+ save and restore the frames of view controllers and the primary window. The autossave data
+ is keyed using the identifiers of the view controllers.
+ */
+@property (nonatomic, copy) NSString *autosaveName;
+
+/**
  Set to YES to animate the addition and removal of view controllers by animating
  the frame change of the window. Default is YES.
  */

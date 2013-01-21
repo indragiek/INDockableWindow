@@ -34,6 +34,7 @@
 	INDockableAuxiliaryWindow *_lastMovedAuxiliaryWindow;
 	BOOL _shouldAttachAuxiliaryWindowOnMouseUp;
 	BOOL _tempDisableFrameAnimation;
+	NSMutableDictionary *_autosaveData;
 }
 @synthesize auxiliaryWindows = _auxiliaryWindows;
 @synthesize viewControllers = _viewControllers;
@@ -44,6 +45,7 @@
 {
 	if ((self = [super initWithWindow:[[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:self.windowStyleMask backing:NSBackingStoreBuffered defer:NO]])) {
 		_primaryWindow = (INDockablePrimaryWindow *)self.window;
+		[_primaryWindow center];
 		[_primaryWindow setReleasedWhenClosed:NO];
 		_auxiliaryWindows = [NSMutableSet set];
 		_viewControllers = [NSMutableSet set];
@@ -80,6 +82,15 @@
 	if (_titleBarHeight != titleBarHeight) {
 		_titleBarHeight = titleBarHeight;
 		[self resetTitlebarHeights];
+	}
+}
+
+- (void)setAutosaveName:(NSString *)autosaveName
+{
+	if (_autosaveName != autosaveName) {
+		_autosaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:autosaveName] mutableCopy];
+		_autosaveName = autosaveName;
+		[self.primaryWindow setFrameAutosaveName:autosaveName];
 	}
 }
 
@@ -315,6 +326,7 @@
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
 	[self layoutTitleBarViews];
+	[self saveViewControllerAutosaveData];
 }
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
@@ -380,6 +392,11 @@
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
 		newFrame.size.height = NSHeight(self.splitView.frame);
+		NSNumber *autosaveWidth = _autosaveData[viewController.uniqueIdentifier];
+		if (autosaveWidth) {
+			newFrame.size.width = autosaveWidth.doubleValue;
+			[_autosaveData removeObjectForKey:viewController.uniqueIdentifier];
+		}
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
 			[self.splitView addSubview:view];
@@ -412,6 +429,16 @@
 		if (titleView.superview != titleBarView) 
 			[titleBarView addSubview:titleView];
 	}];
+}
+
+- (void)saveViewControllerAutosaveData
+{
+	if (![self.autosaveName length]) return;
+	NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:[_viewControllers count]];
+	[_viewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, BOOL *stop) {
+		data[viewController.uniqueIdentifier] = @(NSWidth(viewController.view.frame));
+	}];
+	[[NSUserDefaults standardUserDefaults] setObject:data forKey:self.autosaveName];
 }
 
 - (void)reorderPrimaryWindow
