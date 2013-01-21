@@ -28,10 +28,11 @@
 
 - (void)drawDividerInRect:(NSRect)rect
 {
+	NSRect integral = NSIntegralRect(rect);
 	if (self.dividerDrawingBlock) {
-		self.dividerDrawingBlock(rect);
+		self.dividerDrawingBlock(integral);
 	} else {
-		[super drawDividerInRect:rect];
+		[super drawDividerInRect:integral];
 	}
 }
 

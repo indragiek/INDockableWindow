@@ -305,7 +305,7 @@
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	return proposedPosition;
+	return floorf(proposedPosition);
 }
 
 - (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
