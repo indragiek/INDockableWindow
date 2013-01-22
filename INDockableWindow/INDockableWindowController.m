@@ -73,7 +73,7 @@
 		_shouldAdjust = [NSMutableDictionary dictionary];
 		_attachmentProximity = 8.f;
 		_titleBarHeight = 22.f;
-		_animatesFrameChange = YES;
+		_animatesFrameChange = NO;
 		_maximumWindowHeight = FLT_MAX;
 		_minimumWindowHeight = 0.f;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
