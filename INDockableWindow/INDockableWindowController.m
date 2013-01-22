@@ -294,7 +294,7 @@
 	if (!viewController.uniqueIdentifier) return;
 	_minimumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
-		[self.splitView adjustSubviews];
+		[self layoutPrimaryWindow];
 	} else {
 		[self configureConstraintsForWindow:viewController.window];
 	}
@@ -305,7 +305,7 @@
 	if (!viewController.uniqueIdentifier) return;
 	_maximumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
-		[self.splitView adjustSubviews];
+		[self layoutPrimaryWindow];
 	} else {
 		[self configureConstraintsForWindow:viewController.window];
 	}
@@ -316,7 +316,7 @@
 	if (!viewController.uniqueIdentifier) return;
 	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
 	if (viewController.attached) {
-		[self.splitView adjustSubviews];
+		[self layoutPrimaryWindow];
 	} else {
 		[self configureConstraintsForWindow:viewController.window];
 	}
