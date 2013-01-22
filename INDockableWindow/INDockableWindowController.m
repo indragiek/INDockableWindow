@@ -455,19 +455,27 @@
 {
 	__block CGFloat totalWidth = 0.f;
 	__block CGFloat minWidth = 0.f;
+	__block CGFloat maxWidth = 0.f;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
 		newFrame.size.height = NSHeight(self.splitView.frame);
+		NSString *identifier = viewController.uniqueIdentifier;
 		
-		NSNumber *autosaveWidth = _autosaveData[viewController.uniqueIdentifier];
+		NSNumber *autosaveWidth = _autosaveData[identifier];
 		if (autosaveWidth) {
 			newFrame.size.width = autosaveWidth.doubleValue;
-			[_autosaveData removeObjectForKey:viewController.uniqueIdentifier];
+			[_autosaveData removeObjectForKey:identifier];
 		}
-		NSNumber *min = _minimumWidths[viewController.uniqueIdentifier];
+		NSNumber *min = _minimumWidths[identifier];
 		minWidth += min.doubleValue;
+		NSNumber *max = _maximumWidths[identifier];
+		if (!max) {
+			maxWidth = FLT_MAX;
+		} else {
+			maxWidth = max.doubleValue;
+		}
 		
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
@@ -482,6 +490,9 @@
 	NSSize minSize = self.primaryWindow.minSize;
 	minSize.width = minWidth;
 	self.primaryWindow.minSize = minSize;
+	NSSize maxSize = self.primaryWindow.maxSize;
+	maxSize.width = maxWidth;
+	self.primaryWindow.maxSize = maxSize;
 	
 	NSRect splitViewFrame = self.splitView.frame;
 	splitViewFrame.size.width = totalWidth;
