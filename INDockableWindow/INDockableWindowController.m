@@ -551,16 +551,20 @@
 - (void)configureConstraintsForWindow:(NSWindow *)window
 {
 	NSSize minSize = window.minSize;
+	NSSize maxSize = window.maxSize;
 	if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
 		INDockableViewController *viewController = [(INDockableAuxiliaryWindow *)window viewController];
 		NSNumber *minWidth = _minimumWidths[viewController.uniqueIdentifier];
 		if (minWidth) {
 			minSize.width = minWidth.doubleValue;
 		}
+		NSNumber *maxWidth = _maximumWidths[viewController.uniqueIdentifier];
+		if (maxWidth) {
+			maxSize.width = maxWidth.doubleValue;
+		}
 	}
 	minSize.height = self.minimumWindowHeight;
 	window.minSize = minSize;
-	NSSize maxSize = window.maxSize;
 	maxSize.height = self.maximumWindowHeight;
 	window.maxSize = maxSize;
 }
