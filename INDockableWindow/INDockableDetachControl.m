@@ -95,6 +95,7 @@ CGFloat INDistanceBetweenPoints(NSPoint a, NSPoint b)
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
+	if ([self.window styleMask] & NSFullScreenWindowMask) return;
 	NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	if (_trackingTriggerAction) {
 		if (INDistanceBetweenPoints(_initialPoint, point) >= self.minimumDragDistance) {

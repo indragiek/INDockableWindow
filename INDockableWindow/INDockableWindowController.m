@@ -272,7 +272,7 @@
 
 - (void)removeViewController:(INDockableViewController *)viewController
 {
-	if (!viewController || viewController == self.primaryViewController) return;
+	if (!viewController || viewController == self.primaryViewController || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;
 	NSWindow *window = viewController.window;
 	[viewController.view removeFromSuperview];
 	[viewController.titleBarView removeFromSuperview];
@@ -290,7 +290,7 @@
 
 - (void)detachViewController:(INDockableViewController *)viewController
 {
-	if (!viewController || viewController == self.primaryViewController || viewController.window != self.primaryWindow) return;
+	if (!viewController || viewController == self.primaryViewController || viewController.window != self.primaryWindow || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;;
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
 	
