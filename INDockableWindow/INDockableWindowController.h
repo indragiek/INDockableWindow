@@ -196,6 +196,24 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
  */
 - (void)insertViewController:(INDockableViewController *)viewController atIndex:(NSUInteger)index;
 
+/**
+ Replaces the specified view controller with a new view controller
+ 
+ This method only works for view controllers that are attached to the main window.
+ @param oldViewController The view controller to remove
+ @param newViewController The view controller to replace it with
+ */
+- (void)replaceAttachedViewController:(INDockableViewController *)oldViewController withViewController:(INDockableViewController *)newViewController;
+
+/**
+ Replaces the view controller at the specified index with a new view controller
+ 
+ This method only works for view controllers that are attached to the main window.
+ @param index The index of the view controller to replace
+ @param viewController The view controller to replace it with
+*/
+- (void)replaceAttachedViewControllerAtIndex:(NSUInteger)index withViewController:(INDockableViewController *)viewController;
+
 typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
 	INDockableViewRight,
 	INDockableViewLeft
@@ -301,6 +319,22 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
  */
 - (void)dockableWindowController:(INDockableWindowController *)controller
 		 auxiliaryWindowDidClose:(INDockableAuxiliaryWindow *)auxiliaryWindow;
+
+/**
+ Called when a view controller (either attached or detached) is removed
+ @param controller The dockable window controller.
+ @param viewController The view controller that was removed.
+ */
+- (void)dockableWindowController:(INDockableWindowController *)controller
+		 didRemoveViewController:(INDockableViewController *)viewController;
+
+/**
+ Called when a view controller (either attached or detached) is added
+ @param controller The dockable window controller
+ @param viewController The view controller that was added
+ */
+- (void)dockableWindowController:(INDockableWindowController *)controller
+		 didAddViewController:(INDockableViewController *)viewController;
 
 /** @name NSSplitViewDelegate Methods */
 
