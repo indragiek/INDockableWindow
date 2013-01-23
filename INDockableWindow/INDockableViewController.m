@@ -61,14 +61,24 @@
 
 #pragma mark - Public API
 
+- (void)viewControllerWillDetach
+{
+	
+}
+
 - (void)viewControllerDidDetach
 {
-	[self.detachControl setHidden:NO];
+	[self.detachControl setHidden:YES];
+}
+
+- (void)viewControllerWillAttach
+{
+	
 }
 
 - (void)viewControllerDidAttach
 {
-	[self.detachControl setHidden:YES];
+	[self.detachControl setHidden:NO];
 }
 
 #pragma mark - Accessors

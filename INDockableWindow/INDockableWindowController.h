@@ -321,12 +321,28 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
 		 auxiliaryWindowDidClose:(INDockableAuxiliaryWindow *)auxiliaryWindow;
 
 /**
+ Called when a view controller (either attached or detached) is about to be removed.
+ @param controller The dockable window controller.
+ @param viewController The view controller that is about to be removed.
+ */
+- (void)dockableWindowController:(INDockableWindowController *)controller
+		 willRemoveViewController:(INDockableViewController *)viewController;
+
+/**
  Called when a view controller (either attached or detached) is removed
  @param controller The dockable window controller.
  @param viewController The view controller that was removed.
  */
 - (void)dockableWindowController:(INDockableWindowController *)controller
 		 didRemoveViewController:(INDockableViewController *)viewController;
+
+/**
+ Called when a view controller (either attached or detached) is about to be added
+ @param controller The dockable window controller
+ @param viewController The view controller that is about to be added
+ */
+- (void)dockableWindowController:(INDockableWindowController *)controller
+			willAddViewController:(INDockableViewController *)viewController;
 
 /**
  Called when a view controller (either attached or detached) is added

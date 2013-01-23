@@ -68,11 +68,25 @@
 @property (nonatomic, assign, getter = isAttached) BOOL attached;
 
 /**
+ Called when the view controller is about to become detached from the primary window
+ 
+ Always call super somewhere in your implementation.
+ */
+- (void)viewControllerWillDetach;
+
+/**
  Called when the view controller is detached from the primary window.
  
  Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidDetach;
+
+/**
+ Called when the view controller is about to attach to the primary window
+ 
+ Always call super somewhere in your implementation.
+ */
+- (void)viewControllerWillAttach;
 
 /**
  Called when the view controller is attached to the primary window

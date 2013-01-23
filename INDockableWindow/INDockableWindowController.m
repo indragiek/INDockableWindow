@@ -47,7 +47,9 @@
 		unsigned int viewControllerWasDetached : 1;
 		unsigned int viewControllerWasAttached : 1;
 		unsigned int auxiliaryWindowDidClose : 1;
+		unsigned int willRemoveViewController : 1;
 		unsigned int didRemoveViewController : 1;
+		unsigned int willAddViewController : 1;
 		unsigned int didAddViewController : 1;
 	} _delegateFlags;
 	CGFloat _lastAuxiliaryWindowMinX;
@@ -154,7 +156,9 @@
 		_delegateFlags.viewControllerWasAttached = [delegate respondsToSelector:@selector(dockableWindowController:viewControllerWasAttached:)];
 		_delegateFlags.viewControllerWasDetached = [delegate respondsToSelector:@selector(dockableWindowController:viewControllerWasDetached:)];
 		_delegateFlags.auxiliaryWindowDidClose = [delegate respondsToSelector:@selector(dockableWindowController:auxiliaryWindowDidClose:)];
+		_delegateFlags.willRemoveViewController = [delegate respondsToSelector:@selector(dockableWindowController:willRemoveViewController:)];
 		_delegateFlags.didRemoveViewController = [delegate respondsToSelector:@selector(dockableWindowController:didRemoveViewController:)];
+		_delegateFlags.willAddViewController = [delegate respondsToSelector:@selector(dockableWindowController:willAddViewController:)];
 		_delegateFlags.didAddViewController = [delegate respondsToSelector:@selector(dockableWindowController:didAddViewController:)];
 	}
 }
@@ -198,14 +202,14 @@
 	if (attached) {
 		[self insertViewController:viewController atIndex:[self.attachedViewControllers count]];
 	} else {
-		[_viewControllers addObject:viewController];
-		INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
-		[window showViewController];
-		[window center];
-		[window makeKeyAndOrderFront:nil];
-		if (_delegateFlags.didAddViewController) {
-			[self.delegate dockableWindowController:self didAddViewController:viewController];
-		}
+		[self performAdditionWithViewController:viewController block:^{
+			[_viewControllers addObject:viewController];
+			INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
+			[window showViewController];
+			[window center];
+			[window makeKeyAndOrderFront:nil];
+			[viewController viewControllerDidDetach];
+		}];
 	}
 }
 
@@ -213,18 +217,18 @@
 {
 	viewController.dockableWindowController = self;
 	BOOL isAttached = [self.attachedViewControllers containsObject:viewController];
-	if ([self.viewControllers containsObject:viewController] && !isAttached) {
-		[self attachViewController:viewController];
-	} else {
-		[_viewControllers addObject:viewController];
-		if (![self.attachedViewControllers containsObject:viewController]) {
-			[_attachedViewControllers insertObject:viewController atIndex:index];
+	[self performAdditionWithViewController:viewController block:^{
+		if ([self.viewControllers containsObject:viewController] && !isAttached) {
+			[self attachViewController:viewController];
+		} else {
+			[_viewControllers addObject:viewController];
+			if (![self.attachedViewControllers containsObject:viewController]) {
+				[_attachedViewControllers insertObject:viewController atIndex:index];
+			}
+			[self reorderPrimaryWindow];
 		}
-		[self reorderPrimaryWindow];
-	}
-	if (_delegateFlags.didAddViewController) {
-		[self.delegate dockableWindowController:self didAddViewController:viewController];
-	}
+		[viewController viewControllerDidAttach];
+	}];
 }
 
 - (void)replaceAttachedViewController:(INDockableViewController *)oldViewController withViewController:(INDockableViewController *)newViewController
@@ -238,19 +242,17 @@
 - (void)replaceAttachedViewControllerAtIndex:(NSUInteger)index withViewController:(INDockableViewController *)viewController
 {
 	INDockableViewController *oldController = [_attachedViewControllers objectAtIndex:index];
-	[_viewControllers removeObject:oldController];
-	[_attachedViewControllers removeObjectAtIndex:index];
-	if (_delegateFlags.didRemoveViewController) {
-		[self.delegate dockableWindowController:self didRemoveViewController:oldController];
-	}
+	[self performRemovalWithViewController:oldController block:^{
+		[_viewControllers removeObject:oldController];
+		[_attachedViewControllers removeObjectAtIndex:index];
+	}];
 	if (viewController) {
-		[_viewControllers addObject:viewController];
-		[_attachedViewControllers insertObject:viewController atIndex:index];
+		[self performAdditionWithViewController:viewController block:^{
+			[_viewControllers addObject:viewController];
+			[_attachedViewControllers insertObject:viewController atIndex:index];
+		}];
 	}
 	[self reorderPrimaryWindow];
-	if (viewController && _delegateFlags.didAddViewController) {
-		[self.delegate dockableWindowController:self didAddViewController:viewController];
-	}
 }
 
 - (void)insertViewController:(INDockableViewController *)viewController positioned:(INDockableViewRelativePosition)position relativeTo:(INDockableViewController *)anotherViewController
@@ -273,19 +275,18 @@
 - (void)removeViewController:(INDockableViewController *)viewController
 {
 	if (!viewController || viewController == self.primaryViewController || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;
-	NSWindow *window = viewController.window;
-	[viewController.view removeFromSuperview];
-	[viewController.titleBarView removeFromSuperview];
-	viewController.dockableWindowController = nil;
-	[_viewControllers removeObject:viewController];
-	[_attachedViewControllers removeObject:viewController];
-	if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
-		[self removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window];
-	}
-	[self reorderPrimaryWindow];
-	if (_delegateFlags.didRemoveViewController) {
-		[self.delegate dockableWindowController:self didRemoveViewController:viewController];
-	}
+	[self performRemovalWithViewController:viewController block:^{
+		NSWindow *window = viewController.window;
+		[viewController.view removeFromSuperview];
+		[viewController.titleBarView removeFromSuperview];
+		viewController.dockableWindowController = nil;
+		[_viewControllers removeObject:viewController];
+		[_attachedViewControllers removeObject:viewController];
+		if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
+			[self removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window];
+		}
+		[self reorderPrimaryWindow];
+	}];
 }
 
 - (void)detachViewController:(INDockableViewController *)viewController
@@ -305,6 +306,7 @@
 		[self reorderPrimaryWindow];
 	}];
 	[window showViewController];
+	[viewController viewControllerDidDetach];
 	
 	if (_delegateFlags.viewControllerWasDetached) {
 		[self.delegate dockableWindowController:self viewControllerWasDetached:viewController];
@@ -323,6 +325,8 @@
 	}];
 	
 	[self removeAuxiliaryWindow:window];
+	[viewController viewControllerDidAttach];
+	
 	if (_delegateFlags.viewControllerWasAttached) {
 		[self.delegate dockableWindowController:self viewControllerWasAttached:viewController];
 	}
@@ -704,6 +708,28 @@
 	_tempDisableFrameAnimation = YES;
 	if (block) block();
 	_tempDisableFrameAnimation = NO;
+}
+
+- (void)performAdditionWithViewController:(INDockableViewController *)viewController block:(void(^)())block
+{
+	if (_delegateFlags.willAddViewController) {
+		[self.delegate dockableWindowController:self willAddViewController:viewController];
+	}
+	if (block) block();
+	if (_delegateFlags.didAddViewController) {
+		[self.delegate dockableWindowController:self didAddViewController:viewController];
+	}
+}
+
+- (void)performRemovalWithViewController:(INDockableViewController *)viewController block:(void(^)())block
+{
+	if (_delegateFlags.willRemoveViewController) {
+		[self.delegate dockableWindowController:self willRemoveViewController:viewController];
+	}
+	if (block) block();
+	if (_delegateFlags.didRemoveViewController) {
+		[self.delegate dockableWindowController:self didRemoveViewController:viewController];
+	}
 }
 
 - (void)detachControlTriggeredDetach:(NSNotification *)notification
