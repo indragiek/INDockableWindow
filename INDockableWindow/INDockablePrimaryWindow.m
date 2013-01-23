@@ -23,4 +23,16 @@
 #import "INDockablePrimaryWindow.h"
 
 @implementation INDockablePrimaryWindow
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
+{
+	if ((self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag])) {
+		_animationDuration = 0.25f;
+	}
+	return self;
+}
+
+- (NSTimeInterval)animationResizeTime:(NSRect)newWindowFrame
+{
+	return self.animationDuration;
+}
 @end
