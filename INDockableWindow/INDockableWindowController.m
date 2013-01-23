@@ -552,7 +552,7 @@
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *titleView = viewController.titleBarView;
 		NSRect newFrame = titleView.frame;
-		newFrame.size.width = NSWidth(viewController.view.frame) + dividerThickness;
+		newFrame.size.width = NSWidth(viewController.view.frame) + dividerThickness + 1.f;
 		newFrame.origin.x = currentOrigin;
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
