@@ -133,7 +133,7 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
  @warning This feature is experimental because NSWindow animation is terrible. Unexpected behaviour
  may result.
  */
-@property (nonatomic, assign, readonly) BOOL animatesFrameChange;
+@property (nonatomic, assign) BOOL animatesFrameChange;
 
 /** @name Retrieving View Controllers */
 

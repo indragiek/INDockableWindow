@@ -226,6 +226,7 @@
 		[self.delegate dockableWindowController:self didAddViewController:viewController];
 	}
 }
+
 - (void)replaceAttachedViewController:(INDockableViewController *)oldViewController withViewController:(INDockableViewController *)newViewController
 {
 	NSUInteger index = [_attachedViewControllers indexOfObject:oldViewController];
@@ -236,12 +237,14 @@
 
 - (void)replaceAttachedViewControllerAtIndex:(NSUInteger)index withViewController:(INDockableViewController *)viewController
 {
-	INDockableViewController *controller = [_attachedViewControllers objectAtIndex:index];
-	[_viewControllers removeObject:controller];
+	INDockableViewController *oldController = [_attachedViewControllers objectAtIndex:index];
+	[_viewControllers removeObject:oldController];
+	[_attachedViewControllers removeObjectAtIndex:index];
 	if (_delegateFlags.didRemoveViewController) {
-		[self.delegate dockableWindowController:self didRemoveViewController:controller];
+		[self.delegate dockableWindowController:self didRemoveViewController:oldController];
 	}
 	if (viewController) {
+		[_viewControllers addObject:viewController];
 		[_attachedViewControllers insertObject:viewController atIndex:index];
 	}
 	[self reorderPrimaryWindow];
