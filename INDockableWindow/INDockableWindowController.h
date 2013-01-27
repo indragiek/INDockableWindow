@@ -288,6 +288,22 @@ typedef NS_ENUM(NSInteger, INDockableViewRelativePosition) {
  @param viewController The view controller.
  */
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController;
+
+/** @name Advanced Window Customization */
+
+/**
+ Subclasses can override this method to return an alternate class for the primary window.
+ 
+ The window must be a subclass of INDockablePrimaryWindow.
+ */
++ (Class)primaryWindowClass;
+
+/**
+ Subclasses can override this method to return an alternate class for the auxiliary window.
+ 
+ The window must be a subclass of INDockableAuxiliaryWindow.
+ */
++ (Class)auxiliaryWindowClass;
 @end
 
 /**

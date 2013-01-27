@@ -65,7 +65,7 @@
 
 - (id)init
 {
-	if ((self = [super initWithWindow:[[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:self.windowStyleMask backing:NSBackingStoreBuffered defer:NO]])) {
+	if ((self = [super initWithWindow:[[[self.class primaryWindowClass] alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:self.windowStyleMask backing:NSBackingStoreBuffered defer:NO]])) {
 		_primaryWindow = (INDockablePrimaryWindow *)self.window;
 		[_primaryWindow center];
 		[_primaryWindow setReleasedWhenClosed:NO];
@@ -365,6 +365,16 @@
 	}
 }
 
++ (Class)primaryWindowClass
+{
+	return [INDockablePrimaryWindow class];
+}
+
++ (Class)auxiliaryWindowClass
+{
+	return [INDockableAuxiliaryWindow class];
+}
+
 #pragma mark - NSSplitViewDelegate
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)subview
@@ -592,7 +602,7 @@
 
 - (INDockableAuxiliaryWindow *)auxiliaryWindowForViewController:(INDockableViewController *)viewController
 {
-	INDockableAuxiliaryWindow *window = [[INDockableAuxiliaryWindow alloc] initWithViewController:viewController styleMask:self.windowStyleMask];
+	INDockableAuxiliaryWindow *window = [[[self.class auxiliaryWindowClass] alloc] initWithViewController:viewController styleMask:self.windowStyleMask];
 	window.titleBarHeight = self.titleBarHeight;
 	[self configureConstraintsForWindow:window];
 	[window setReleasedWhenClosed:NO];
