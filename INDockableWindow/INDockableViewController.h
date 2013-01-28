@@ -24,6 +24,7 @@
 #import "INDockableDetachControl.h"
 
 @class INDockableWindowController;
+@class INDockableWindow;
 
 /**
  View controller that displays the content for a single dockable pane of the dockable window controller.
@@ -36,7 +37,7 @@
 /** 
  The parent window of this view controller 
  */
-@property (nonatomic, assign, readonly) NSWindow *window;
+@property (nonatomic, assign, readonly) INDockableWindow *window;
 /**
  The view to display in the title bar. This view will be resized to fit the title bar size.
  */
