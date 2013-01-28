@@ -204,6 +204,7 @@
 	} else {
 		[self performAdditionWithViewController:viewController block:^{
 			[_viewControllers addObject:viewController];
+			[viewController viewControllerWillDetach];
 			INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
 			[window showViewController];
 			[window center];
@@ -295,6 +296,7 @@
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
 	
+	[viewController viewControllerWillDetach];
 	INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
 	screenFrame.size.height += window.titleBarHeight;
 	[window setFrame:screenFrame display:YES];
@@ -316,6 +318,7 @@
 - (void)attachViewController:(INDockableViewController *)viewController
 {
 	if (!viewController || viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
+	[viewController viewControllerWillAttach];
 	INDockableAuxiliaryWindow *window = (INDockableAuxiliaryWindow *)viewController.window;
 	[window showViewControllerImage];
 	
