@@ -243,17 +243,9 @@
 - (void)replaceAttachedViewControllerAtIndex:(NSUInteger)index withViewController:(INDockableViewController *)viewController
 {
 	INDockableViewController *oldController = [_attachedViewControllers objectAtIndex:index];
-	[self performRemovalWithViewController:oldController block:^{
-		[_viewControllers removeObject:oldController];
-		[_attachedViewControllers removeObjectAtIndex:index];
-	}];
-	if (viewController) {
-		[self performAdditionWithViewController:viewController block:^{
-			[_viewControllers addObject:viewController];
-			[_attachedViewControllers insertObject:viewController atIndex:index];
-		}];
-	}
-	[self reorderPrimaryWindow];
+	viewController.view.frame = oldController.view.frame;
+	[self removeViewController:oldController layout:NO];
+	[self insertViewController:viewController atIndex:index];
 }
 
 - (void)insertViewController:(INDockableViewController *)viewController positioned:(INDockableViewRelativePosition)position relativeTo:(INDockableViewController *)anotherViewController
@@ -275,6 +267,11 @@
 
 - (void)removeViewController:(INDockableViewController *)viewController
 {
+	[self removeViewController:viewController layout:YES];
+}
+
+- (void)removeViewController:(INDockableViewController *)viewController layout:(BOOL)layout
+{
 	if (!viewController || viewController == self.primaryViewController || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;
 	[self performRemovalWithViewController:viewController block:^{
 		NSWindow *window = viewController.window;
@@ -286,7 +283,7 @@
 		if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
 			[self removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window];
 		}
-		[self reorderPrimaryWindow];
+		if (layout) [self reorderPrimaryWindow];
 	}];
 }
 
