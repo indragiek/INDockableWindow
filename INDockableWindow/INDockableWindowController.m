@@ -508,7 +508,7 @@
 {
 	__block CGFloat totalWidth = 0.f;
 	__block CGFloat minWidth = 0.f;
-	__block CGFloat maxWidth = 0.f;
+	__block CGFloat maxWidth = FLT_MAX;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
@@ -524,12 +524,9 @@
 		NSNumber *min = _minimumWidths[identifier];
 		minWidth += min.doubleValue;
 		NSNumber *max = _maximumWidths[identifier];
-		if (!max) {
-			maxWidth = FLT_MAX;
-		} else {
-			maxWidth = max.doubleValue;
+		if (max && maxWidth != FLT_MAX) {
+			maxWidth += max.doubleValue;
 		}
-		
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
 			[self.splitView addSubview:view];
@@ -538,7 +535,12 @@
 	totalWidth -= dividerThickness;
 	NSRect windowFrame = self.primaryWindow.frame;
 	windowFrame.size.width = totalWidth;
-	[self.primaryWindow setFrame:windowFrame display:YES animate:_tempDisableFrameAnimation ? NO : self.animatesFrameChange];
+	
+	NSRect splitViewFrame = self.splitView.frame;
+	splitViewFrame.size.width = totalWidth;
+	splitViewFrame.origin.x = 0.f;
+	self.splitView.autoresizingMask = NSViewHeightSizable;
+	self.splitView.frame = splitViewFrame;
 	
 	NSSize minSize = self.primaryWindow.minSize;
 	minSize.width = minWidth;
@@ -547,11 +549,18 @@
 	maxSize.width = maxWidth;
 	self.primaryWindow.maxSize = maxSize;
 	
-	NSRect splitViewFrame = self.splitView.frame;
-	splitViewFrame.size.width = totalWidth;
-	splitViewFrame.origin.x = 0.f;
-	self.splitView.frame = splitViewFrame;
-	[self.splitView adjustSubviews];
+	void(^completionBlock)() = ^{
+		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	};
+	if ([self shouldAnimate]) {
+		[NSAnimationContext beginGrouping];
+		[[NSAnimationContext currentContext] setCompletionHandler:completionBlock];
+		[self.primaryWindow setFrame:windowFrame display:YES animate:YES];
+		[NSAnimationContext endGrouping];
+	} else {
+		[self.primaryWindow setFrame:windowFrame display:YES];
+		completionBlock();
+	}
 }
 
 - (void)layoutTitleBarViews
@@ -572,12 +581,20 @@
 	}];
 }
 
+- (BOOL)shouldAnimate
+{
+	return _tempDisableFrameAnimation ? NO : self.animatesFrameChange;
+}
+
 - (void)saveViewControllerAutosaveData
 {
 	if (![self.autosaveName length]) return;
 	NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:[_viewControllers count]];
 	[_viewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, BOOL *stop) {
-		data[viewController.uniqueIdentifier] = @(NSWidth(viewController.view.frame));
+		CGFloat viewWidth = NSWidth(viewController.view.frame);
+		if (viewWidth > 0.0) {
+			data[viewController.uniqueIdentifier] = @(viewWidth);
+		}
 	}];
 	[[NSUserDefaults standardUserDefaults] setObject:data forKey:self.autosaveName];
 }
