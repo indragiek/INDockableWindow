@@ -129,11 +129,20 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
 /**
  Set to YES to animate the addition and removal of view controllers by animating
  the frame change of the window. Default is NO.
- 
- @warning This feature is experimental because NSWindow animation is terrible. Unexpected behaviour
- may result.
  */
 @property (nonatomic, assign) BOOL animatesFrameChange;
+
+/**
+ The animation curve to use for window animations (if animatesFrameChange = YES).
+ Default is NSAnimationEaseInOut.
+ */
+@property (nonatomic, assign) NSAnimationCurve windowAnimationCurve;
+
+/**
+ The animation duration to use for window animations (if animatesFrameChange = YES).
+ Default is 0.20 seconds.
+ */
+@property (nonatomic, assign) NSTimeInterval windowAnimationDuration;
 
 /** @name Retrieving View Controllers */
 

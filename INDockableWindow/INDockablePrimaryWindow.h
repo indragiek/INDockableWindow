@@ -24,10 +24,4 @@
 
 /** The primary window class */
 @interface INDockablePrimaryWindow : INDockableWindow
-/**
- The duration of the frame change animation (used if animatesFrameChange = YES on INDockableWindowController)
- 
- Default value is 0.25 seconds.
- */
-@property (nonatomic, assign) NSTimeInterval animationDuration;
 @end

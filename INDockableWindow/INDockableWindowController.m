@@ -21,6 +21,7 @@
 
 
 #import "INDockableWindowController.h"
+#import "INWindowFrameAnimation.h"
 
 @interface INDockableViewController (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
@@ -80,6 +81,8 @@
 		_animatesFrameChange = NO;
 		_maximumWindowHeight = FLT_MAX;
 		_minimumWindowHeight = 0.f;
+		_windowAnimationCurve = NSAnimationEaseInOut;
+		_windowAnimationDuration = 0.20f;
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 		[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
@@ -553,10 +556,11 @@
 		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	};
 	if ([self shouldAnimate]) {
-		[NSAnimationContext beginGrouping];
-		[[NSAnimationContext currentContext] setCompletionHandler:completionBlock];
-		[self.primaryWindow setFrame:windowFrame display:YES animate:YES];
-		[NSAnimationContext endGrouping];
+		INWindowFrameAnimation *animation = [[INWindowFrameAnimation alloc] initWithDuration:self.windowAnimationDuration animationCurve:self.windowAnimationCurve window:self.primaryWindow];
+		[animation setCompletionBlock:^(BOOL finished) {
+			completionBlock();
+		}];
+		[animation startAnimationToFrame:windowFrame];
 	} else {
 		[self.primaryWindow setFrame:windowFrame display:YES];
 		completionBlock();
