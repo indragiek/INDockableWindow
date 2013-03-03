@@ -538,6 +538,10 @@
 		NSNumber *max = _maximumWidths[identifier];
 		if (max && maxWidth != FLT_MAX) {
 			maxWidth += max.doubleValue;
+		} else {
+			// If any one of the views doesn't have a maximum width, don't restrict
+			// the maximum width of the window itself
+			maxWidth = FLT_MAX;
 		}
 		view.frame = newFrame;
 		if (view.superview != self.splitView)
