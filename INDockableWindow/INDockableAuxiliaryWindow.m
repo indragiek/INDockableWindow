@@ -21,23 +21,7 @@
 
 #import "INDockableAuxiliaryWindow.h"
 #import "INDockableViewController.h"
-
-@interface NSView (INAdditions)
-@property (nonatomic, strong, readonly) NSImage *in_image;
-@end
-
-@implementation NSView (INAdditions)
-- (NSImage *)in_image
-{
-	NSSize viewSize = [self bounds].size;
-    NSBitmapImageRep *bir = [self bitmapImageRepForCachingDisplayInRect:[self bounds]];
-    [bir setSize:viewSize];
-    [self cacheDisplayInRect:[self bounds] toBitmapImageRep:bir];
-    NSImage* image = [[NSImage alloc] initWithSize:viewSize];
-    [image addRepresentation:bir];
-    return image;
-}
-@end
+#import "NSView+INImagingAdditions.h"
 
 @interface INDockableWindow (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
