@@ -22,6 +22,7 @@
 
 #import "INDockableWindowController.h"
 #import "INWindowFrameAnimation.h"
+#import "NSView+INImagingAdditions.h"
 
 @interface INDockableViewController (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
@@ -57,7 +58,9 @@
 	INDockableAuxiliaryWindow *_lastMovedAuxiliaryWindow;
 	BOOL _shouldAttachAuxiliaryWindowOnMouseUp;
 	BOOL _tempDisableFrameAnimation;
+	BOOL _tempDisableTitleBarLayout;
 	NSMutableDictionary *_autosaveData;
+	NSView *_titleBarContainerView;
 }
 @synthesize auxiliaryWindows = _auxiliaryWindows;
 @synthesize viewControllers = _viewControllers;
@@ -83,6 +86,11 @@
 		_minimumWindowHeight = 0.f;
 		_windowAnimationCurve = NSAnimationEaseInOut;
 		_windowAnimationDuration = 0.20f;
+		NSView *titleBarView = _primaryWindow.titleBarView;
+		_titleBarContainerView = [[NSView alloc] initWithFrame:titleBarView.bounds];
+		_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		[titleBarView addSubview:_titleBarContainerView];
+
 		NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 		[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 		[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
@@ -511,7 +519,7 @@
 {
 	__block CGFloat totalWidth = 0.f;
 	__block CGFloat minWidth = 0.f;
-	__block CGFloat maxWidth = FLT_MAX;
+	__block CGFloat maxWidth = 0.f;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *view = viewController.view;
@@ -519,6 +527,7 @@
 		newFrame.size.height = NSHeight(self.splitView.frame);
 		NSString *identifier = viewController.uniqueIdentifier;
 		
+		// Check for previously saved autosave data for the width of the view
 		NSNumber *autosaveWidth = _autosaveData[identifier];
 		if (autosaveWidth) {
 			newFrame.size.width = autosaveWidth.doubleValue;
@@ -542,22 +551,59 @@
 	NSRect splitViewFrame = self.splitView.frame;
 	splitViewFrame.size.width = totalWidth;
 	splitViewFrame.origin.x = 0.f;
+	
+	// Temporarily disable autoresizing of the split view and the title bar container
+	// because otherwise they'd be redrawn at every step of the frame change.
 	self.splitView.autoresizingMask = NSViewHeightSizable;
+	_titleBarContainerView.autoresizingMask = NSViewHeightSizable;
+	
 	self.splitView.frame = splitViewFrame;
 	
+	// Window constraints (max/min window sizes calculated based on the max/min sizes
+	// of the individual views)
 	NSSize minSize = self.primaryWindow.minSize;
 	minSize.width = minWidth;
 	self.primaryWindow.minSize = minSize;
-	NSSize maxSize = self.primaryWindow.maxSize;
-	maxSize.width = maxWidth;
-	self.primaryWindow.maxSize = maxSize;
 	
+	if (maxWidth > 0.0) {
+		NSSize maxSize = self.primaryWindow.maxSize;
+		maxSize.width = maxWidth;
+		self.primaryWindow.maxSize = maxSize;
+	}
+	
+	// Reset the split view and title bar container autoresizing masks
+	// back to their original values after the frame change.
 	void(^completionBlock)() = ^{
 		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	};
 	if ([self shouldAnimate]) {
+		// Create a fake split view that displays an image of the original split view
+		// because animating a window with a single image view is much more performant
+		// than animating with the entire split view subview tree
+		NSImageView *fakeSplitView = [[NSImageView alloc] initWithFrame:self.splitView.frame];
+		fakeSplitView.image = self.splitView.in_image;
+		fakeSplitView.autoresizingMask = NSViewHeightSizable;
+		
+		// Remove the split view and stick the fake split view in its place
+		[self.splitView.superview addSubview:fakeSplitView positioned:NSWindowAbove relativeTo:self.splitView];
+		[self.splitView removeFromSuperview];
+		
+		// Temporarily disable title bar layout because we don't want the title bar view
+		// frames changing during the animation
+		_tempDisableTitleBarLayout = YES;
+		
+		// Use a nonblocking NSAnimation subclass to animate the frame of the window
 		INWindowFrameAnimation *animation = [[INWindowFrameAnimation alloc] initWithDuration:self.windowAnimationDuration animationCurve:self.windowAnimationCurve window:self.primaryWindow];
 		[animation setCompletionBlock:^(BOOL finished) {
+			// After completion, set the frame of the split view to the correct final value
+			self.splitView.frame = fakeSplitView.frame;
+			// Layout all the title bar views
+			_tempDisableTitleBarLayout = NO;
+			[self layoutTitleBarViews];
+			// Add the split view back into the layer hierarchy and remove the fake
+			[self.window.contentView addSubview:self.splitView];
+			[fakeSplitView removeFromSuperview];
 			completionBlock();
 		}];
 		[animation startAnimationToFrame:windowFrame];
@@ -569,9 +615,10 @@
 
 - (void)layoutTitleBarViews
 {
+	if (_tempDisableTitleBarLayout) return;
 	__block CGFloat currentOrigin = 0.f;
-	NSView *titleBarView = self.primaryWindow.titleBarView;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
+	_titleBarContainerView.frame = self.primaryWindow.titleBarView.bounds;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *titleView = viewController.titleBarView;
 		NSRect newFrame = titleView.frame;
@@ -580,8 +627,9 @@
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
 		titleView.autoresizingMask = NSViewWidthSizable;
-		if (titleView.superview != titleBarView) 
-			[titleBarView addSubview:titleView];
+		if (titleView.superview != _titleBarContainerView) {
+			[_titleBarContainerView addSubview:titleView];
+		}
 	}];
 }
 
@@ -605,8 +653,8 @@
 
 - (void)reorderPrimaryWindow
 {
-	[self reorderViewControllers];
 	[self reorderTitleBarViews];
+	[self reorderViewControllers];
 }
 
 - (void)reorderViewControllers
@@ -617,7 +665,7 @@
 
 - (void)reorderTitleBarViews
 {
-	self.primaryWindow.titleBarView.subviews = [NSArray array];
+	_titleBarContainerView.subviews = [NSArray array];
 	[self layoutTitleBarViews];
 }
 
