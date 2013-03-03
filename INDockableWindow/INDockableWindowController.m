@@ -58,7 +58,7 @@
 	INDockableAuxiliaryWindow *_lastMovedAuxiliaryWindow;
 	BOOL _shouldAttachAuxiliaryWindowOnMouseUp;
 	BOOL _tempDisableFrameAnimation;
-	BOOL _tempDisableTitleBarLayout;
+	BOOL _isAnimating;
 	NSMutableDictionary *_autosaveData;
 	NSView *_titleBarContainerView;
 }
@@ -591,7 +591,7 @@
 		
 		// Temporarily disable title bar layout because we don't want the title bar view
 		// frames changing during the animation
-		_tempDisableTitleBarLayout = YES;
+		_isAnimating = YES;
 		
 		// Use a nonblocking NSAnimation subclass to animate the frame of the window
 		INWindowFrameAnimation *animation = [[INWindowFrameAnimation alloc] initWithDuration:self.windowAnimationDuration animationCurve:self.windowAnimationCurve window:self.primaryWindow];
@@ -599,7 +599,7 @@
 			// After completion, set the frame of the split view to the correct final value
 			self.splitView.frame = fakeSplitView.frame;
 			// Layout all the title bar views
-			_tempDisableTitleBarLayout = NO;
+			_isAnimating = NO;
 			[self layoutTitleBarViews];
 			// Add the split view back into the layer hierarchy and remove the fake
 			[self.window.contentView addSubview:self.splitView];
@@ -615,7 +615,7 @@
 
 - (void)layoutTitleBarViews
 {
-	if (_tempDisableTitleBarLayout) return;
+	if (_isAnimating) return;
 	__block CGFloat currentOrigin = 0.f;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	_titleBarContainerView.frame = self.primaryWindow.titleBarView.bounds;
@@ -635,7 +635,7 @@
 
 - (BOOL)shouldAnimate
 {
-	return _tempDisableFrameAnimation ? NO : self.animatesFrameChange;
+	return (_tempDisableFrameAnimation || _isAnimating) ? NO : self.animatesFrameChange;
 }
 
 - (void)saveViewControllerAutosaveData
