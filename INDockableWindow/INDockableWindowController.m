@@ -606,7 +606,7 @@
 			_isAnimating = NO;
 			[self layoutTitleBarViews];
 			// Add the split view back into the layer hierarchy and remove the fake
-			[self.window.contentView addSubview:self.splitView];
+			[self.window.contentView addSubview:self.splitView positioned:NSWindowBelow relativeTo:nil];
 			[fakeSplitView removeFromSuperview];
 			completionBlock();
 		}];
