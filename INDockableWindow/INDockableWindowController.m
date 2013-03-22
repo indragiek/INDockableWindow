@@ -581,6 +581,13 @@
 		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 		_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 	};
+	
+	// Return if the window frame doesn't need to be changed
+	if (NSEqualRects(windowFrame, self.primaryWindow.frame)) {
+		completionBlock();
+		return;
+	}
+	
 	if ([self shouldAnimate]) {
 		// Create a fake split view that displays an image of the original split view
 		// because animating a window with a single image view is much more performant
