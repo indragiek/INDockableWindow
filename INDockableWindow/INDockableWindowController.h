@@ -30,7 +30,7 @@
 /**
  Window controller that manages a collection of dockable views and auxiliary windows
  */
-@interface INDockableWindowController : NSWindowController <NSSplitViewDelegate>
+@interface INDockableWindowController : NSWindowController <NSSplitViewDelegate, NSWindowDelegate>
 /**
  The window controller's delegate.
  */
@@ -40,7 +40,8 @@
  The primary window that the auxiliary windows dock to.
  
  @warning The `titleBarHeight` of the window should not be set directly,
-and should be set via the `titleBarHeight` property of the INDockableWindowController
+and should be set via the `titleBarHeight` property of the INDockableWindowController.
+ @warning Don't set the delegate of the window.
  */
 @property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow;
 
