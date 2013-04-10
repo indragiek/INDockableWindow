@@ -147,7 +147,6 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 	[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
-	[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableWindowFinishedMovingNotification object:nil];
 	[self configureSplitView];
 	[self resetTitlebarHeights];
 }
@@ -826,15 +825,12 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (void)removeAuxiliaryWindow:(INDockableAuxiliaryWindow *)window
 {
 	if (!window) return;
-	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-	[nc removeObserver:self name:NSWindowWillCloseNotification object:window];
-	[nc removeObserver:self name:NSWindowDidMoveNotification object:window];
-	[nc removeObserver:self name:INDockableWindowFinishedMovingNotification object:window];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:nil object:window];
 	if (_delegateFlags.auxiliaryWindowDidClose) {
 		[_delegate dockableWindowController:self auxiliaryWindowDidClose:window];
 	}
-	[_auxiliaryWindows removeObject:window];
 	[window close];
+	[_auxiliaryWindows removeObject:window];
 }
 
 #pragma mark - Notification
