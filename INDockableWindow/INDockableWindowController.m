@@ -72,21 +72,11 @@
 @synthesize attachedViewControllers = _attachedViewControllers;
 @synthesize titleBarHeight = _titleBarHeight;
 
-static NSString * const INDockableWindowControllerNibName = @"INDockableWindowController";
-
 - (id)init
 {
 	// Using a XIB instead of programatically loading the window because OS X is terrible
 	// at loading restorable state from programmatically created windows.
-	if ((self = [super initWithWindowNibName:INDockableWindowControllerNibName])) {
-		[self commonInitForINDockableWindowController];
-	}
-	return self;
-}
-
-- (id)initWithWindowNibName:(NSString *)windowNibName
-{
-	if ((self = [super initWithWindowNibName:windowNibName])) {
+	if ((self = [super initWithWindow:[self.class defaultWindow]])) {
 		[self commonInitForINDockableWindowController];
 	}
 	return self;
@@ -108,6 +98,15 @@ static NSString * const INDockableWindowControllerNibName = @"INDockableWindowCo
 	return self;
 }
 
+- (id)initWithWindow:(NSWindow *)window
+{
+	NSAssert(!window || [window isKindOfClass:[INDockablePrimaryWindow class]], @"Window is of incorrect class.");
+	if ((self = [super initWithWindow:window])) {
+		[self commonInitForINDockableWindowController];
+	}
+	return self;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder])) {
@@ -116,8 +115,14 @@ static NSString * const INDockableWindowControllerNibName = @"INDockableWindowCo
 	return self;
 }
 
++ (INDockablePrimaryWindow *)defaultWindow
+{
+	return [[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+}
+
 - (void)commonInitForINDockableWindowController
 {
+	if (!self.window) return;
 	_primaryWindow = (INDockablePrimaryWindow *)self.window;
 	_primaryWindow.delegate = self;
 	_primaryWindow.releasedWhenClosed = NO;
@@ -142,7 +147,7 @@ static NSString * const INDockableWindowControllerNibName = @"INDockableWindowCo
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 	[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
-	[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableWindowFinishedMovingNotification object:_primaryWindow];
+	[nc addObserver:self selector:@selector(auxiliaryWindowFinishedMoving:) name:INDockableWindowFinishedMovingNotification object:nil];
 	[self configureSplitView];
 	[self resetTitlebarHeights];
 }

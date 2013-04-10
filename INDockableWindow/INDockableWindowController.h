@@ -46,7 +46,10 @@ and should be set via the `titleBarHeight` property of the INDockableWindowContr
 @property (nonatomic, strong, readonly) INDockablePrimaryWindow *primaryWindow;
 
 /**
- Style mask to use when creating the primary and auxiliary windows.
+ Style mask to use when creating auxiliary windows.
+ 
+ Customizing the style mask of the primary window should be done by creating the window yourself and using
+ -initWithWindow: or using your own XIB with -initWithWindowNibName: instead of using -init.
  */
 @property (nonatomic, assign) NSUInteger windowStyleMask;
 
