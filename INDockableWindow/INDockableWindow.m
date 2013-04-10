@@ -43,7 +43,12 @@ NSString* const INDockableWindowFinishedMovingNotification = @"INDockableWindowF
 		// The event(s) that are sent when the mouse has been released are these:
 		// NSEvent: type=Kitdefined loc=(0,622) time=12283.8 flags=0x100 win=0x101928e40 winNum=4075 ctxt=0x0 subtype=4
 		if (!NSEqualRects(self.frame, _lastWindowFrame)) {
+			// Call super -sendEvent *before* sending the notification and return early because the window may
+			// be removed and deallocated as a result of this notification being received, and calling super
+			// would result in EXC_BAD_ACCESS
+			[super sendEvent:theEvent];
 			[[NSNotificationCenter defaultCenter] postNotificationName:INDockableWindowFinishedMovingNotification object:self];
+			return;
 		}
 		_lastWindowFrame = NSZeroRect;
 	}
