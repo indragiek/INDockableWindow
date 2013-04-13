@@ -326,12 +326,14 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 		[self insertViewController:viewController atIndex:[self.attachedViewControllers count]];
 	} else {
 		[self performAdditionWithViewController:viewController block:^{
-			[_viewControllers addObject:viewController];
+			[self addReferencesForViewController:viewController];
 			[viewController viewControllerWillDetach];
+			
 			INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
 			[window showViewController];
 			[window center];
 			[window makeKeyAndOrderFront:nil];
+			
 			[viewController viewControllerDidDetach];
 		}];
 	}
@@ -339,13 +341,12 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)insertViewController:(INDockableViewController *)viewController atIndex:(NSUInteger)index
 {
-	viewController.dockableWindowController = self;
-	BOOL isAttached = [self.attachedViewControllers containsObject:viewController];
 	[self performAdditionWithViewController:viewController block:^{
+		BOOL isAttached = [self.attachedViewControllers containsObject:viewController];
 		if ([self.viewControllers containsObject:viewController] && !isAttached) {
 			[self attachViewController:viewController];
 		} else {
-			[_viewControllers addObject:viewController];
+			[self addReferencesForViewController:viewController];
 			if (![self.attachedViewControllers containsObject:viewController]) {
 				[_attachedViewControllers insertObject:viewController atIndex:index];
 			}
@@ -353,6 +354,12 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 		}
 		[viewController viewControllerDidAttach];
 	}];
+}
+
+- (void)addReferencesForViewController:(INDockableViewController *)viewController
+{
+	[_viewControllers addObject:viewController];
+	viewController.dockableWindowController = self;
 }
 
 - (void)replaceAttachedViewController:(INDockableViewController *)oldViewController withViewController:(INDockableViewController *)newViewController
