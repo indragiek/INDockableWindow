@@ -22,6 +22,7 @@
 
 #import "INDockableViewController.h"
 #import "INDockablePrimaryWindow.h"
+#import "INDockableWindowController.h"
 
 @interface INDockableViewController ()
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
@@ -79,6 +80,16 @@
 - (void)viewControllerDidAttach
 {
 	[self.detachControl setHidden:NO];
+}
+
+- (void)detach
+{
+	[self.dockableWindowController detachViewController:self];
+}
+
+- (void)attach
+{
+	[self.dockableWindowController attachViewController:self];
 }
 
 #pragma mark - Accessors

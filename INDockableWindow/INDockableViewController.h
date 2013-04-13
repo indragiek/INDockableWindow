@@ -95,4 +95,14 @@
  Always call super somewhere in your implementation.
  */
 - (void)viewControllerDidAttach;
+
+/**
+ Detach this view controller from the primary window.
+ */
+- (void)detach;
+
+/**
+ Attach this window to the primary window
+ */
+- (void)attach;
 @end
