@@ -22,6 +22,8 @@
 		0347550C16ACF54600747D93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0347550916ACF54600747D93 /* InfoPlist.strings */; };
 		03E1B15816AB5DD60018E31F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1B15716AB5DD60018E31F /* Cocoa.framework */; };
 		03E1B17816AB5E5D0018E31F /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */; };
+		211E4E451749096100BAA283 /* INWindowFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E4E421749096100BAA283 /* INWindowFrameAnimation.m */; };
+		211E4E461749096100BAA283 /* NSView+INImagingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E4E441749096100BAA283 /* NSView+INImagingAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,10 @@
 		03E1B15C16AB5DD60018E31F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		03E1B17616AB5E5D0018E31F /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INAppStoreWindow.h; path = External/INAppStoreWindow/INAppStoreWindow.h; sourceTree = "<group>"; };
 		03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = External/INAppStoreWindow/INAppStoreWindow.m; sourceTree = "<group>"; };
+		211E4E411749096100BAA283 /* INWindowFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowFrameAnimation.h; path = INDockableWindow/INWindowFrameAnimation.h; sourceTree = "<group>"; };
+		211E4E421749096100BAA283 /* INWindowFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowFrameAnimation.m; path = INDockableWindow/INWindowFrameAnimation.m; sourceTree = "<group>"; };
+		211E4E431749096100BAA283 /* NSView+INImagingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+INImagingAdditions.h"; path = "INDockableWindow/NSView+INImagingAdditions.h"; sourceTree = "<group>"; };
+		211E4E441749096100BAA283 /* NSView+INImagingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+INImagingAdditions.m"; path = "INDockableWindow/NSView+INImagingAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,10 @@
 				0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */,
 				0314FBFB16ADCE8800E73E86 /* INDockableWindowController.h */,
 				0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */,
+				211E4E411749096100BAA283 /* INWindowFrameAnimation.h */,
+				211E4E421749096100BAA283 /* INWindowFrameAnimation.m */,
+				211E4E431749096100BAA283 /* NSView+INImagingAdditions.h */,
+				211E4E441749096100BAA283 /* NSView+INImagingAdditions.m */,
 			);
 			name = INDockableWindow;
 			sourceTree = "<group>";
@@ -239,6 +249,8 @@
 				0314FC0116ADCE8800E73E86 /* INDockableViewController.m in Sources */,
 				0314FC0216ADCE8800E73E86 /* INDockableWindow.m in Sources */,
 				0314FC0316ADCE8800E73E86 /* INDockableWindowController.m in Sources */,
+				211E4E451749096100BAA283 /* INWindowFrameAnimation.m in Sources */,
+				211E4E461749096100BAA283 /* NSView+INImagingAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
