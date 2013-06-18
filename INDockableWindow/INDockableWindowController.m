@@ -428,7 +428,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	screenFrame.size.height += window.titleBarHeight;
 	[window setFrame:screenFrame display:YES];
 	[window showViewControllerImage];
-	[window makeKeyAndOrderFront:nil];
+	[window orderFront:nil];
 	
 	[_attachedViewControllers removeObject:viewController];
 	[self performBlockWithoutAnimation:^{
