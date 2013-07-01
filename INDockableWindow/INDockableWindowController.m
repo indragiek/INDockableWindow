@@ -844,7 +844,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)auxiliaryWindowWillClose:(NSNotification *)notification
 {
-	[self removeViewController:[notification.object viewController]];
+	[self removeViewController:(INDockableViewController *)[notification.object viewController]];
 }
 
 - (void)auxiliaryWindowDidMove:(NSNotification *)notification
