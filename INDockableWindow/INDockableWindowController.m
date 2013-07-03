@@ -147,6 +147,8 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self selector:@selector(detachControlTriggeredDetach:) name:INDockableDetachControlTriggerNotification object:nil];
 	[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
+	[nc addObserver:self selector:@selector(layoutPrimaryWindow) name:NSWindowDidExitFullScreenNotification object:_primaryWindow];
+	[nc addObserver:self selector:@selector(layoutPrimaryWindow) name:NSWindowDidEnterFullScreenNotification object:_primaryWindow];
 	[self configureSplitView];
 	[self resetTitlebarHeights];
 }
@@ -653,10 +655,17 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			[_loadedAutosaveData removeObjectForKey:identifier];
 		}
 		NSNumber *min = _minimumWidths[identifier];
-		minWidth += min.doubleValue;
+		if (min) {
+			CGFloat minValue = min.doubleValue;
+			minWidth += minValue;
+			newFrame.size.width = fmaxf(minValue, NSWidth(newFrame));
+		}
+		
 		NSNumber *max = _maximumWidths[identifier];
 		if (max && maxWidth != FLT_MAX) {
-			maxWidth += max.doubleValue;
+			CGFloat maxValue = max.doubleValue;
+			maxWidth += maxValue;
+			newFrame.size.width = fminf(maxValue, NSWidth(newFrame));
 		} else {
 			// If any one of the views doesn't have a maximum width, don't restrict
 			// the maximum width of the window itself
