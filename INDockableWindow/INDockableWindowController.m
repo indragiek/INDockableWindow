@@ -24,6 +24,8 @@
 #import "INWindowFrameAnimation.h"
 #import "NSView+INImagingAdditions.h"
 
+NSString * const INDockableWindowFrameDidChangeNotification = @"INDockableWindowFrameDidChangeNotification";
+
 @interface INDockableViewController (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
 @end
@@ -708,6 +710,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	void(^completionBlock)() = ^{
 		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 		_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+		[[NSNotificationCenter defaultCenter] postNotificationName:INDockableWindowFrameDidChangeNotification object:_primaryWindow];
 	};
 	
 	// Return if the window frame doesn't need to be changed

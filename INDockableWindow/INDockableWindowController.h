@@ -26,6 +26,16 @@
 #import "INDockableAuxiliaryWindow.h"
 #import "INDockableSplitView.h"
 
+
+/*------ Notifications -------*/
+
+// Posted when the window's frame changes due to a layout operation.
+//
+// Unlike the normal NSWindow resizing notification, this is only posted once
+// after the frame size has been adjusted to its final value (even during
+// a frame animation).
+extern NSString * const INDockableWindowFrameDidChangeNotification;
+
 @protocol INDockableWindowControllerDelegate;
 /**
  Window controller that manages a collection of dockable views and auxiliary windows
