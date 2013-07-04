@@ -29,6 +29,9 @@
 
 /*------ Notifications -------*/
 
+// Posted before the window's frame changes due to a layout operation.
+extern NSString * const INDockableWindowFrameWillChangeNotification;
+
 // Posted when the window's frame changes due to a layout operation.
 //
 // Unlike the normal NSWindow resizing notification, this is only posted once

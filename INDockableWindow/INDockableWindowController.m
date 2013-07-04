@@ -25,6 +25,7 @@
 #import "NSView+INImagingAdditions.h"
 
 NSString * const INDockableWindowFrameDidChangeNotification = @"INDockableWindowFrameDidChangeNotification";
+NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindowFrameWillChangeNotification";
 
 @interface INDockableViewController (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
@@ -707,17 +708,22 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	
 	// Reset the split view and title bar container autoresizing masks
 	// back to their original values after the frame change.
-	void(^completionBlock)() = ^{
+	void (^cleanup)() = ^{
 		self.splitView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 		_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+	};
+	void(^completion)() = ^{
+		cleanup();
 		[[NSNotificationCenter defaultCenter] postNotificationName:INDockableWindowFrameDidChangeNotification object:_primaryWindow];
 	};
 	
 	// Return if the window frame doesn't need to be changed
 	if (NSEqualRects(windowFrame, self.primaryWindow.frame)) {
-		completionBlock();
+		cleanup();
 		return;
 	}
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:INDockableWindowFrameWillChangeNotification object:_primaryWindow];
 	
 	if ([self shouldAnimate]) {
 		// Create a fake split view that displays an image of the original split view
@@ -746,12 +752,12 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			// Add the split view back into the layer hierarchy and remove the fake
 			[self.window.contentView addSubview:self.splitView positioned:NSWindowBelow relativeTo:nil];
 			[fakeSplitView removeFromSuperview];
-			completionBlock();
+			completion();
 		}];
 		[animation startAnimationToFrame:windowFrame];
 	} else {
 		[self.primaryWindow setFrame:windowFrame display:YES];
-		completionBlock();
+		completion();
 	}
 }
 
