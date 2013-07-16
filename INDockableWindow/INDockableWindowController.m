@@ -346,6 +346,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)insertViewController:(INDockableViewController *)viewController atIndex:(NSUInteger)index
 {
+	NSParameterAssert(viewController);
 	[self performAdditionWithViewController:viewController block:^{
 		BOOL isAttached = [self.attachedViewControllers containsObject:viewController];
 		if ([self.viewControllers containsObject:viewController] && !isAttached) {
@@ -363,6 +364,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)addReferencesForViewController:(INDockableViewController *)viewController
 {
+	NSParameterAssert(viewController);
 	[_viewControllers addObject:viewController];
 	viewController.dockableWindowController = self;
 }
@@ -376,7 +378,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 }
 
 - (void)replaceAttachedViewControllerAtIndex:(NSUInteger)index withViewController:(INDockableViewController *)viewController
-{
+{	
 	INDockableViewController *oldController = [_attachedViewControllers objectAtIndex:index];
 	viewController.view.frame = oldController.view.frame;
 	[self removeViewController:oldController layout:NO];
@@ -407,7 +409,8 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)removeViewController:(INDockableViewController *)viewController layout:(BOOL)layout
 {
-	if (!viewController || viewController == self.primaryViewController || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;
+	NSParameterAssert(viewController);
+	if (viewController == self.primaryViewController || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;
 	[self performRemovalWithViewController:viewController block:^{
 		NSWindow *window = viewController.window;
 		[viewController.view removeFromSuperview];
@@ -424,7 +427,8 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)detachViewController:(INDockableViewController *)viewController
 {
-	if (!viewController || viewController == self.primaryViewController || viewController.window != self.primaryWindow || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;;
+	NSParameterAssert(viewController);
+	if (viewController == self.primaryViewController || viewController.window != self.primaryWindow || [self.primaryWindow styleMask] & NSFullScreenWindowMask) return;;
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
 	
@@ -449,7 +453,8 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)attachViewController:(INDockableViewController *)viewController
 {
-	if (!viewController || viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
+	NSParameterAssert(viewController);
+	if (viewController == self.primaryViewController || viewController.window == self.primaryWindow) return;
 	[viewController viewControllerWillAttach];
 	INDockableAuxiliaryWindow *window = (INDockableAuxiliaryWindow *)viewController.window;
 	[window showViewControllerImage];
@@ -469,6 +474,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)setMinimumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
+	NSParameterAssert(viewController);
 	if (!viewController.uniqueIdentifier) return;
 	_minimumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
@@ -480,6 +486,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)setMaximumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
+	NSParameterAssert(viewController);
 	if (!viewController.uniqueIdentifier) return;
 	_maximumWidths[viewController.uniqueIdentifier] = @(width);
 	if (viewController.attached) {
@@ -491,6 +498,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController
 {
+	NSParameterAssert(viewController);
 	if (!viewController.uniqueIdentifier) return;
 	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
 	if (viewController.attached) {
