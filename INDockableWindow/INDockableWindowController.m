@@ -29,6 +29,7 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 
 @interface INDockableViewController (Private)
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
+@property (nonatomic, assign, readwrite) NSUInteger index;
 @end
 
 @interface INDockableWindow (Private)
@@ -152,6 +153,8 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 	[nc addObserver:self selector:@selector(primaryWindowDidMove:) name:NSWindowDidMoveNotification object:_primaryWindow];
 	[nc addObserver:self selector:@selector(layoutPrimaryWindow) name:NSWindowDidExitFullScreenNotification object:_primaryWindow];
 	[nc addObserver:self selector:@selector(layoutPrimaryWindow) name:NSWindowDidEnterFullScreenNotification object:_primaryWindow];
+	[nc addObserver:self selector:@selector(saveViewControllerAutosaveData) name:NSWindowDidResignKeyNotification object:_primaryWindow];
+	[nc addObserver:self selector:@selector(saveViewControllerAutosaveData) name:NSApplicationWillTerminateNotification object:NSApp];
 	[self configureSplitView];
 	[self resetTitlebarHeights];
 }
@@ -209,9 +212,10 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 - (void)setAutosaveName:(NSString *)autosaveName
 {
 	if (_autosaveName != autosaveName) {
-		_autosaveData = [[[NSUserDefaults standardUserDefaults] objectForKey:autosaveName] mutableCopy];
 		_autosaveName = autosaveName;
+		_loadedAutosaveData = [[NSUserDefaults.standardUserDefaults objectForKey:self.autosaveUserDefaultsKey] mutableCopy];
 		_isRestoringFrameFromAutosave = YES;
+		self.primaryWindow.identifier = autosaveName;
 		[self.primaryWindow setFrameAutosaveName:autosaveName];
 		[self.primaryWindow setFrameUsingName:autosaveName];
 		_isRestoringFrameFromAutosave = NO;
@@ -234,25 +238,13 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 
 #pragma mark - NSWindowRestoration
 
-static NSString * const INDockableWindowControllerWidthAutosaveKey = @"INDockableWindowControllerWidth";
-
-- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
-{
-	[super encodeRestorableStateWithCoder:coder];
-	[coder encodeObject:self.autosaveData forKey:INDockableWindowControllerWidthAutosaveKey];
-}
-
-- (void)restoreStateWithCoder:(NSCoder *)coder
-{
-	[super restoreStateWithCoder:coder];
-	_loadedAutosaveData = [coder decodeObjectForKey:INDockableWindowControllerWidthAutosaveKey];
-}
+static NSString * const INDockableWindowControllerAutosavePrefix = @"INDockableWindowController_";
 
 - (void)setAutosaveData:(NSDictionary *)autosaveData
 {
 	if (_autosaveData != autosaveData) {
 		_autosaveData = autosaveData;
-		[self invalidateRestorableState];
+		[NSUserDefaults.standardUserDefaults setObject:autosaveData forKey:self.autosaveUserDefaultsKey];
 	}
 }
 
@@ -266,6 +258,11 @@ static NSString * const INDockableWindowControllerWidthAutosaveKey = @"INDockabl
 		}
 	}];
 	self.autosaveData = data;
+}
+
+- (NSString *)autosaveUserDefaultsKey
+{
+	return [INDockableWindowControllerAutosavePrefix stringByAppendingString:self.autosaveName];
 }
 
 #pragma mark - NSWindowDelegate
@@ -322,7 +319,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (NSUInteger)indexOAttachedfViewController:(INDockableViewController *)viewController
 {
-	return [self.attachedViewControllers indexOfObject:viewController];
+	return [self.attachedViewControllers indexOfObjectIdenticalTo:viewController];
 }
 
 - (void)addViewController:(INDockableViewController *)viewController attached:(BOOL)attached
@@ -432,6 +429,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	NSRect windowFrame = [viewController.view convertRect:viewController.view.bounds toView:nil];
 	NSRect screenFrame = [self.primaryWindow convertRectToScreen:windowFrame];
 	
+	viewController.index = NSNotFound;
 	[viewController viewControllerWillDetach];
 	INDockableAuxiliaryWindow *window = [self auxiliaryWindowForViewController:viewController];
 	screenFrame.size.height += window.titleBarHeight;
@@ -589,7 +587,6 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
 	[self layoutTitleBarViews];
-	[self saveViewControllerAutosaveData];
 }
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
@@ -654,6 +651,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	__block CGFloat maxWidth = 0.f;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
+		viewController.index = idx;
 		NSView *view = viewController.view;
 		NSRect newFrame = view.frame;
 		newFrame.size.height = NSHeight(self.splitView.frame);
@@ -683,8 +681,9 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			maxWidth = FLT_MAX;
 		}
 		view.frame = newFrame;
-		if (view.superview != self.splitView)
+		if (view.superview != self.splitView) {
 			[self.splitView addSubview:view];
+		}
 		totalWidth += NSWidth(view.frame) + dividerThickness;
 	}];
 	totalWidth -= dividerThickness;

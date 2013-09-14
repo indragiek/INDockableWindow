@@ -26,15 +26,15 @@
 
 @interface INDockableViewController ()
 @property (nonatomic, assign, readwrite) INDockableWindowController *dockableWindowController;
+@property (nonatomic, assign, readwrite) NSUInteger index;
+@property (nonatomic, strong, readonly) NSString *UUID;
 @end
 
 @interface INDockableDetachControl (Private)
 @property (nonatomic, assign, readwrite) INDockableViewController *viewController;
 @end
 
-@implementation INDockableViewController {
-	NSString *_UUID;
-}
+@implementation INDockableViewController
 @synthesize uniqueIdentifier = _uniqueIdentifier;
 
 - (void)commonInitForINDockableViewController
@@ -42,6 +42,7 @@
 	_detachControl = [[INDockableDetachControl alloc] initWithFrame:NSZeroRect];
 	_detachControl.viewController = self;
 	_UUID = [[NSUUID UUID] UUIDString];
+	_index = NSNotFound;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -120,6 +121,8 @@
 
 - (NSString *)uniqueIdentifier
 {
-	return _uniqueIdentifier ?: _UUID;
+	NSString *indexString = (self.index != NSNotFound) ? @(self.index).stringValue : nil;
+	return (_uniqueIdentifier ?: indexString) ?: self.UUID;
 }
+
 @end

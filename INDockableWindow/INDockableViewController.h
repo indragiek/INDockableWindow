@@ -57,6 +57,12 @@
 @property (nonatomic, copy) NSString *uniqueIdentifier;
 
 /**
+ The index of the view controller in it's parent window controller if attached.
+ If the view controller is detached, returns NSNotFound.
+ */
+@property (nonatomic, assign, readonly) NSUInteger index;
+
+/**
  The detach control for the view controller. This control is automatically created when
  the view controller is created. It can be placed anywhere in your view hierarchy, and 
  dragging it will trigger a detach from the primary window.
