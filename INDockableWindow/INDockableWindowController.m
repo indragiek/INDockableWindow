@@ -121,7 +121,7 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 
 + (INDockablePrimaryWindow *)defaultWindow
 {
-	return [[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.f, 0.f, 800.f, 600.f) styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
+	return [[INDockablePrimaryWindow alloc] initWithContentRect:NSMakeRect(0.0, 0.0, 800.0, 600.0) styleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask backing:NSBackingStoreBuffered defer:NO];
 }
 
 - (void)commonInitForINDockableWindowController
@@ -136,13 +136,13 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 	_minimumWidths = [NSMutableDictionary dictionary];
 	_maximumWidths = [NSMutableDictionary dictionary];
 	_shouldAdjust = [NSMutableDictionary dictionary];
-	_attachmentProximity = 8.f;
-	_titleBarHeight = 22.f;
+	_attachmentProximity = 8.0;
+	_titleBarHeight = 22.0;
 	_animatesFrameChange = NO;
-	_maximumWindowHeight = FLT_MAX;
-	_minimumWindowHeight = 0.f;
+	_maximumWindowHeight = CGFLOAT_MAX;
+	_minimumWindowHeight = 0.0;
 	_windowAnimationCurve = NSAnimationEaseInOut;
-	_windowAnimationDuration = 0.20f;
+	_windowAnimationDuration = 0.20;
 	NSView *titleBarView = _primaryWindow.titleBarView;
 	_titleBarContainerView = [[NSView alloc] initWithFrame:titleBarView.bounds];
 	_titleBarContainerView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
@@ -285,7 +285,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 {
 	if (_isRestoringFrameFromAutosave) {
-		return NSMakeSize(0.f, frameSize.height);
+		return NSMakeSize(0.0, frameSize.height);
 	}
 	return frameSize;
 }
@@ -546,7 +546,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			newMaxFromNextSubview = NSMaxX(nextSubview.frame) - max.doubleValue - splitView.dividerThickness;
 		}
 	}
-	CGFloat newMin = fmaxf(newMinFromThisSubview, newMaxFromNextSubview);
+	CGFloat newMin = fmax(newMinFromThisSubview, newMaxFromNextSubview);
 	if (newMin > proposedMin)
 		return newMin;
 	return proposedMin;
@@ -569,7 +569,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			newMaxFromNextSubview = NSMaxX(nextSubview.frame) - min.doubleValue - splitView.dividerThickness;
 		}
 	}
-	CGFloat newMax = fminf(newMaxFromThisSubview, newMaxFromNextSubview);
+	CGFloat newMax = fmin(newMaxFromThisSubview, newMaxFromNextSubview);
 	if (newMax < proposedMax)
 		return newMax;
 	return proposedMax;
@@ -577,7 +577,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainSplitPosition:(CGFloat)proposedPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	return floorf(proposedPosition);
+	return floor(proposedPosition);
 }
 
 - (void)splitViewWillResizeSubviews:(NSNotification *)aNotification
@@ -659,7 +659,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	} else if (min) {
 		return min.doubleValue;
 	}
-	return 0.f;
+	return 0.0;
 }
 
 - (CGFloat)maximumWidthForViewController:(INDockableViewController *)viewController
@@ -668,14 +668,14 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	if (max) {
 		return max.doubleValue;
 	}
-	return FLT_MAX;
+	return CGFLOAT_MAX;
 }
 
 - (void)layoutViewControllers
 {
-	__block CGFloat totalWidth = 0.f;
-	__block CGFloat minWidth = 0.f;
-	__block CGFloat maxWidth = 0.f;
+	__block CGFloat totalWidth = 0.0;
+	__block CGFloat minWidth = 0.0;
+	__block CGFloat maxWidth = 0.0;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		viewController.index = idx;
@@ -692,16 +692,16 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 		}
 		CGFloat min = [self minimumWidthForViewController:viewController];
 		minWidth += min;
-		newFrame.size.width = fmaxf(min, NSWidth(newFrame));
+		newFrame.size.width = fmax(min, NSWidth(newFrame));
 		
 		CGFloat max = [self maximumWidthForViewController:viewController];
-		if (max != FLT_MAX && maxWidth != FLT_MAX) {
+		if (max != CGFLOAT_MAX && maxWidth != CGFLOAT_MAX) {
 			maxWidth += max;
-			newFrame.size.width = fminf(max, NSWidth(newFrame));
+			newFrame.size.width = fmin(max, NSWidth(newFrame));
 		} else {
 			// If any one of the views doesn't have a maximum width, don't restrict
 			// the maximum width of the window itself
-			maxWidth = FLT_MAX;
+			maxWidth = CGFLOAT_MAX;
 		}
 		view.frame = newFrame;
 		if (view.superview != self.splitView) {
@@ -715,7 +715,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	
 	NSRect splitViewFrame = self.splitView.frame;
 	splitViewFrame.size.width = totalWidth;
-	splitViewFrame.origin.x = 0.f;
+	splitViewFrame.origin.x = 0.0;
 	
 	// Temporarily disable autoresizing of the split view and the title bar container
 	// because otherwise they'd be redrawn at every step of the frame change.
@@ -794,13 +794,13 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (void)layoutTitleBarViews
 {
 	if (_isAnimating) return;
-	__block CGFloat currentOrigin = 0.f;
+	__block CGFloat currentOrigin = 0.0;
 	CGFloat dividerThickness = self.splitView.dividerThickness;
 	_titleBarContainerView.frame = self.primaryWindow.titleBarView.bounds;
 	[self.attachedViewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, NSUInteger idx, BOOL *stop) {
 		NSView *titleView = viewController.titleBarView;
 		NSRect newFrame = titleView.frame;
-		newFrame.size.width = NSWidth(viewController.view.frame) + dividerThickness + 1.f;
+		newFrame.size.width = NSWidth(viewController.view.frame) + dividerThickness + 1.0;
 		newFrame.origin.x = currentOrigin;
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
@@ -858,10 +858,10 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	for (INDockableViewController *viewController in viewControllers) {
 		minSize.width += [self minimumWidthForViewController:viewController];
 		CGFloat max = [self maximumWidthForViewController:viewController];
-		if (max != FLT_MAX && maxSize.width != FLT_MAX) {
+		if (max != CGFLOAT_MAX && maxSize.width != CGFLOAT_MAX) {
 			maxSize.width += max;
 		} else {
-			maxSize.width = FLT_MAX;
+			maxSize.width = CGFLOAT_MAX;
 		}
 	}
 	minSize.height = self.minimumWindowHeight;
@@ -927,7 +927,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 {
 	CGFloat primaryMaxX = NSMaxX(self.primaryWindow.frame);
 	__block INDockableAuxiliaryWindow *closestWindow = nil;
-	__block CGFloat closestProximity = FLT_MAX;
+	__block CGFloat closestProximity = CGFLOAT_MAX;
 	[self.auxiliaryWindows enumerateObjectsUsingBlock:^(INDockableAuxiliaryWindow *window, BOOL *stop) {
 		CGFloat auxiliaryMinX = NSMinX(window.frame);
 		CGFloat dx = fabs(auxiliaryMinX - primaryMaxX);
