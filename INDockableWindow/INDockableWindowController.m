@@ -587,6 +587,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
 	[self layoutTitleBarViews];
+	[self configureConstraintsForWindow:self.primaryWindow];
 }
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
@@ -644,6 +645,32 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 	[self layoutTitleBarViews];
 }
 
+- (CGFloat)minimumWidthForViewController:(INDockableViewController *)viewController
+{
+	NSString *identifier = viewController.uniqueIdentifier;
+	NSNumber *min = _minimumWidths[identifier];
+	NSNumber *shouldAdjust = nil;
+	if (viewController.attached && _attachedViewControllers.count > 1) {
+		shouldAdjust = _shouldAdjust[identifier];
+	}
+	NSRect frame = viewController.view.frame;
+	if (shouldAdjust && !shouldAdjust.boolValue) {
+		return NSWidth(frame);
+	} else if (min) {
+		return min.doubleValue;
+	}
+	return 0.f;
+}
+
+- (CGFloat)maximumWidthForViewController:(INDockableViewController *)viewController
+{
+	NSNumber *max = _maximumWidths[viewController.uniqueIdentifier];
+	if (max) {
+		return max.doubleValue;
+	}
+	return FLT_MAX;
+}
+
 - (void)layoutViewControllers
 {
 	__block CGFloat totalWidth = 0.f;
@@ -663,18 +690,14 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 			newFrame.size.width = autosaveWidth.doubleValue;
 			[_loadedAutosaveData removeObjectForKey:identifier];
 		}
-		NSNumber *min = _minimumWidths[identifier];
-		if (min) {
-			CGFloat minValue = min.doubleValue;
-			minWidth += minValue;
-			newFrame.size.width = fmaxf(minValue, NSWidth(newFrame));
-		}
+		CGFloat min = [self minimumWidthForViewController:viewController];
+		minWidth += min;
+		newFrame.size.width = fmaxf(min, NSWidth(newFrame));
 		
-		NSNumber *max = _maximumWidths[identifier];
-		if (max && maxWidth != FLT_MAX) {
-			CGFloat maxValue = max.doubleValue;
-			maxWidth += maxValue;
-			newFrame.size.width = fminf(maxValue, NSWidth(newFrame));
+		CGFloat max = [self maximumWidthForViewController:viewController];
+		if (max != FLT_MAX && maxWidth != FLT_MAX) {
+			maxWidth += max;
+			newFrame.size.width = fminf(max, NSWidth(newFrame));
 		} else {
 			// If any one of the views doesn't have a maximum width, don't restrict
 			// the maximum width of the window itself
@@ -833,13 +856,10 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 		viewControllers = @[[(INDockableAuxiliaryWindow *)window viewController]];
 	}
 	for (INDockableViewController *viewController in viewControllers) {
-		NSNumber *min = _minimumWidths[viewController.uniqueIdentifier];
-		if (min) {
-			minSize.width += min.doubleValue;
-		}
-		NSNumber *max = _maximumWidths[viewController.uniqueIdentifier];
-		if (max) {
-			maxSize.width += max.doubleValue;
+		minSize.width += [self minimumWidthForViewController:viewController];
+		CGFloat max = [self maximumWidthForViewController:viewController];
+		if (max != FLT_MAX && maxSize.width != FLT_MAX) {
+			maxSize.width += max;
 		} else {
 			maxSize.width = FLT_MAX;
 		}
