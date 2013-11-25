@@ -848,7 +848,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)configureConstraintsForWindow:(NSWindow *)window
 {
-	NSSize minSize, maxSize;
+	NSSize minSize = NSZeroSize, maxSize = NSZeroSize;
 	NSArray *viewControllers = nil;
 	if (window == self.primaryWindow) {
 		viewControllers = _attachedViewControllers;
