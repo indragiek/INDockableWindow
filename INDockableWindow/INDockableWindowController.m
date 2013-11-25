@@ -284,7 +284,9 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 // Only restore the frame origin + frame height and not the width when restoring from autosave
 - (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 {
-	if (_isRestoringFrameFromAutosave) return NSMakeSize(0.f, frameSize.height);
+	if (_isRestoringFrameFromAutosave) {
+		return NSMakeSize(0.f, frameSize.height);
+	}
 	return frameSize;
 }
 
@@ -473,34 +475,32 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 - (void)setMinimumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
 	NSParameterAssert(viewController);
-	if (!viewController.uniqueIdentifier) return;
 	_minimumWidths[viewController.uniqueIdentifier] = @(width);
-	if (viewController.attached) {
-		[self layoutPrimaryWindow];
-	} else {
-		[self configureConstraintsForWindow:viewController.window];
-	}
+	[self updateLayoutForConstraintsChangeOnViewController:viewController];
 }
 
 - (void)setMaximumWidth:(CGFloat)width forViewController:(INDockableViewController *)viewController
 {
 	NSParameterAssert(viewController);
-	if (!viewController.uniqueIdentifier) return;
 	_maximumWidths[viewController.uniqueIdentifier] = @(width);
-	if (viewController.attached) {
-		[self layoutPrimaryWindow];
-	} else {
-		[self configureConstraintsForWindow:viewController.window];
-	}
+	[self updateLayoutForConstraintsChangeOnViewController:viewController];
 }
 
 - (void)setShouldAdjustSize:(BOOL)shouldAdjust ofViewController:(INDockableViewController *)viewController
 {
 	NSParameterAssert(viewController);
-	if (!viewController.uniqueIdentifier) return;
 	_shouldAdjust[viewController.uniqueIdentifier] = @(shouldAdjust);
+	[self updateLayoutForConstraintsChangeOnViewController:viewController];
+}
+
+- (void)updateLayoutForConstraintsChangeOnViewController:(INDockableViewController *)viewController
+{
 	if (viewController.attached) {
-		[self layoutPrimaryWindow];
+		if (viewController.window) {
+			[self layoutPrimaryWindow];
+		} else {
+			[self configureConstraintsForWindow:self.primaryWindow];
+		}
 	} else {
 		[self configureConstraintsForWindow:viewController.window];
 	}
@@ -825,17 +825,23 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 
 - (void)configureConstraintsForWindow:(NSWindow *)window
 {
-	NSSize minSize = window.minSize;
-	NSSize maxSize = window.maxSize;
-	if ([window isKindOfClass:[INDockableAuxiliaryWindow class]]) {
-		INDockableViewController *viewController = [(INDockableAuxiliaryWindow *)window viewController];
-		NSNumber *minWidth = _minimumWidths[viewController.uniqueIdentifier];
-		if (minWidth) {
-			minSize.width = minWidth.doubleValue;
+	NSSize minSize, maxSize;
+	NSArray *viewControllers = nil;
+	if (window == self.primaryWindow) {
+		viewControllers = _attachedViewControllers;
+	} else if ([window isKindOfClass:INDockableAuxiliaryWindow.class]) {
+		viewControllers = @[[(INDockableAuxiliaryWindow *)window viewController]];
+	}
+	for (INDockableViewController *viewController in viewControllers) {
+		NSNumber *min = _minimumWidths[viewController.uniqueIdentifier];
+		if (min) {
+			minSize.width += min.doubleValue;
 		}
-		NSNumber *maxWidth = _maximumWidths[viewController.uniqueIdentifier];
-		if (maxWidth) {
-			maxSize.width = maxWidth.doubleValue;
+		NSNumber *max = _maximumWidths[viewController.uniqueIdentifier];
+		if (max) {
+			maxSize.width += max.doubleValue;
+		} else {
+			maxSize.width = FLT_MAX;
 		}
 	}
 	minSize.height = self.minimumWindowHeight;

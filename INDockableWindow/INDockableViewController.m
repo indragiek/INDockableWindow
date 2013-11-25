@@ -43,6 +43,7 @@
 	_detachControl.viewController = self;
 	_UUID = [[NSUUID UUID] UUIDString];
 	_index = NSNotFound;
+	_uniqueIdentifier = self.defaultIdentifier;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -103,7 +104,7 @@
 
 - (BOOL)isAttached
 {
-	return [self.window isKindOfClass:[INDockablePrimaryWindow class]];
+	return self.index != NSNotFound;
 }
 
 - (NSWindow *)window
@@ -113,16 +114,17 @@
 
 - (void)setUniqueIdentifier:(NSString *)uniqueIdentifier
 {
+	uniqueIdentifier = uniqueIdentifier ?: self.defaultIdentifier;
 	if (_uniqueIdentifier != uniqueIdentifier) {
 		_uniqueIdentifier = uniqueIdentifier;
 		self.view.identifier = uniqueIdentifier;
 	}
 }
 
-- (NSString *)uniqueIdentifier
+- (NSString *)defaultIdentifier
 {
-	NSString *indexString = (self.index != NSNotFound) ? @(self.index).stringValue : nil;
-	return (_uniqueIdentifier ?: indexString) ?: self.UUID;
+	NSString *indexString = self.attached ? @(self.index).stringValue : nil;
+	return indexString ?: self.UUID;
 }
 
 @end
