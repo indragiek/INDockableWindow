@@ -213,12 +213,14 @@ NSString * const INDockableWindowFrameWillChangeNotification = @"INDockableWindo
 {
 	if (_autosaveName != autosaveName) {
 		_autosaveName = autosaveName;
-		_loadedAutosaveData = [[NSUserDefaults.standardUserDefaults objectForKey:self.autosaveUserDefaultsKey] mutableCopy];
-		_isRestoringFrameFromAutosave = YES;
-		self.primaryWindow.identifier = autosaveName;
-		[self.primaryWindow setFrameAutosaveName:autosaveName];
-		[self.primaryWindow setFrameUsingName:autosaveName];
-		_isRestoringFrameFromAutosave = NO;
+		if (_autosaveName) {
+			_loadedAutosaveData = [[NSUserDefaults.standardUserDefaults objectForKey:self.autosaveUserDefaultsKey] mutableCopy];
+			_isRestoringFrameFromAutosave = YES;
+			self.primaryWindow.identifier = autosaveName;
+			[self.primaryWindow setFrameAutosaveName:autosaveName];
+			[self.primaryWindow setFrameUsingName:autosaveName];
+			_isRestoringFrameFromAutosave = NO;
+		}
 	}
 }
 
@@ -250,6 +252,7 @@ static NSString * const INDockableWindowControllerAutosavePrefix = @"INDockableW
 
 - (void)saveViewControllerAutosaveData
 {
+	if (!self.autosaveName) return;
 	NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:[_viewControllers count]];
 	[_viewControllers enumerateObjectsUsingBlock:^(INDockableViewController *viewController, BOOL *stop) {
 		CGFloat viewWidth = NSWidth(viewController.view.frame);
@@ -262,7 +265,10 @@ static NSString * const INDockableWindowControllerAutosavePrefix = @"INDockableW
 
 - (NSString *)autosaveUserDefaultsKey
 {
-	return [INDockableWindowControllerAutosavePrefix stringByAppendingString:self.autosaveName];
+	if (self.autosaveName) {
+		return [INDockableWindowControllerAutosavePrefix stringByAppendingString:self.autosaveName];
+	}
+	return nil;
 }
 
 #pragma mark - NSWindowDelegate
