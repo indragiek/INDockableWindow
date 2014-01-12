@@ -14,14 +14,14 @@
 		0314FC0116ADCE8800E73E86 /* INDockableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBF816ADCE8800E73E86 /* INDockableViewController.m */; };
 		0314FC0216ADCE8800E73E86 /* INDockableWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */; };
 		0314FC0316ADCE8800E73E86 /* INDockableWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */; };
-		034754F316AC7B4400747D93 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 034754F216AC7B4400747D93 /* INWindowButton.m */; };
 		034754FE16ACF53100747D93 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 034754FC16ACF53100747D93 /* AppDelegate.m */; };
 		0347550116ACF53600747D93 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034754FF16ACF53600747D93 /* MainMenu.xib */; };
 		0347550616ACF54000747D93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0347550416ACF54000747D93 /* main.m */; };
 		0347550B16ACF54600747D93 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0347550716ACF54600747D93 /* Credits.rtf */; };
 		0347550C16ACF54600747D93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0347550916ACF54600747D93 /* InfoPlist.strings */; };
+		03D8036918832C8900DB33C5 /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D8036618832C8900DB33C5 /* INAppStoreWindow.m */; };
+		03D8036A18832C8900DB33C5 /* INWindowButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D8036818832C8900DB33C5 /* INWindowButton.m */; };
 		03E1B15816AB5DD60018E31F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E1B15716AB5DD60018E31F /* Cocoa.framework */; };
-		03E1B17816AB5E5D0018E31F /* INAppStoreWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */; };
 		211E4E451749096100BAA283 /* INWindowFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E4E421749096100BAA283 /* INWindowFrameAnimation.m */; };
 		211E4E461749096100BAA283 /* NSView+INImagingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 211E4E441749096100BAA283 /* NSView+INImagingAdditions.m */; };
 /* End PBXBuildFile section */
@@ -41,8 +41,6 @@
 		0314FBFA16ADCE8800E73E86 /* INDockableWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindow.m; path = INDockableWindow/INDockableWindow.m; sourceTree = "<group>"; };
 		0314FBFB16ADCE8800E73E86 /* INDockableWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INDockableWindowController.h; path = INDockableWindow/INDockableWindowController.h; sourceTree = "<group>"; };
 		0314FBFC16ADCE8800E73E86 /* INDockableWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INDockableWindowController.m; path = INDockableWindow/INDockableWindowController.m; sourceTree = "<group>"; };
-		034754F116AC7B4400747D93 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowButton.h; path = External/INAppStoreWindow/INWindowButton.h; sourceTree = "<group>"; };
-		034754F216AC7B4400747D93 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowButton.m; path = External/INAppStoreWindow/INWindowButton.m; sourceTree = "<group>"; };
 		034754FC16ACF53100747D93 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Example/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		034754FD16ACF53100747D93 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Example/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		0347550016ACF53600747D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Example/en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
@@ -51,13 +49,15 @@
 		0347550416ACF54000747D93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Example/main.m; sourceTree = SOURCE_ROOT; };
 		0347550816ACF54600747D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Example/en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
 		0347550A16ACF54600747D93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Example/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		03D8036518832C8900DB33C5 /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INAppStoreWindow.h; sourceTree = "<group>"; };
+		03D8036618832C8900DB33C5 /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INAppStoreWindow.m; sourceTree = "<group>"; };
+		03D8036718832C8900DB33C5 /* INWindowButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INWindowButton.h; sourceTree = "<group>"; };
+		03D8036818832C8900DB33C5 /* INWindowButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INWindowButton.m; sourceTree = "<group>"; };
 		03E1B15416AB5DD60018E31F /* INDockableWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INDockableWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03E1B15716AB5DD60018E31F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		03E1B15A16AB5DD60018E31F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		03E1B15B16AB5DD60018E31F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		03E1B15C16AB5DD60018E31F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		03E1B17616AB5E5D0018E31F /* INAppStoreWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INAppStoreWindow.h; path = External/INAppStoreWindow/INAppStoreWindow.h; sourceTree = "<group>"; };
-		03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INAppStoreWindow.m; path = External/INAppStoreWindow/INAppStoreWindow.m; sourceTree = "<group>"; };
 		211E4E411749096100BAA283 /* INWindowFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INWindowFrameAnimation.h; path = INDockableWindow/INWindowFrameAnimation.h; sourceTree = "<group>"; };
 		211E4E421749096100BAA283 /* INWindowFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INWindowFrameAnimation.m; path = INDockableWindow/INWindowFrameAnimation.m; sourceTree = "<group>"; };
 		211E4E431749096100BAA283 /* NSView+INImagingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+INImagingAdditions.h"; path = "INDockableWindow/NSView+INImagingAdditions.h"; sourceTree = "<group>"; };
@@ -76,10 +76,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03D8036418832C8900DB33C5 /* INAppStoreWindow */ = {
+			isa = PBXGroup;
+			children = (
+				03D8036518832C8900DB33C5 /* INAppStoreWindow.h */,
+				03D8036618832C8900DB33C5 /* INAppStoreWindow.m */,
+				03D8036718832C8900DB33C5 /* INWindowButton.h */,
+				03D8036818832C8900DB33C5 /* INWindowButton.m */,
+			);
+			name = INAppStoreWindow;
+			path = External/INAppStoreWindow/INAppStoreWindow;
+			sourceTree = "<group>";
+		};
 		03E1B14B16AB5DD60018E31F = {
 			isa = PBXGroup;
 			children = (
-				03E1B17516AB5E520018E31F /* INAppStoreWindow */,
+				03D8036418832C8900DB33C5 /* INAppStoreWindow */,
 				03E1B17416AB5DE00018E31F /* INDockableWindow */,
 				03E1B15D16AB5DD60018E31F /* Example */,
 				03E1B15616AB5DD60018E31F /* Frameworks */,
@@ -163,17 +175,6 @@
 			name = INDockableWindow;
 			sourceTree = "<group>";
 		};
-		03E1B17516AB5E520018E31F /* INAppStoreWindow */ = {
-			isa = PBXGroup;
-			children = (
-				03E1B17616AB5E5D0018E31F /* INAppStoreWindow.h */,
-				03E1B17716AB5E5D0018E31F /* INAppStoreWindow.m */,
-				034754F116AC7B4400747D93 /* INWindowButton.h */,
-				034754F216AC7B4400747D93 /* INWindowButton.m */,
-			);
-			name = INAppStoreWindow;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -238,14 +239,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03E1B17816AB5E5D0018E31F /* INAppStoreWindow.m in Sources */,
-				034754F316AC7B4400747D93 /* INWindowButton.m in Sources */,
 				034754FE16ACF53100747D93 /* AppDelegate.m in Sources */,
 				0347550616ACF54000747D93 /* main.m in Sources */,
 				0314FBFD16ADCE8800E73E86 /* INDockableAuxiliaryWindow.m in Sources */,
 				0314FBFE16ADCE8800E73E86 /* INDockableDetachControl.m in Sources */,
+				03D8036A18832C8900DB33C5 /* INWindowButton.m in Sources */,
 				0314FBFF16ADCE8800E73E86 /* INDockablePrimaryWindow.m in Sources */,
 				0314FC0016ADCE8800E73E86 /* INDockableSplitView.m in Sources */,
+				03D8036918832C8900DB33C5 /* INAppStoreWindow.m in Sources */,
 				0314FC0116ADCE8800E73E86 /* INDockableViewController.m in Sources */,
 				0314FC0216ADCE8800E73E86 /* INDockableWindow.m in Sources */,
 				0314FC0316ADCE8800E73E86 /* INDockableWindowController.m in Sources */,

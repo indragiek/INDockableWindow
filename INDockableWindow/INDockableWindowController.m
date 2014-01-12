@@ -804,7 +804,7 @@ static NSString * const INDockableWindowControllerFullscreenAutosaveKey = @"INDo
 		newFrame.origin.x = currentOrigin;
 		currentOrigin = NSMaxX(newFrame);
 		titleView.frame = newFrame;
-		titleView.autoresizingMask = NSViewWidthSizable;
+		titleView.autoresizingMask = NSViewNotSizable;
 		if (titleView.superview != _titleBarContainerView) {
 			[_titleBarContainerView addSubview:titleView];
 		}
