@@ -9,4 +9,5 @@ Pod::Spec.new do |s|
     s.platform      = :osx
     s.requires_arc  = true
     s.license       = { :type => 'MIT' }
+    s.dependency 'INAppStoreWindow'
 end
