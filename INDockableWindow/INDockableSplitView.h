@@ -29,12 +29,12 @@
 /**
  Width of the split view dividers. Default is 1px.
  */
-@property (nonatomic, assign) CGFloat dividerThickness;
+@property (nonatomic, assign) CGFloat ind_dividerThickness;
 
 /**
  Color of the split view dividers.
  */
-@property (nonatomic, strong) NSColor *dividerColor;
+@property (nonatomic, strong) NSColor *ind_dividerColor;
 
 /**
  Drawing block to draw your own custom dividers.
